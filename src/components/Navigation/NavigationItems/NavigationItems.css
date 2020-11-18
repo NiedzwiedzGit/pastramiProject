@@ -1,0 +1,32 @@
+.NavigationItems{
+    margin: auto;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: 90%;
+    /* border:2px solid black; */
+    width: 70%;
+    height: 100%;
+}
+
+.NavigationItems>li{
+ text-align: center;
+/* border:2px solid black; */
+    width: 100%;
+    text-decoration: none;
+   
+}
+
+@media(max-width:840px){
+    .NavigationItems{
+        width: 100%;
+    }
+}
+
+@media(min-width:690px){
+    .NavigationItems{
+        flex-flow: row;
+    }
+}

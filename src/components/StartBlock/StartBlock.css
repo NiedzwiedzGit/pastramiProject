@@ -1,0 +1,11 @@
+.StartBlock{
+    width: 100%;
+    border:2px solid black;
+    height: 80vh;
+    overflow: hidden;
+
+}
+.StartBlock video{ 
+    width: 100%;
+   opacity: 0.8;
+}

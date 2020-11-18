@@ -1,0 +1,178 @@
+.Button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+    z-index: 101;
+    position: absolut;
+    
+}
+
+.Button:first-of-type {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.Button:disabled{
+    color:#ccc;
+    cursor: not-allowed;
+}
+
+.Success {
+    color: #5C9210;
+}
+
+.Danger {
+    color: #944317;
+}
+
+.Add{
+   left: 50vw;
+    top:0;
+    position: absolute;
+    display:inline-block;
+    width:50px;
+    height:50px;
+    outline: none;
+    background:
+      linear-gradient(#fff,#fff),
+      linear-gradient(#fff,#fff),
+      #000;
+    background-position:center;
+    background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+    background-repeat:no-repeat;
+    border-radius:50%;
+    transition-duration: 0.2s; 
+}
+
+.Add:hover{
+   position: absolute;
+    background-color: #4CAF50; /* Green */
+    width:60px;
+    height:60px;
+    color: white;
+    opacity: 0.6;
+    text-align: center;
+    transform: rotate(90deg);
+}
+
+.Add, 
+.Add:active, 
+.Add:focus {
+    outline: none;
+}
+.Close{
+    top:200px;
+    position: absolute;
+    display:inline-block;
+    width:50px;
+    height:50px;
+    
+    background:
+      linear-gradient(red,#fff),
+      linear-gradient(#fff,#fff),
+      red;
+    background-position:center;
+    background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+    background-repeat:no-repeat;
+    border-radius:50%;
+    opacity: 0.4;
+    transform: rotate(40deg);
+    transition-duration: 0.2s;
+}
+
+.Close:hover{
+   position: absolute;
+    background-color: red; /* Green */
+    transform: rotate(130deg);
+    width:60px;
+    height:60px;
+    color: white;
+    opacity: 0.6;
+    text-align: center;
+}
+
+.Close, 
+.Close:active, 
+.Close:focus {
+    outline: none;
+}
+.Success{
+    top:200px;;
+    width:50px;
+    height:50px;
+    background:
+      linear-gradient(#fff,#fff),
+      linear-gradient(#fff,#fff),
+      green;
+      background-position-x: 20px;
+      background-position-y: 15px;
+    background-size: 30% 4px,4px 50%; 
+    background-repeat:no-repeat;
+    border-radius:50%;
+    opacity: 0.4;
+    transform: rotate(220deg);
+    transition-duration: 0.2s;
+}
+
+
+.Success:hover{
+
+    background-color: green; 
+    width:60px;
+    height:60px;
+    background-position-x: 25px;
+    background-position-y: 20px;
+    color: white;
+    opacity: 0.6;
+    text-align: center;
+}
+
+.Success, 
+.Success:active, 
+.Success:focus {
+    outline: none;
+}
+
+
+.HidePostForm{
+    animation: mymove 1s ease ;
+    animation-fill-mode: forwards;
+    margin-top: 50px;
+opacity: 1;
+}
+.ShowPostForm{
+
+    opacity: 0; 
+    display:none;
+
+}
+
+@keyframes mymove {
+    0%   {
+        opacity:0;
+        width:60px;
+        height:60px;
+        background-position-x: 25px;
+        background-position-y: 20px;
+    }
+    50%  {
+        opacity:1;
+        width:125px;
+        height:125px;
+        background-position-x: 52px;
+        background-position-y: 42px;
+    }
+    100% {
+        opacity:1;
+        width:120px;
+        height:120px;
+        background-position-x: 50px;
+        background-position-y: 40px;
+    }
+  }

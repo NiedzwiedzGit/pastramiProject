@@ -1,0 +1,61 @@
+.ContentDiv{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    margin: 0;
+    z-index:103;
+animation: preViewImg 0.5s;
+animation-fill-mode: forwards;
+
+display: flex;
+
+}
+.ContentDiv p{
+    color: white;
+}
+.ContentDiv div{
+    border-radius: 15px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+.ContentDiv div>img{
+    width: 100% !important;
+    height: auto !important;
+    margin: auto !important;
+    transform: scale(1.2);
+    transition:0.8s;
+    transition-timing-function: liner;
+}
+.ContentDiv div img:hover{
+    transform: scale(1.5)
+    /* position: fixed; */
+    /* animation: hoverScale 0.5s; */
+    /* animation-fill-mode: forwards; */
+
+}
+
+
+.ContentDiv button{
+    position: fixed;
+    top:30px;
+    right: 30px;
+}
+
+
+@keyframes preViewImg {
+    from {left: -100%;
+        background:rgba(95, 94, 94, 0.6);
+}
+    to {left: 0;
+        background:rgb(0, 0, 0);
+}
+  }
+
+  /* @keyframes hoverScale {
+    from {transform: scale(1.2)}
+    to {transform: scale(1.5)}
+  } */

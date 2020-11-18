@@ -1,0 +1,45 @@
+.Toolbar {
+height:10vh;
+width: 100%;
+/* position: fixed; */
+top:0;
+left:0;
+display: block;
+justify-content: space-between;
+align-items: center;
+padding:20px 20px;
+box-sizing: border-box;
+z-index:90;
+
+}
+
+.Toolbar nav{
+    height:auto;
+}
+
+.Logo{
+    height: 80%;
+    text-align: center;
+    margin: auto;
+}
+@media(max-width:700px){
+    .Toolbar{
+    left: 0;
+       padding: 0;
+       text-align: center;
+       margin: auto;
+    }
+
+}
+@media(max-width:690px){
+    .DesktopOnly{
+        display:none;
+    }
+    .Toolbar{
+        display: flex;
+    }
+    .Logo{
+        height: 100%;
+        width: auto;
+    }
+}

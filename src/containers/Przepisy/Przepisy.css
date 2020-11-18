@@ -1,0 +1,23 @@
+.Przepisy{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: auto;
+    margin-top: 5em;
+    width: 100%;
+    text-align: center;
+    /* background: lightblue url("../../assets//images/modern-przygotowanie-contemporary-purple-building-clear-sky-3872x2592-2531.jpg") no-repeat fixed center; */
+    background-size: 100% 100%;
+
+}
+.Przepisy p{
+    margin: auto;
+}
+
+.SwitchWrapper {
+    position: relative;
+  }
+   
+  .SwitchWrapper > div {
+    position: absolute;
+  }

@@ -1,0 +1,19 @@
+.App {
+ width: 200px;
+ height: 200px;
+ border-color: red 2px solid;
+}
+
+.App2 {
+  width: 200px;
+  height: 200px;
+ background-color: black;
+ }
+ .SwitchWrapper {
+  position: relative;
+}
+ 
+.SwitchWrapper > div {
+  position: absolute;
+  width: 100vw;
+}

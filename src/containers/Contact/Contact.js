@@ -2,7 +2,7 @@ import React, { Suspense, Component, useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-
+import { SocialMediaIconsReact } from 'social-media-icons-react';
 import Button from '../../components/UI/Button/Button';
 import classes from './Contact.css';
 import Form from 'react-bootstrap/Form';
@@ -18,7 +18,10 @@ import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 import { Route, Switch, withRouter, Redirect, NavLink } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
-// import { sentMail } from "../../shared/mailslarp";
+
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
+
 
 const override = css`
   position:absolut;
@@ -27,7 +30,9 @@ const override = css`
   margin: 20% auto;
   border-color: red;
 `;
-
+const withCols = css`
+ with:90vw;
+`;
 
 const Conact = React.memo(props => {
     const [id, setId] = useState([]);
@@ -52,6 +57,13 @@ const Conact = React.memo(props => {
     });
 
 
+    const responseFacebook = (response) => {
+        console.log("faceebook ", response);
+    }
+    const responseGoogle = (response) => {
+        console.log(response);
+    }
+
     let callApi = async () => {
         const response = await fetch('/api/hello');
         const body = await response.json();
@@ -62,15 +74,16 @@ const Conact = React.memo(props => {
     };
 
     let handleSubmit = async e => {
-        console.log("worck handleSubmit ", response);
         e.preventDefault();
-        const response = await fetch('/api/world', {
+        const response = await fetch('/api/mail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ post: post }),
         });
+        console.log("worck handleSubmit ", response);
+
         const body = await response.text();
         console.log("test333333333 handleSubmit ", JSON.stringify({ post: post }));
 
@@ -138,35 +151,47 @@ const Conact = React.memo(props => {
 
     // render() {
     let form = (< Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-    </Form.Text>
-        </Form.Group>
+
 
         <Form.Group controlId="formBasicEmail">
-            <Form.Label>Test request</Form.Label>
+            <Form.Label>Napisz wiadomosc</Form.Label>
             <Form.Control
-                type="text"
-                placeholder="Enter text"
+                as="textarea" rows={3}
+                placeholder="Napisz wiadomość"
                 value={post}
                 onChange={e => setPost(e.target.value)}
             />
             <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
+                For sending mail you should be registred
     </Form.Text>
+
+            <FacebookLogin
+                appId="728547514687231"
+                autoLoad={false}
+                fields="name,email,picture"
+                scope="public_profile,user_friends,email"
+                callback={responseFacebook}
+                //cssClass={[classes.LoginBtn]} //its work
+                //cssClass="kep-login-facebook kep-login-facebook-[small]"
+                size="small"
+                icon="fa-facebook"
+            // textButton="Facebook"
+            //onClick={() => responseFacebook}
+            />
+            <GoogleLogin
+                clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+                buttonText="Login with Google"
+            />
+            <ButtonBootstrap variant="light"><span>Register</span></ButtonBootstrap>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
+        {/* <Form.Group controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <ButtonBootstrap variant="dark" type="submit">
+        </Form.Group> */}
+        <ButtonBootstrap variant="dark" type="submit" className={classes.Submit}>
             {/* onClick={() => sentMail("test1", "test2")} */}
             Submit
   </ButtonBootstrap>
@@ -178,10 +203,11 @@ const Conact = React.memo(props => {
 
             <NavLink
                 to={"/"}
+                className={classes.BackBtn}
             // link="/o_nas"
             >
-                Back
-                </NavLink>
+                <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
+            </NavLink>
             <Button
                 btnType={!props.addNewPostContainer ? "Add" : "Close"}
                 clicked={props.onAddNewPost} />
@@ -197,7 +223,7 @@ const Conact = React.memo(props => {
                 {/* {onLoadContent()} */}
                 {form}
             </Suspense>
-            <p>sdfsdfdsf2{responseToPost}</p>
+            {/* <p>sdfsdfdsf2{responseToPost}</p> */}
         </div>
     );
     //}

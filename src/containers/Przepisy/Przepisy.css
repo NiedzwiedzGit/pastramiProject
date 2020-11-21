@@ -2,22 +2,52 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    margin: auto;
+    margin: 0;
     margin-top: 5em;
-    width: 100%;
+    width: 100vw;
     text-align: center;
+    /* border: 1px solid black; */
     /* background: lightblue url("../../assets//images/modern-przygotowanie-contemporary-purple-building-clear-sky-3872x2592-2531.jpg") no-repeat fixed center; */
     background-size: 100% 100%;
-
 }
+.Przepisy::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+  }
+.Column{
+    display: flex;
+    flex-flow: column-reverse;
+    /* border: 1px solid black; */
+}
+.Column::-webkit-scrollbar {
+    display: none;
+  }
 .Przepisy p{
     margin: auto;
 }
 
-.SwitchWrapper {
+/* .SwitchWrapper {
     position: relative;
   }
    
   .SwitchWrapper > div {
     position: absolute;
+  } */
+
+  @media(max-width:700px){
+    .Przepisy{
+        display: flex;
+        flex-flow: column;
+        /* align-items: center; */
+        margin: auto;
+        margin-top: 5em;
+        width: 100%;
+        /* text-align: center; */
+        /* background: lightblue url("../../assets//images/modern-przygotowanie-contemporary-purple-building-clear-sky-3872x2592-2531.jpg") no-repeat fixed center; */
+        background-size: 100% 100%;
+    
+    }
+    .Column{
+width: 100vw;
+    }
   }

@@ -13,7 +13,9 @@
     background-size: 100% 100%; */
 }
 
-
+.Main::-webkit-scrollbar-button {
+    display: none;
+  }
 .MainContentPicture{
     transition:0.5s;
     transition-timing-function: liner;

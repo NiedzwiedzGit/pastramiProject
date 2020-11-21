@@ -3,6 +3,9 @@
  height: 200px;
  border-color: red 2px solid;
 }
+.App::-webkit-scrollbar-button {
+  display: none;
+}
 
 .App2 {
   width: 200px;

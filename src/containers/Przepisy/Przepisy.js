@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 import Button from '../../components/UI/Button/Button';
+import ButtonBootstrap from 'react-bootstrap/Button';
+
 import classes from './Przepisy.css';
 
 import CircleLoader from "react-spinners/CircleLoader";
@@ -55,7 +57,7 @@ const Przepisy = React.memo(props => {
     let deletePost = (id, imgName, key) => {
         // this.setState({ id: [...this.state.id, key] });
         setId([...id, key])
-        props.onDeletePost(id, imgName, key, this.state.folderName);
+        props.onDeletePost(id, imgName, key, folderName);
     }
     let postSelectedHandler = (id, urlArray) => {
         props.history.push({ pathname: "prasa/" + id });
@@ -105,9 +107,8 @@ const Przepisy = React.memo(props => {
                 to={"/"}
             // link="/o_nas"
             >
-                Back
-                </NavLink>
-            <Button
+                <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
+            </NavLink>            <Button
                 btnType={!props.addNewPostContainer ? "Add" : "Close"}
                 clicked={props.onAddNewPost} />
             {props.addNewPostContainer && !props.loading ? <NewPost
@@ -119,7 +120,9 @@ const Przepisy = React.memo(props => {
                 show={props.addNewPostContainer}
                 clicked={closeHandler} /> : null}
             <Suspense fallback={<div>loading</div>}>
-                {onLoadContent()}
+                <div className={classes.Column}>
+                    {onLoadContent()}
+                </div>
             </Suspense>
         </div>
     );

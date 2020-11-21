@@ -47,6 +47,8 @@ class App extends Component {
           <Route path={'/kontakt'} exact component={Contact} />
           <Route path={'/opinie'} component={Coment} />
           <Route path={'/przepisy'} component={Przepisy} />
+          {this.props.isAuthenticated ?
+            <Route path={'/przepisy'} component={Przepisy} /> : null}
           {/* <Route path={'/postGalery/:id'} component={postGalery} /> */}
           <Route path="/" component={Main} />
           <Redirect to="/" />
@@ -65,7 +67,7 @@ class App extends Component {
 }
 const mapstateToProps = state => {
   return {
-    //isAuthenticated: state.auth.token !== null
+    // isAuthenticated: state.auth.token !== null
   };
 };
 

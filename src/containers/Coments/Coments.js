@@ -5,7 +5,7 @@ import * as actions from '../../store/actions/index';
 
 import Button from '../../components/UI/Button/Button';
 import classes from './Coments.css';
-import Coments from '../../components/Coments/Coments';
+import Coment from '../../components/Coment/Coment';
 
 import CircleLoader from "react-spinners/CircleLoader";
 import { css } from "@emotion/core";
@@ -25,7 +25,7 @@ const override = css`
   margin: 20% auto;
   border-color: red;
 `;
-class Przepisy extends Component {
+class Coments extends Component {
     state = {
         id: [],
         folderName: 'coment'
@@ -75,7 +75,7 @@ class Przepisy extends Component {
                     console.log('split ', res.url.split(","))
                     console.log('split res', res)
 
-                    return <Coments
+                    return <Coment
                         auth={this.props.isAuthenticated}
                         close={this.state.id.includes(res.key) ? 'Close' : null}
                         key={index}
@@ -112,10 +112,11 @@ class Przepisy extends Component {
                     console.log('split ', res.url.split(","))
                     console.log('split res', res)
 
-                    return <Coments
+                    return <Coment
                         auth={this.props.isAuthenticated}
                         close={this.state.id.includes(res.key) ? 'Close' : null}
                         key={index}
+                        date={res.date}
                         url={res.url}
                         name={res.photographs}
                         page="coment"
@@ -134,15 +135,22 @@ class Przepisy extends Component {
     }
     render() {
         return (
-            <div className={classes.Przepisy}>
+            <div className={classes.Coments}>
                 {/* <Button
                     btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                     clicked={this.props.onAddNewPost} /> */}
                 {this.props.addNewPostContainer && !this.props.loading ? <NewPost
+                    classType={'OnPage'}
                     Przepisy={true}
-                    field={'textField'}
+                    field={'textField photographs'}
                     folderName={this.state.folderName}
                 /> : null}
+                <NewPost
+                    classType={'OnPage'}
+                    Przepisy={true}
+                    field={'textField photographs'}
+                    folderName={this.state.folderName}
+                />
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
@@ -152,7 +160,7 @@ class Przepisy extends Component {
                     >Zostaw Komentarz</ButtonBootstrap>
                     <br />
                     <br />
-                    <div>
+                    <div className={classes.Column}>
                         {this.onLoadComent()}
                     </div>
                 </Suspense>
@@ -182,4 +190,4 @@ const mapDispatchToProps = dispatch => {
 
     }
 };
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Przepisy));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Coments));

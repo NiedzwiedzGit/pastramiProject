@@ -48,6 +48,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                 describeData: formData.describeData,
                 webAddress: formData.webAddress,
                 key: formData.key,
+                date: formData.date,
                 //imgName: imgName.toString(),
                 url: urlList.toString()
             };
@@ -86,6 +87,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                                             describeData: formData.describeData,
                                             webAddress: formData.webAddress,
                                             key: formData.key,
+                                            date: formData.date,
                                             imgName: imgName.toString(),
                                             url: urlList.toString()
                                         };
@@ -132,6 +134,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                                                         skladniki: formData.skladniki,
                                                         textField: formData.textField,
                                                         key: formData.key,
+                                                        date: formData.date,
                                                         imgName: imgName.toString(),
                                                         url: urlList.toString()
                                                     };

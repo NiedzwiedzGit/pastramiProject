@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 import Button from '../../components/UI/Button/Button';
+import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
+
 import classes from './Info.css';
 
 import CircleLoader from "react-spinners/CircleLoader";
@@ -90,6 +92,7 @@ class Przepisy extends Component {
                 <Button
                     btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                     clicked={this.props.onAddNewPost} />
+                <BackBtn />
                 {this.props.addNewPostContainer && !this.props.loading ? <NewPost
                     Przepisy={true}
                     field={'textField'}
@@ -98,9 +101,11 @@ class Przepisy extends Component {
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
-                <Suspense fallback={<div>loading</div>}>
-                    {this.onLoadContent()}
-                </Suspense>
+                <div className={classes.ContentDiv}>
+                    <Suspense fallback={<div>loading</div>}>
+                        {this.onLoadContent()}
+                    </Suspense>
+                </div>
             </div>
         );
     }

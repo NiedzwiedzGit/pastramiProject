@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { SocialMediaIconsReact } from 'social-media-icons-react';
 import Button from '../../components/UI/Button/Button';
+import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
 import classes from './Contact.css';
 import Form from 'react-bootstrap/Form';
 import ButtonBootstrap from 'react-bootstrap/Button';
@@ -199,15 +200,9 @@ const Conact = React.memo(props => {
     );
 
     return (
-        <div className={classes.Przepisy} {...handlers}>
+        <div className={classes.Contact} {...handlers}>
 
-            <NavLink
-                to={"/"}
-                className={classes.BackBtn}
-            // link="/o_nas"
-            >
-                <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
-            </NavLink>
+            <BackBtn />
             <Button
                 btnType={!props.addNewPostContainer ? "Add" : "Close"}
                 clicked={props.onAddNewPost} />

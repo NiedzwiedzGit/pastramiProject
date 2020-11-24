@@ -68,7 +68,7 @@ const input = (props) => {
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
             {/* <input type="checkbox" onClick={props.clicked} /> */}
-            <ButtonBootstrap
+            <ButtonBootstrap style={{ display: `${props.hide}` }}
                 variant={props.hide !== false ? "outline-danger" : "outline-primary"}
                 onClick={props.clicked}>
                 {props.hide !== false ? "-" : "+"}

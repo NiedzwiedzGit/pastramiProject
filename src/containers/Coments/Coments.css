@@ -1,4 +1,4 @@
-.Przepisy{
+.Coments{
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -10,6 +10,14 @@
     /* background: lightblue url("../../assets//images///elephant-monochrome-black-background-closeup-3504x2336-2957.jpg") no-repeat fixed center; */
     background-size: 100% 100%;
 }
-.Przepisy p{
+.Coments p{
     margin: auto;
 }
+.Column{
+    display: flex;
+    flex-flow: column-reverse;
+    /* border: 1px solid black; */
+}
+.Column::-webkit-scrollbar {
+    display: none;
+  }

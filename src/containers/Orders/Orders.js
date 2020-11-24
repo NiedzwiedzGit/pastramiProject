@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 import Button from '../../components/UI/Button/Button';
+import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
+
 import classes from './Orders.css';
 
 import CircleLoader from "react-spinners/CircleLoader";
@@ -15,6 +17,8 @@ import Backdrop from '../../components/UI/Backdrop/Backdrop';
 
 import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+
+import GooglePayButton from '@google-pay/button-react';
 
 const override = css`
   position:absolut;
@@ -87,6 +91,7 @@ class Przepisy extends Component {
     render() {
         return (
             <div className={classes.Przepisy}>
+                <BackBtn />
                 <Button
                     btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                     clicked={this.props.onAddNewPost} />
@@ -95,12 +100,58 @@ class Przepisy extends Component {
                     field={'textField'}
                     folderName={this.state.folderName}
                 /> : null}
+
+                {<GooglePayButton
+                    environment="TEST"
+                    paymentRequest={{
+                        apiVersion: 2,
+                        apiVersionMinor: 0,
+                        allowedPaymentMethods: [
+                            {
+                                type: 'CARD',
+                                parameters: {
+                                    allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                                    allowedCardNetworks: ['MASTERCARD', 'VISA'],
+                                    billingAddressRequired: true,
+                                    billingAddressParameters: {
+                                        format: "FULL",
+                                        phoneNumberRequired: true
+                                    }
+                                },
+                                tokenizationSpecification: {
+                                    type: "PAYMENT_GATEWAY",
+                                    parameters: {
+                                        gateway: "stripe",
+                                        "stripe:version": "v3",
+                                        "stripe:publishableKey": "pk_test_51Hq6DcE938nb3fCN0fUcN4zkmAiSfZyPlEUy0Qh7ZCCNuhKKCg0jZPaSif0JMNJCnpHGRlrBc8Vw1FtUimbJil6K00zQ4BwIE3"
+                                    },
+                                },
+                            },
+                        ],
+                        merchantInfo: {
+                            // merchantId: 'BCR2DN6TWPJ2L4CP',
+                            merchantName: 'igor shkliarskbbiy',
+                        },
+                        transactionInfo: {
+                            totalPriceStatus: 'FINAL',
+                            totalPriceLabel: 'Total',
+                            totalPrice: '1.00',
+                            currencyCode: 'UAH',
+                            countryCode: 'UA'
+                        },
+                    }}
+                    onLoadPaymentData={paymentRequest => {
+                        console.log('Success', paymentRequest);
+                    }}
+                />}
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
-                <Suspense fallback={<div>loading</div>}>
-                    {this.onLoadContent()}
-                </Suspense>
+                <div className={classes.ContentDiv}>
+                    <Suspense fallback={<div>loading</div>}>
+                        {this.onLoadContent()}
+                    </Suspense>
+                </div>
             </div>
         );
     }

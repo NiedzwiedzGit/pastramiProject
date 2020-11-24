@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import StartBlock from '../../components/StartBlock/StartBlock';
 import ContentBlock from '../../containers/ContentBlock/ContentBlock';
-import Coments from '../../components/Coments/Coments';
+// import Coment from '../../components/Coment/Coment';
 
 import Button from '../../components/UI/Button/Button';
 import NewPost from '../NewPost/NewPost';

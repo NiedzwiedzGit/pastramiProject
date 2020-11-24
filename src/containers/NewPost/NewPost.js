@@ -207,6 +207,7 @@ class NewPost extends Component {
                 let postKey = !this.props.updateHandler ? new Date().getTime() : this.props.updateData.key;
                 postKey.toString();
                 formData['key'] = postKey;
+                formData['date'] = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
             } else {
                 formData = this.state.updateForm;
                 formData['imageFile'] = this.state.imageFile;
@@ -500,7 +501,8 @@ class NewPost extends Component {
                     btnType="Success" />
 
         } else { animationButton = <label className={classes.Loading}><PropagateLoader /></label> }
-
+        let lengthInput = formElementsArray.length;
+        console.log("test fielt input ", lengthInput)
         let form = (
             <form onSubmit={this.submitPost} >
                 <div className={classes[hidePostForm]}>
@@ -517,7 +519,7 @@ class NewPost extends Component {
                                 invalid={!formElement.config.valid}
                                 shouldValidate={formElement.config.validation}
                                 touched={formElement.config.touched}
-                                hide={formElement.config.hide}
+                                hide={lengthInput >= 1 ? formElement.config.hide : 'none'}
                                 changed={(event) => this.inputChangedHandler(event, formElement.id)}
                                 clicked={() => this.inputChanged(formElement.id)}
                             />
@@ -615,7 +617,9 @@ class NewPost extends Component {
 
 
         return (
-            <div className={classes.NewPost}>
+
+            <div className={[classes.NewPost, classes[this.props.classType]].join(' ')}>
+
 
                 <div className={classes[hidePostForm]}>
                     {/* <h1>Add a Post</h1>

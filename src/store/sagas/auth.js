@@ -23,9 +23,9 @@ export function* authUserSaga(action) {
         password: action.password,
         returnSecureToken: true
     };
-    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCguC4-a0zHcsSUl8Nu_-58K0oZq5eFG-E';
+    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAkmIasd-HZWvFqxSS8XEQRA5wMJTuUQCw';
     if (!action.isSignup) {
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCguC4-a0zHcsSUl8Nu_-58K0oZq5eFG-E';
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAkmIasd-HZWvFqxSS8XEQRA5wMJTuUQCw';
     }
 
     try {

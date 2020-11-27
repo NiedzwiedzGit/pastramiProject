@@ -18,6 +18,8 @@ import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 import { Route, Switch, withRouter, Redirect, NavLink } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
+import { ParallaxBanner } from 'react-scroll-parallax';
+
 
 const override = css`
   position:absolut;
@@ -64,6 +66,23 @@ const Przepisy = React.memo(props => {
         // console.log("urlArray ", urlArray)
         props.onUrlArray(urlArray);
     }
+    let paralaxBlock = (
+        <div className={classes.ParalaxBlockPicture} >
+            <ParallaxBanner
+                className="your-class"
+                layers={[
+                    {
+                        image: props.url,
+                        amount: 0.9,
+                    }
+                ]}
+                style={{
+                    height: '500px',
+                }}
+            >
+            </ParallaxBanner>
+        </div>
+    );
     let onLoadContent = () => {
         let ImgBlock = <CircleLoader
             css={override}
@@ -98,6 +117,7 @@ const Przepisy = React.memo(props => {
         return ImgBlock;
     }
 
+
     // render() {
 
     return (
@@ -121,6 +141,7 @@ const Przepisy = React.memo(props => {
                 clicked={closeHandler} /> : null}
             <Suspense fallback={<div>loading</div>}>
                 <div className={classes.Column}>
+                    {paralaxBlock}
                     {onLoadContent()}
                 </div>
             </Suspense>

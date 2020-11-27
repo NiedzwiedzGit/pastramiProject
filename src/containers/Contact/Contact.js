@@ -22,6 +22,10 @@ import { useSwipeable } from "react-swipeable";
 
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
+import firebase from '@firebase/app';
+
+
+
 
 
 const override = css`
@@ -60,6 +64,8 @@ const Conact = React.memo(props => {
 
     const responseFacebook = (response) => {
         console.log("faceebook ", response);
+        // e.preventDefault();
+        props.onAuth(response.email, response.id, true);
     }
     const responseGoogle = (response) => {
         console.log(response);
@@ -149,7 +155,25 @@ const Conact = React.memo(props => {
 
         return ImgBlock;
     }
+    var provider = new firebase.auth.GoogleAuthProvider();
 
+    const googleSignin = () => {
+        firebase.auth()
+
+            .signInWithPopup(provider).then(function (result) {
+                var token = result.credential.accessToken;
+                var user = result.user;
+
+                console.log(token)
+                console.log(user)
+            }).catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
+                console.log(error.code)
+                console.log(error.message)
+            });
+    }
     // render() {
     let form = (< Form onSubmit={handleSubmit}>
 
@@ -158,9 +182,10 @@ const Conact = React.memo(props => {
             <Form.Label>Napisz wiadomosc</Form.Label>
             <Form.Control
                 as="textarea" rows={3}
-                placeholder="Napisz wiadomość"
+                placeholder={props.isAuthenticated ? "Napisz wiadomość" : "Zaloguj sie aby napisac wiadomość"}
                 value={post}
                 onChange={e => setPost(e.target.value)}
+                disabled={props.isAuthenticated ? false : true}
             />
             <Form.Text className="text-muted">
                 For sending mail you should be registred
@@ -179,14 +204,23 @@ const Conact = React.memo(props => {
             // textButton="Facebook"
             //onClick={() => responseFacebook}
             />
-            <GoogleLogin
-                clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+            <button onClick={googleSignin}>Google Signin</button>
+            {/* <GoogleLogin
+                clientId="1075959317019-k2m2tjfnio620nr30tb56qsj5dan4el6.apps.googleusercontent.com"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
                 buttonText="Login with Google"
-            />
-            <ButtonBootstrap variant="light"><span>Register</span></ButtonBootstrap>
+            /> */}
+
+            <NavLink
+                to={"/auth"}
+            // exact={props.exact}
+            // activeClassName={classes.active}
+            >
+                <ButtonBootstrap variant="light"><span>Register</span></ButtonBootstrap>
+
+            </NavLink>
         </Form.Group>
 
         {/* <Form.Group controlId="formBasicCheckbox">
@@ -198,7 +232,7 @@ const Conact = React.memo(props => {
   </ButtonBootstrap>
     </Form >
     );
-
+    props.isAuthenticated ? console.log("logineed") : null
     return (
         <div className={classes.Contact} {...handlers}>
 
@@ -230,7 +264,11 @@ const mapStateToProps = state => {
         addNewPostContainer: state.newpost.addNewPostContainer,
         updateHandler: state.newpost.updateHandler,
         // postContent: state.main.postContent,
-        Przepisy: state.main.Przepisy
+        Przepisy: state.main.Przepisy,
+        loading: state.auth.loading,
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null,
+        authRedirectPath: state.auth.authRedirectPath
     };
 };
 const mapDispatchToProps = dispatch => {
@@ -238,7 +276,11 @@ const mapDispatchToProps = dispatch => {
         onAddNewPost: () => dispatch(actions.addNewPostContainer()),
         onDeletePost: (id, imgName, key, folderName) => dispatch(actions.deletePost(id, imgName, key, folderName)),
         onUpdatePostData: (postData) => dispatch(actions.updatePostData(postData)),
-        onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray))
+        onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray)),
+
+        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+
 
     }
 };

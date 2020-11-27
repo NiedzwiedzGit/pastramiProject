@@ -3,6 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import ButtonBootstrap from 'react-bootstrap/Button';
 import classes from './ImagesBlock.css';
 import ImagesBlockContent from '../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent';
+import { ParallaxBanner } from 'react-scroll-parallax';
+
 
 class ImagesBlock extends Component {
     componentDidMount() {
@@ -17,8 +19,32 @@ class ImagesBlock extends Component {
     //     />
     //     return (this.props.clickedOn,)
     // }
+
     render() {
         let content = null;
+        let paralaxBlock = (
+            <div className={classes.ParalaxBlockPicture} >
+                <ParallaxBanner
+                    className="your-class"
+                    layers={[
+                        {
+                            image: this.props.url,
+                            amount: 0.9,
+                        }
+                    ]}
+                    style={{
+                        height: '500px',
+                    }}
+                >
+                </ParallaxBanner>
+                {/* <Parallax className="custom-class" y={[-200, 50]} x={[-500, 80]} tagOuter="figure">
+                    <img
+                        src={this.props.url}
+                        onClick={this.props.clickedOn}
+                        alt="" />
+                </Parallax> */}
+            </div>
+        );
         let imageVar = (
             <div className={classes.ImagesBlockPicture} >
                 <img
@@ -77,6 +103,7 @@ class ImagesBlock extends Component {
         return (
 
             <div className={[classes.ImagesBlock, classes[this.props.close]].join(' ')} >
+
                 <div className={classes.ImagesBlockLine}></div>
                 {imageVar}
                 <br />
@@ -87,6 +114,7 @@ class ImagesBlock extends Component {
                     </div > : null
                 }
                 {content}
+
 
             </div >
         );

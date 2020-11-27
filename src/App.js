@@ -31,6 +31,9 @@ const Orders = asyncComponent(() => {
 const Contact = asyncComponent(() => {
   return import('./containers/Contact/Contact');
 });
+const Auth = asyncComponent(() => {
+  return import('./containers/Auth/Auth');
+});
 
 class App extends Component {
   render() {
@@ -47,6 +50,7 @@ class App extends Component {
           <Route path={'/kontakt'} exact component={Contact} />
           <Route path={'/opinie'} component={Coment} />
           <Route path={'/przepisy'} component={Przepisy} />
+          <Route path={'/auth'} component={Auth} />
           {this.props.isAuthenticated ?
             <Route path={'/przepisy'} component={Przepisy} /> : null}
           {/* <Route path={'/postGalery/:id'} component={postGalery} /> */}

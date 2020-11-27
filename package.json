@@ -61,6 +61,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-router-transition": "^2.0.0",
+    "react-scroll-parallax": "^2.3.5",
     "react-spinkit": "^3.0.0",
     "react-spinners": "^0.8.3",
     "react-swipeable": "^6.0.0",

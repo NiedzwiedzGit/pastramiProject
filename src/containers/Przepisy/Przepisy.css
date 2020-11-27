@@ -25,6 +25,10 @@
 .Przepisy p{
     margin: auto;
 }
+.ParalaxBlockPicture{
+    position: absolute;
+    top:0;
+}
 
 /* .SwitchWrapper {
     position: relative;

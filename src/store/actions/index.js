@@ -21,14 +21,15 @@ export {
     // updatePrzepisyData
 } from './newpost';
 
-// export {
-//     auth,
-//     logout,
-//     setAuthRedirectPath,
-//     authCheckState,
-//     logoutSucceed,
-//     // authStart,
-//     // authSuccess,
-//     // authFail,
-//     // checkAuthTimeout
-// } from './auth';
+export {
+    auth,
+    logout,
+    setAuthRedirectPath,
+    authCheckState,
+    logoutSucceed,
+
+    authStart,
+    authSuccess,
+    authFail,
+    checkAuthTimeout
+} from './auth';

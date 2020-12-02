@@ -207,7 +207,7 @@ class NewPost extends Component {
                 let postKey = !this.props.updateHandler ? new Date().getTime() : this.props.updateData.key;
                 postKey.toString();
                 formData['key'] = postKey;
-                formData['date'] = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
+                formData['date'] = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}  ${new Date().getHours()}:${new Date().getMinutes()}`;
             } else {
                 formData = this.state.updateForm;
                 formData['imageFile'] = this.state.imageFile;

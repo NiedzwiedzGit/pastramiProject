@@ -30,11 +30,11 @@ const override = css`
 class Przepisy extends Component {
     state = {
         id: [],
-        folderName: 'info'
+        folderName: 'orders'
     }
     componentDidMount() {
         this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
-        this.props.onfetchTextContent('info')
+        this.props.onfetchTextContent('orders')
     }
 
     closeHandler = () => {
@@ -74,7 +74,7 @@ class Przepisy extends Component {
                         close={this.state.id.includes(res.key) ? 'Close' : null}
                         key={index}
                         url={res.url}
-                        page="Info"
+                        page="Orders"
                         text={res.textField}
                         id={res.key}
                         clicked={() => this.deletePost(res.id, res.imgName, res.key)}

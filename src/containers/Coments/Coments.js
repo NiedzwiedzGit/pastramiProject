@@ -10,6 +10,7 @@ import Coment from '../../components/Coment/Coment';
 import CircleLoader from "react-spinners/CircleLoader";
 import { css } from "@emotion/core";
 import ButtonBootstrap from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import NewPost from '../NewPost/NewPost';
 import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
@@ -28,7 +29,8 @@ const override = css`
 class Coments extends Component {
     state = {
         id: [],
-        folderName: 'coment'
+        folderName: 'coment',
+        cssClass: null
     }
     componentDidMount() {
         this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
@@ -151,13 +153,23 @@ class Coments extends Component {
                     field={'textField photographs'}
                     folderName={this.state.folderName}
                 />
+                <Form action={console.log("work")}>
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Example textarea</Form.Label>
+                        <Form.Control as="textarea" rows={3} />
+                    </Form.Group>
+                    <ButtonBootstrap variant="danger"
+                        type="submit"
+                    // onClick={this.comentsHandler}
+                    >Zostaw Komentarz</ButtonBootstrap>
+                </Form>
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
                 <Suspense fallback={<div>loading</div>}>
-                    <ButtonBootstrap variant="danger"
+                    {/* <ButtonBootstrap variant="danger"
                         onClick={this.comentsHandler}
-                    >Zostaw Komentarz</ButtonBootstrap>
+                    >Zostaw Komentarz</ButtonBootstrap> */}
                     <br />
                     <br />
                     <div className={classes.Column}>

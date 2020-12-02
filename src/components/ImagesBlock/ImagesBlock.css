@@ -1,10 +1,10 @@
 .ImagesBlock{
 
-    margin:40px 0 0;
+    margin:80px 0 ;
     /* overflow: hidden; */
     /* border:1px solid black; */
     padding: 40px;
-    /* background-color: rgba(255, 4, 4, 0.178); */
+    background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 2px 3px #be9090;
 
     border-radius: 25px;

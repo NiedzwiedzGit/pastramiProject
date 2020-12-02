@@ -19,6 +19,8 @@ import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 import { Route, Switch, withRouter, Redirect, NavLink } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
 import { ParallaxBanner } from 'react-scroll-parallax';
+import { Parallax, Background } from 'react-parallax';
+import knifeRL from "../../assets/images/knifeRLup.png";
 
 
 const override = css`
@@ -121,31 +123,59 @@ const Przepisy = React.memo(props => {
     // render() {
 
     return (
-        <div className={classes.Przepisy} {...handlers}>
+        <Parallax bgImage={knifeRL} strength={500} >
+            {/* <div style={{ height: 500 }}>
+                <div >HTML inside the parallax</div>
+            </div> */}
 
-            <NavLink
-                to={"/"}
-            // link="/o_nas"
-            >
-                <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
-            </NavLink>            <Button
-                btnType={!props.addNewPostContainer ? "Add" : "Close"}
-                clicked={props.onAddNewPost} />
-            {props.addNewPostContainer && !props.loading ? <NewPost
-                Przepisy={true}
-                field={'skladniki przygotowanie webAddress'}
-                folderName={folderName}
-            /> : null}
-            {props.addNewPostContainer ? <Backdrop
-                show={props.addNewPostContainer}
-                clicked={closeHandler} /> : null}
-            <Suspense fallback={<div>loading</div>}>
-                <div className={classes.Column}>
-                    {paralaxBlock}
+            < div className={classes.Przepisy} {...handlers} >
+                {/* <Parallax strength={500} >
+            <Background className="custom-bg">
+                <div
+                    style={{
+                        height: 2000,
+                        width: 2000,
+                        backgroundImage: "url('https://i.imgur.com/8CV5WAB.png')"
+
+                    }}
+                />
+            </Background> */}
+                < NavLink
+                    to={"/"}
+                // link="/o_nas"
+                >
+                    <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
+                </NavLink > <Button
+                    btnType={!props.addNewPostContainer ? "Add" : "Close"}
+                    clicked={props.onAddNewPost} />
+                {
+                    props.addNewPostContainer && !props.loading ? <NewPost
+                        Przepisy={true}
+                        field={'skladniki przygotowanie webAddress'}
+                        folderName={folderName}
+                    /> : null
+                }
+                {
+                    props.addNewPostContainer ? <Backdrop
+                        show={props.addNewPostContainer}
+                        clicked={closeHandler} /> : null
+                }
+                <Suspense fallback={<div>loading</div>}>
+                    <div className={classes.Column}>
+
+                        {/* <Parallax blur={10} bgImage="https://img.favpng.com/9/25/24/computer-icons-instagram-logo-sticker-png-favpng-LZmXr3KPyVbr8LkxNML458QV3_t.jpg" bgImageAlt="the cat" strength={200}>
+                        Content goes here. Parallax height grows with content height.
+
                     {onLoadContent()}
-                </div>
-            </Suspense>
-        </div>
+                    </Parallax> */}
+
+                        {onLoadContent()}
+
+                    </div>
+                </Suspense>
+
+            </div >
+        </Parallax >
     );
     //}
 

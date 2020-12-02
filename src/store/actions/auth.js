@@ -47,7 +47,18 @@ export const auth = (email, password, isSignup) => {
         type: actionTypes.AUTH_USER,
         email: email,
         password: password,
-        isSignup: isSignup
+        isSignup: isSignup,
+    };
+};
+
+export const authSn = (sNlogin) => {
+
+    return {
+        type: actionTypes.AUTH_USER_SN,
+        // email: email,
+        // password: password,
+        // isSignup: isSignup,
+        sNlogin: sNlogin
     };
 };
 

@@ -4,6 +4,8 @@ import ButtonBootstrap from 'react-bootstrap/Button';
 import classes from './ImagesBlock.css';
 import ImagesBlockContent from '../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent';
 import { ParallaxBanner } from 'react-scroll-parallax';
+import { Parallax, Background } from 'react-parallax';
+
 
 
 class ImagesBlock extends Component {
@@ -22,29 +24,6 @@ class ImagesBlock extends Component {
 
     render() {
         let content = null;
-        let paralaxBlock = (
-            <div className={classes.ParalaxBlockPicture} >
-                <ParallaxBanner
-                    className="your-class"
-                    layers={[
-                        {
-                            image: this.props.url,
-                            amount: 0.9,
-                        }
-                    ]}
-                    style={{
-                        height: '500px',
-                    }}
-                >
-                </ParallaxBanner>
-                {/* <Parallax className="custom-class" y={[-200, 50]} x={[-500, 80]} tagOuter="figure">
-                    <img
-                        src={this.props.url}
-                        onClick={this.props.clickedOn}
-                        alt="" />
-                </Parallax> */}
-            </div>
-        );
         let imageVar = (
             <div className={classes.ImagesBlockPicture} >
                 <img
@@ -62,7 +41,7 @@ class ImagesBlock extends Component {
                     <div className={[classes.ImagesBlockText, classes.Przepis].join(' ')}>
                         <p> <strong>SKŁADNIKI</strong>:<br />  {this.props.skladniki} </p><br />
                         <p> <strong>PRZYGOTOWANIE</strong>:<br />  {this.props.przygotowanie} </p>
-
+                        <br />
                     </div>) :
                     content = (
                         <div className={[classes.ImagesBlockText, classes.Przepis].join(' ')}>
@@ -83,7 +62,7 @@ class ImagesBlock extends Component {
 
                 break;
             case 'Info':
-            case 'Histories':
+            case 'Orders':
             case 'Clients':
                 imageVar = null;
                 this.props.webAddress == null ?
@@ -100,12 +79,57 @@ class ImagesBlock extends Component {
                 break;
 
         }
+        let paralaxBlock = (
+            <Parallax
+                // bgImage={this.props.url}
+                // blur={{ min: -1, max: 3 }}
+                strength={444}
+                renderLayer={(percentage) => (
+                    <div
+                        style={{
+                            // position: "absolute",
+                            // background: `rgba(255, 125, 0, ${percentage * 1})`,
+                            // left: "50%",
+                            // top: "50%",
+                            // borderRadius: "50%",
+                            // transform: "translate(-50%,-50%)",
+                            // width: percentage * 500,
+                            // height: percentage * 500
+                            opacity: `${percentage * 1.2}`,
+                            // transform: `${percentage * 100}px`,
+                            // transform: `scale(${percentage * .5})`
+                        }}
+                    >
+
+                        {/* <div
+                                style={{
+                                    position: "absolute",
+                                    background: `rgba(255, 125, 0, ${percentage * 1})`,
+                                    left: "50%",
+                                    top: "50%",
+                                    borderRadius: "50%",
+                                    transform: "translate(-50%,-50%)",
+                                    width: percentage * 500,
+                                    height: percentage * 500
+                                }}
+                            /> */}
+                        {imageVar} {content}
+                    </div >
+                )
+                }
+            >
+                {/* <div >
+                        <div >{imageVar}{content}</div>
+                    </div> */}
+            </Parallax >
+
+        );
         return (
 
             <div className={[classes.ImagesBlock, classes[this.props.close]].join(' ')} >
 
                 <div className={classes.ImagesBlockLine}></div>
-                {imageVar}
+                {/* {imageVar} */}
                 <br />
                 {
                     this.props.auth ? <div className={classes.ImagesBlockBtnSwipe}>
@@ -113,7 +137,8 @@ class ImagesBlock extends Component {
                         <ButtonBootstrap variant="outline-primary" onClick={this.props.clickedUpdate}>Update</ButtonBootstrap>
                     </div > : null
                 }
-                {content}
+                {/* {content} */}
+                {paralaxBlock}
 
 
             </div >

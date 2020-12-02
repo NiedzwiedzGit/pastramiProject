@@ -21,7 +21,8 @@ import { Route, Switch, withRouter, Redirect, NavLink } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
 
 import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import Logout from '../Auth/Logout/Logout';
 import firebase from '@firebase/app';
 
 
@@ -53,12 +54,18 @@ const Conact = React.memo(props => {
     const [response, setResponse] = useState('');
     const [post, setPost] = useState('');
     const [responseToPost, setResponseToPost] = useState('');
+    const [auth, setAuth] = useState('');
 
     useEffect(() => {
         console.log("test useState ", post);
+        console.log("test props.isAuthenticated ", props.isAuthenticated);
         callApi()
             .then(res => setResponse(res.express))
             .catch(err => console.log(err));
+        // if (props.isAuthenticated) {
+        //     <Redirect to="/" />;
+        // }
+
     });
 
 
@@ -160,13 +167,15 @@ const Conact = React.memo(props => {
     const googleSignin = () => {
         firebase.auth()
 
-            .signInWithPopup(provider).then(function (result) {
+            .signInWithPopup(provider).then(result => {
                 var token = result.credential.accessToken;
                 var user = result.user;
+                // props.onAuth(result.user.email, result.additionalUserInfo.profile.id, true,true);
 
                 console.log(token)
                 console.log(user)
-            }).catch(function (error) {
+                console.log("inside ggogle reg ", result);
+            }).catch(error => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
 
@@ -188,10 +197,10 @@ const Conact = React.memo(props => {
                 disabled={props.isAuthenticated ? false : true}
             />
             <Form.Text className="text-muted">
-                For sending mail you should be registred
+                Do wysyłania wiadomości należy być zalogowanym
     </Form.Text>
 
-            <FacebookLogin
+            {/* <FacebookLogin
                 appId="728547514687231"
                 autoLoad={false}
                 fields="name,email,picture"
@@ -203,24 +212,35 @@ const Conact = React.memo(props => {
                 icon="fa-facebook"
             // textButton="Facebook"
             //onClick={() => responseFacebook}
-            />
-            <button onClick={googleSignin}>Google Signin</button>
+            /> */}
+            {!props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
+                <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null}
+
+            {!props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null}
+
             {/* <GoogleLogin
                 clientId="1075959317019-k2m2tjfnio620nr30tb56qsj5dan4el6.apps.googleusercontent.com"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
-                cookiePolicy={'single_host_origin'}
+                // cookiePolicy={'single_host_origin'}
                 buttonText="Login with Google"
             /> */}
+            {/* <GoogleLogout
+                clientId="1075959317019-k2m2tjfnio620nr30tb56qsj5dan4el6.apps.googleusercontent.com"
+                buttonText="Logout"
+                onLogoutSuccess={responseGoogle}
+            /> */}
 
-            <NavLink
-                to={"/auth"}
-            // exact={props.exact}
-            // activeClassName={classes.active}
-            >
-                <ButtonBootstrap variant="light"><span>Register</span></ButtonBootstrap>
-
-            </NavLink>
+            {!props.isAuthenticated ?
+                <NavLink to={"/auth"}>
+                    <ButtonBootstrap variant="light" ><span>Register</span></ButtonBootstrap>
+                </NavLink>
+                :
+                <NavLink to={"/logout"}>
+                    <ButtonBootstrap variant="light" ><span>Logout</span></ButtonBootstrap>
+                </NavLink>
+            }
         </Form.Group>
 
         {/* <Form.Group controlId="formBasicCheckbox">
@@ -232,25 +252,50 @@ const Conact = React.memo(props => {
   </ButtonBootstrap>
     </Form >
     );
-    props.isAuthenticated ? console.log("logineed") : null
+    props.isAuthenticated ? console.log("logineed") : console.log("not logineed")
     return (
         <div className={classes.Contact} {...handlers}>
 
-            <BackBtn />
-            <Button
+
+            {/* <Button
                 btnType={!props.addNewPostContainer ? "Add" : "Close"}
                 clicked={props.onAddNewPost} />
             {props.addNewPostContainer && !props.loading ? <NewPost
                 Przepisy={true}
                 field={'skladniki przygotowanie webAddress'}
                 folderName={folderName}
-            /> : null}
+            /> : null} */}
             {props.addNewPostContainer ? <Backdrop
                 show={props.addNewPostContainer}
                 clicked={closeHandler} /> : null}
             <Suspense fallback={<div>loading</div>}>
                 {/* {onLoadContent()} */}
-                {form}
+                <div className={classes.ContactLeft}>
+
+                    <div className={classes.ContactLeftBlock}>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg>
+                        <span className={classes.ContactLeftBlockTitle}> Address</span><br /><br />
+                        <span className={classes.ContactLeftBlockContent}>Mada Center 8th floor, 379 Hudson St, New York, NY 10018 US</span>
+                    </div>
+                    <div className={classes.ContactLeftBlock}>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                        </svg>
+                        <span className={classes.ContactLeftBlockTitle}> Lets Talk</span><br /><br />
+                        <span className={classes.ContactLeftBlockContent}>5465465465</span>
+                    </div>
+                    <div className={classes.ContactLeftBlock}>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
+                        </svg>
+                        <span className={classes.ContactLeftBlockTitle}> General Support</span><br /><br />
+                        <span className={classes.ContactLeftBlockContent}>test@email.com</span>
+                    </div>
+                </div>
+                <div className={classes.ContactRight}>  <BackBtn />{form}</div>
+
             </Suspense>
             {/* <p>sdfsdfdsf2{responseToPost}</p> */}
         </div>
@@ -279,6 +324,7 @@ const mapDispatchToProps = dispatch => {
         onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray)),
 
         onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
+        onAuthSn: (sNlogin) => dispatch(actions.authSn(sNlogin)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
 
 

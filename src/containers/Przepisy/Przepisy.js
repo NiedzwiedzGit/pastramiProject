@@ -103,6 +103,7 @@ const Przepisy = React.memo(props => {
                         url={res.url}
                         num={res.url.split(",").length}
                         page="Przepisy"
+                        showImg={true}
                         skladniki={res.skladniki}
                         przygotowanie={res.przygotowanie}
                         webAddress={res.webAddress}

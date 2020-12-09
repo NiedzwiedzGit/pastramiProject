@@ -74,3 +74,15 @@ export const authCheckState = () => {
         type: actionTypes.AUTH_CHECK_STATE
     };
 };
+
+export const authStateSuccess = (data) => {
+
+    console.log("authStateSuccess ", localStorage.getItem('name'))
+    return {
+        type: actionTypes.AUTH_STATE_SUCCESS,
+        // email: email,
+        // password: password,
+        // isSignup: isSignup,
+        data: data
+    };
+};

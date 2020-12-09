@@ -8,6 +8,9 @@ export function* logoutSaga(action) {
     yield localStorage.removeItem('token');
     yield localStorage.removeItem('expirationDate');
     yield localStorage.removeItem('userId');
+    yield localStorage.removeItem('name');
+    yield localStorage.removeItem('url');
+    yield localStorage.removeItem('email');
     firebase.auth().signOut()
 
         .then(function () {
@@ -68,6 +71,7 @@ export function* authUserSagaSn(action) { //social network google, facebook etc.
         var token = response.credential.accessToken;
         var user = response.user;
 
+
         // axios.post(`/users.json`, data)
         //     .then(response => {
         //         dispatch(addNewPostSuccess(formData.imageFile));
@@ -119,8 +123,16 @@ export function* authCheckStateSaga(action) {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             // User is signed in.
-            console.log(" User is signed in.", user);
-
+            // console.log(" User is signed in.", user);
+            localStorage.setItem('name', user.displayName);
+            localStorage.setItem('email', user.email);
+            localStorage.setItem('url', user.photoURL);
+            let data = {
+                name: user.displayName,
+                email: user.email,
+                url: user.photoURL
+            }
+            put(actions.authStateSuccess(data));
         }
         else {
             // User is signed out.

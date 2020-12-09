@@ -25,6 +25,33 @@ export const animateSuccesErrorButton = () => {
     };
 };
 
+export const addComentContent = (dataContent) => {
+    console.log("fetchComentContent ", dataContent)
+    return dispatch => {
+        dispatch(addNewPostStart());
+        let data = {
+            name: dataContent.name,
+            date: dataContent.date,
+            textField: dataContent.textField,
+            key: dataContent.key,
+            email: dataContent.email,
+            price: dataContent.price,
+            //imgName: imgName.toString(),
+            url: dataContent.url
+        };
+        axios.post(`/coment.json`, data)
+            .then(response => {
+                // dispatch(addNewPostSuccess(formData.imageFile));
+                console.log('---------', dataContent.key);
+                window.location.reload(false);
+            })
+            .catch(err => {
+                dispatch(addNewPostFail())
+            }
+            );
+
+    }
+}
 export const addNewPost = (formData, isUpdate, folderName) => {
     return dispatch => {
         dispatch(addNewPostStart());
@@ -49,6 +76,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                 webAddress: formData.webAddress,
                 key: formData.key,
                 date: formData.date,
+                price: formData.price,
                 //imgName: imgName.toString(),
                 url: urlList.toString()
             };
@@ -88,6 +116,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                                             webAddress: formData.webAddress,
                                             key: formData.key,
                                             date: formData.date,
+                                            price: formData.price,
                                             imgName: imgName.toString(),
                                             url: urlList.toString()
                                         };
@@ -135,6 +164,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                                                         textField: formData.textField,
                                                         key: formData.key,
                                                         date: formData.date,
+                                                        price: formData.price,
                                                         imgName: imgName.toString(),
                                                         url: urlList.toString()
                                                     };
@@ -160,6 +190,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                             .then(response => {
                                 dispatch(addNewPostSuccess());
                                 console.log('-----update----', formData);
+
                             })
                             .catch(err => {
                                 dispatch(addNewPostFail())
@@ -196,6 +227,23 @@ export const updatePostData = (postData) => {
         updateData: postData
     }
 }
+
+export const updateComentContent = (data) => {
+    return dispatch => {
+        axios.delete(`/coment/${data.id}.json`, { data: { key: data.key } }).then(response => {
+            axios.post(`/coment.json`, data)
+                .then(response => {
+                    // dispatch(addNewPostSuccess(formData.imageFile));
+                    window.location.reload(false);
+                })
+                .catch(err => {
+                    dispatch(addNewPostFail())
+                })
+        });
+
+    };
+}
+
 
 // export const addNewPrzepisyContainerStart = () => {
 //     return {

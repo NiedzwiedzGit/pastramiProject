@@ -1,5 +1,10 @@
 .Input {
-    width: 100%;
+	display: flex;
+	flex-flow: column;
+	align-content: center;
+	text-align: center;
+	justify-content: center;
+    /* width: 100%; */
     padding: 10px;
     box-sizing: border-box;
 }
@@ -31,6 +36,20 @@
 .Invalid{
     border: 1px solid red;
 background-color: salmon;
+}
+.Contact{
+	display: flex;
+	width: 50vw;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+	
+}
+.ContactHide{
+	display: flex;
+	width: 50vw;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+background-color: rgb(243, 129, 129);
 }
 .Hide{
     width: 50%!important;

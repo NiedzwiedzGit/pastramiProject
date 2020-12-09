@@ -151,6 +151,24 @@ class NewPost extends Component {
                 startView: true,
                 hide: true
             },
+            price: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'number',
+                    placeholder: 'Cena'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 4,
+                    maxLength: 4,
+                    isNumeric: true
+                },
+                valid: false,
+                touched: false,
+                startView: true,
+                hide: true
+            },
         },
         formIsValid: false,
         // content: '',
@@ -355,6 +373,24 @@ class NewPost extends Component {
                     required: true,
                     minLength: 4,
                     maxLength: 4,
+                    isNumeric: true
+                },
+                valid: false,
+                touched: false,
+                startView: true,
+                hide: true
+            },
+            price: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'number',
+                    placeholder: 'Cena'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    // minLength: 4,
+                    // maxLength: 4,
                     isNumeric: true
                 },
                 valid: false,

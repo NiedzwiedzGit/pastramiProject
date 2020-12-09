@@ -2,11 +2,13 @@ import React from 'react';
 import classes from './Input.css';
 import Form from 'react-bootstrap/Form';
 import ButtonBootstrap from 'react-bootstrap/Button';
+import TextareaAutosize from 'react-textarea-autosize';
 
 
 const input = (props) => {
     let inputElement = null;
-    const inputClasses = [classes.InputElement];
+    // let classAdd = classes.[props.class]
+    const inputClasses = [classes.InputElement, classes[props.classAdd]];
 
 
     if (props.invalid && props.shouldValidate && props.touched) {
@@ -22,20 +24,28 @@ const input = (props) => {
     }
     switch (props.elementType) {
         case ('input'):
-            inputElement = <input
-                className={inputClasses.join(' ')
-                }
+            inputElement =
+                <input
+                    className={inputClasses.join(' ')
+                    }
+                    {...props.elementConfig}
+                    value={props.value}
+                    onChange={props.changed}
+                    disabled={props.disabled} />;
+            break;
+        case ('textarea'):
+            inputElement = <TextareaAutosize
+                className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed}
                 disabled={props.disabled} />;
-            break;
-        case ('textarea'):
-            inputElement = <textarea
-                className={inputClasses.join(' ')}
-                {...props.elementConfig}
-                value={props.value}
-                onChange={props.changed} />;
+            // inputElement = <textarea
+            //     className={inputClasses.join(' ')}
+            //     {...props.elementConfig}
+            //     value={props.value}
+            //     onChange={props.changed}
+            //     disabled={props.disabled} />;
             break;
         case ('select'):
             inputElement = (
@@ -68,11 +78,11 @@ const input = (props) => {
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
             {/* <input type="checkbox" onClick={props.clicked} /> */}
-            <ButtonBootstrap style={{ display: `${props.hide}` }}
+            {!props.anableHideBtn ? <ButtonBootstrap style={{ display: `${props.hide}` }}
                 variant={props.hide !== false ? "outline-danger" : "outline-primary"}
                 onClick={props.clicked}>
                 {props.hide !== false ? "-" : "+"}
-            </ButtonBootstrap>
+            </ButtonBootstrap> : null}
             {validationError}
         </div >
     );

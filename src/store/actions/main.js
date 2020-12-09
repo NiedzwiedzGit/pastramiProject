@@ -150,6 +150,7 @@ export const fetchComentContent = (folderName) => {
                     });
                 }
                 dispatch(fetchComentSuccess(comentVar));
+                console.log("comentVar ", comentVar)
             }).catch(error => {
                 dispatch(fetchMainContentFail(error));
             });
@@ -178,3 +179,15 @@ export const deletePost = (id, imgName, key, folderName) => {
     // userRef.remove()
     // const uploadTask = storage.ref(`/images/${img.file.name}?key=${response.data.name}`).put(img.file);
 };
+
+
+
+export const deleteComent = (id, key) => {
+    console.log('[you want delete]=>', id)
+    console.log('[you want delete key]=>', key)
+    return dispatch => {
+        axios.delete(`/coment/${id}.json`, { data: { key: key } }).then(response => {
+        });
+
+    };
+}

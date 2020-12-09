@@ -26,10 +26,11 @@
 left: 0;
 margin: 0 15px 0 0;
 padding-bottom: 5px;
-width:100px;
-height: 100px;
+width:100px!important;
+height: 100px!important;
 border-radius: 50px;
 }
+
 /* .ComentsBlock ::content{
     position: relative;
     float: left;
@@ -39,15 +40,84 @@ border-radius: 50px;
 background-color: aliceblue;
 border-radius: 25px;
 padding: 15px;
+
 }
+.PWraper p{
+    word-break: break-all;
+ }
 .ComentsBlockBtnSwipe {
-    margin-top:-100px;
+    display: flex;
+    flex-direction: column;
     opacity: 0;
-    width: 100%;
+    margin: 0 15px;
+    width: auto;
+    height: 100%;
+    justify-content:space-around;
     transition:  margin 0.5s,opacity 0.2s;
     transition-timing-function: liner;
     }
 .ComentsBlockWraper:hover .ComentsBlockBtnSwipe{
     opacity: 1;
     margin-top:0;
+
+}
+.ComentsBlockBtnSwipe svg{
+    transition: all .1s ease-in-out;
+}
+.ComentsBlockBtnSwipe svg:hover{
+    transform: scale(2);
+}
+.Close{
+    display: none;
+}
+@media(max-width:768px){
+    .ComentsBlock{
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        padding: 10px 0 5px 0;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+    }
+    .ComentsBlockWraper{
+        width: 80vw;
+        margin:20px 20px 0 20px;
+    }
+    .ComentsBlock img{
+        display: flex;
+        float: left;
+        clear: both;
+    left: 0;
+    margin: 0 15px 0 0;
+    padding-bottom: 5px;
+    width:100px!important;
+    height: 100px!important;
+    border-radius: 50px;
+    }
+    .PWraper{
+        width: 90vw;
+        font-size: 1.2em;
+    }
+    .ComentsBlockWraper .ComentsBlockBtnSwipe{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        opacity: 1;
+        margin-top:0;
+        justify-content: space-between;
+    }
+    .ComentsBlockWraper .ComentsBlockBtnSwipe svg{
+margin:2vh 20vw;
+/* padding: 2px; */
+ /* border:10px solid aliceblue; */
+/* background-color: aliceblue; */
+background: rgb(240,248,255);
+/* background: linear-gradient(180deg, rgba(240,248,255,1) 25%, rgba(3,97,255,1) 100%); */
+box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+
+width: 40px;
+height: 40px;
+border-radius:50px;
+    }
 }

@@ -18,6 +18,46 @@
     flex-flow: column-reverse;
     /* border: 1px solid black; */
 }
+.Coments button{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+    display: flex;
+    flex-flow: row;
+    text-align: center;
+    align-content: center;
+    border-radius: 10px!important;
+margin: 15px;
+    height: 50px;
+    width: 300px;
+
+}
+
+.SendMessageBtn{
+   justify-content: center;
+}
+.Comentst .GoogleBtn{
+    display: flex;
+    flex-flow: row;
+    align-content: center;
+    border-radius: 10px!important;
+    height: 50px;
+    width: 300px;
+}
+.Coments .GoogleIcon {
+    position: absolute;
+    /* margin-top: 11px;
+    margin-left: 11px; */
+    margin: auto 12px;
+    width: 18px;
+    height: 18px;
+  }
 .Column::-webkit-scrollbar {
     display: none;
   }
+  @media(max-width:768px){
+    .Coments textarea{
+width: 100vw;
+
+/* height: 50vh; */
+
+  }
+}

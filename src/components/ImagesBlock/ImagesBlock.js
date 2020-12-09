@@ -61,8 +61,21 @@ class ImagesBlock extends Component {
                     </div>)
 
                 break;
-            case 'Info':
             case 'Orders':
+                content = (
+
+                    <div className={classes.OrderBlockText}>
+                        <p className={classes.TextArea}>{this.props.text}</p>
+                        <p className={classes.PriceArea}>{this.props.price}</p>
+                        <ButtonBootstrap style={{ display: `${this.props.hide}` }}
+                            variant={this.props.hide !== false ? "outline-danger" : "outline-primary"}
+                            onClick={this.props.clicked}>
+                            {this.props.hide !== false ? "-" : "+"}
+                        </ButtonBootstrap>
+                    </div>
+                )
+                break;
+            case 'Info':
             case 'Clients':
                 imageVar = null;
                 this.props.webAddress == null ?
@@ -113,7 +126,7 @@ class ImagesBlock extends Component {
                                     height: percentage * 500
                                 }}
                             /> */}
-                        {imageVar} {content}
+                        {this.props.showImg ? imageVar : null} {content}
                     </div >
                 )
                 }
@@ -132,7 +145,7 @@ class ImagesBlock extends Component {
                 {/* {imageVar} */}
                 <br />
                 {
-                    this.props.auth ? <div className={classes.ImagesBlockBtnSwipe}>
+                    !this.props.auth ? <div className={classes.ImagesBlockBtnSwipe}>
                         <ButtonBootstrap variant="outline-danger" onClick={this.props.clicked}>Remove</ButtonBootstrap>
                         <ButtonBootstrap variant="outline-primary" onClick={this.props.clickedUpdate}>Update</ButtonBootstrap>
                     </div > : null

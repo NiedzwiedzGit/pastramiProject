@@ -16,3 +16,23 @@
 .ContentDiv{
     margin-top: 5em;
 }
+.SumBlock{
+    display: flex;
+    flex-flow: column;
+    width: 40vw;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+    border-radius: 25px;
+    
+}
+.SumBlock span{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+.SumBlock span:last-child{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 40%;
+}

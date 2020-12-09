@@ -7,6 +7,7 @@ export {
     fetchTextContent,
     fetchComentContent,
     deletePost,
+    deleteComent,
     getUrlArray
 
 } from './main';
@@ -17,6 +18,8 @@ export {
     animateSuccesErrorButton,
     addNewPostContainer,
     updatePostData,
+    updateComentContent,
+    addComentContent
     // addNewPrzepisyContainer,
     // updatePrzepisyData
 } from './newpost';
@@ -31,6 +34,7 @@ export {
 
     authStart,
     authSuccess,
+    authStateSuccess,
     authFail,
     checkAuthTimeout
 } from './auth';

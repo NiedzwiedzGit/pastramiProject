@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import classes from './NewPost.css';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Button from '../../components/UI/Button/Button';
 import ButtonBootstrap from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
 import PropagateLoader from "react-spinners/PropagateLoader";
 
@@ -155,6 +153,7 @@ class NewPost extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'number',
+                    step: 0.01,
                     placeholder: 'Cena'
                 },
                 value: '',
@@ -162,6 +161,7 @@ class NewPost extends Component {
                     required: true,
                     minLength: 4,
                     maxLength: 4,
+                    step: 0.01,
                     isNumeric: true
                 },
                 valid: false,
@@ -189,7 +189,7 @@ class NewPost extends Component {
     componentDidMount() {
         this.props.updateHandler ? this.inputUpdateHandler(this.props.updateData) : this.resetForm();
         this.props.updateHandler ? this.setState({ updateForm: this.props.updateData }) : null;
-        this.props.updateHandler ? console.log('[didMount] ', this.state.updateForm) : null;
+        //this.props.updateHandler ? console.log('[didMount] ', this.state.updateForm) : null;
     }
 
     handleImageAsFile = (imageList) => {
@@ -230,8 +230,8 @@ class NewPost extends Component {
                 formData = this.state.updateForm;
                 formData['imageFile'] = this.state.imageFile;
             }
-            console.log("formData test ", formData);
-            console.log("this.props.folderName test ", this.props.folderName);
+            // console.log("formData test ", formData);
+            // console.log("this.props.folderName test ", this.props.folderName);
             this.props.onFetchNewPost(formData, this.props.updateHandler, this.props.folderName)
         } else this.resetForm();
         this.props.onAnimateSuccesErrorButton();
@@ -384,6 +384,7 @@ class NewPost extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'number',
+                    step: 0.01,
                     placeholder: 'Cena'
                 },
                 value: '',
@@ -391,6 +392,7 @@ class NewPost extends Component {
                     required: true,
                     // minLength: 4,
                     // maxLength: 4,
+                    step: 0.01,
                     isNumeric: true
                 },
                 valid: false,
@@ -414,7 +416,7 @@ class NewPost extends Component {
                 touched: true
             });
         }
-        console.log('[from inputUpdateHandler] ', updatedFormElement);
+        // console.log('[from inputUpdateHandler] ', updatedFormElement);
         this.setState({ orderForm: updatedFormElement });
     }
     inputChangedHandler = (event, inputIdentifier) => {
@@ -447,9 +449,9 @@ class NewPost extends Component {
                 this.props.updateHandler ? updateList[inputIdentifier] = updatedOrderForm[inputIdentifier].value : null;
             })
         }
-        console.log('[from  updatedOrderForm] ', updatedOrderForm);
-        console.log('[from  formIsValid] ', formIsValid);
-        console.log('[hide prop NewPost] ', event.target.value);
+        // console.log('[from  updatedOrderForm] ', updatedOrderForm);
+        // console.log('[from  formIsValid] ', formIsValid);
+        // console.log('[hide prop NewPost] ', event.target.value);
         //<Input hide={event.target.value} />
         this.setState({
             // hide: event.target.value,
@@ -459,8 +461,8 @@ class NewPost extends Component {
         });
     }
     inputChanged = (inputIdentifier) => {
-        console.log("[formElement.config.elementConfig.disabled222] ", inputIdentifier);
-        console.log("[formElement.config.elementConfig.disabled111] ", this.state.orderForm[inputIdentifier].hide);
+        // console.log("[formElement.config.elementConfig.disabled222] ", inputIdentifier);
+        // console.log("[formElement.config.elementConfig.disabled111] ", this.state.orderForm[inputIdentifier].hide);
         const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
             hide: !this.state.orderForm[inputIdentifier].hide,
             valid: !this.state.orderForm[inputIdentifier].valid
@@ -474,7 +476,7 @@ class NewPost extends Component {
             for (let inputIdentifier in updatedOrderForm) {
                 if (this.state.orderForm[inputIdentifier].startView && this.state.orderForm[inputIdentifier].touched) {
                     count++;
-                    console.log("[count test] ", this.state.orderForm[inputIdentifier].touched)
+                    // console.log("[count test] ", this.state.orderForm[inputIdentifier].touched)
 
                     formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
                 }
@@ -484,7 +486,7 @@ class NewPost extends Component {
                 formIsValid = updatedOrderForm[res].valid && formIsValid;
             })
         }
-        console.log("[formIsValid test]!!!!!!!!!!!!!!!! ", formIsValid);
+        //console.log("[formIsValid test]!!!!!!!!!!!!!!!! ", formIsValid);
 
         return this.setState({
             orderForm: updatedOrderForm,
@@ -493,7 +495,7 @@ class NewPost extends Component {
     }
 
     render() {
-        console.log('updateForm ', this.state.updateForm);
+        //console.log('updateForm ', this.state.updateForm);
         const formElementsArray = [];
         if (this.props.Przepisy !== true) {
             for (let key in this.state.orderForm) {
@@ -538,12 +540,12 @@ class NewPost extends Component {
 
         } else { animationButton = <label className={classes.Loading}><PropagateLoader /></label> }
         let lengthInput = formElementsArray.length;
-        console.log("test fielt input ", lengthInput)
+        // console.log("test fielt input ", lengthInput)
         let form = (
             <form onSubmit={this.submitPost} >
                 <div className={classes[hidePostForm]}>
                     {formElementsArray.map(formElement => (
-                        console.log("[formElement.config.elementConfig.disabled333] ", formElement.config.hide),
+                        // console.log("[formElement.config.elementConfig.disabled333] ", formElement.config.hide),
 
                         < div >
                             <Input
@@ -648,7 +650,7 @@ class NewPost extends Component {
 
 
 
-        console.log('[this.props.animate] -> ' + this.props.animate);
+        //console.log('[this.props.animate] -> ' + this.props.animate);
 
 
 

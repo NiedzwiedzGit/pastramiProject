@@ -5,6 +5,7 @@ import * as actions from '../../store/actions/index';
 
 import Button from '../../components/UI/Button/Button';
 import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
+import ButtonBootstrap from 'react-bootstrap/Button';
 
 import classes from './Orders.css';
 
@@ -12,15 +13,10 @@ import CircleLoader from "react-spinners/CircleLoader";
 import { css } from "@emotion/core";
 
 import NewPost from '../NewPost/NewPost';
-import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import Order from '../../components/Order/Order';
 
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
-
-import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-
-import GooglePayButton from '@google-pay/button-react';
+import { withRouter } from 'react-router-dom';
 
 const override = css`
   position:absolut;
@@ -39,7 +35,7 @@ class Przepisy extends Component {
         // count: null
     }
     componentDidMount() {
-        this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
+        // this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
         this.props.onfetchTextContent('orders');
     }
 
@@ -48,7 +44,7 @@ class Przepisy extends Component {
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
     }
     updatePostData = (postData) => {
-        console.log("Przepisy update test ", postData)
+        // console.log("Przepisy update test ", postData)
         this.props.onUpdatePostData(postData);
         this.props.onAddNewPost();
     }
@@ -69,22 +65,22 @@ class Przepisy extends Component {
             // }
         }
         this.setState(prevState => {
-            console.log('prevState ', prevState)
+            // console.log('prevState ', prevState)
             return {
                 sumVal: prevState.sumVal + parseInt(price),
                 touched: {
-                    ...this.state.touched, [textField]: { visibility: true, count: countHendler, price: price }
+                    ...this.state.touched, [textField]: { visibility: true, count: countHendler, price: parseInt(price) }
                 } //count: prevState.count + 1
             }
         })
-        console.log("this.state.touched ", this.state.touched)
+        // console.log("this.state.touched ", this.state.touched)
 
 
-        console.log("this.state.touched.nameOfField ", this.state.touched[textField])
+        // console.log("this.state.touched.nameOfField ", this.state.touched[textField])
     }
     removeHandler = (price, textField) => {
         let countHendler = this.state.touched[textField].count - 1;
-        console.log("test of this.state.sumVal removeHandler ", this.state.sumVal)
+        // console.log("test of this.state.sumVal removeHandler ", this.state.sumVal)
         let disable;
         this.state.touched[textField].count <= 1 ? disable = true : disable = false
         this.setState(prevState => {
@@ -94,22 +90,12 @@ class Przepisy extends Component {
                     ...this.state.touched,
                     [textField]: {
                         visibility: !disable,
-                        count: countHendler
+                        count: parseInt(countHendler),
+                        price: parseInt(price)
                     }
                 }
             }
         })
-        // if (this.state.sumVal <= 0) {
-        //     console.log("lower then 0")
-
-        //     this.setState(prevState => {
-        //         return { sumVal: prevState.sumVal - parseInt(price), touched: { [textField]: false } }
-        //     })
-        // } else {
-        //     this.setState(prevState => {
-        //         return { sumVal: prevState.sumVal - parseInt(price) }
-        //     })
-        // }
 
     }
     onLoadContent = () => {
@@ -138,19 +124,20 @@ class Przepisy extends Component {
                     //     clickedUpdate={() => this.updatePostData(res)}
                     //     clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))}
                     // />
-                    console.log('res.price ', typeof (res.price));
-                    console.log("touched ", this.state.touched)
+                    // console.log('res.price ', typeof (res.price));
+                    // console.log("localStorage.getItem('email') ", localStorage.getItem('email'))
                     let disHandler;
                     let countHandler;
                     if (this.state.touched[res.textField]) {
                         if (this.state.touched[res.textField].visibility && this.state.touched[res.textField].count >= 0) {
-                            console.log("this.state.touched[res.textField].visibility ", this.state.touched[res.textField].visibility);
+                            // console.log("this.state.touched[res.textField].visibility ", this.state.touched[res.textField].visibility);
                             disHandler = this.state.touched[res.textField].visibility
                             countHandler = `x ${this.state.touched[res.textField].count}`
                         }
                     }
 
                     return <Order
+                        auth={this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
                         name={res.textField}
                         price={res.price}
                         // disable={this.state.sumVal == null || this.state.sumVal <= 0 && this.state.touched ? true : false
@@ -164,6 +151,8 @@ class Przepisy extends Component {
                         }
                         clickedPlus={() => this.addHandler(res.price, res.textField)
                         }
+                        clickedUpdate={() => this.updatePostData(res)}
+                        clicked={() => this.deletePost(res.id, res.imgName, res.key)}
                     />
 
                 });
@@ -175,8 +164,8 @@ class Przepisy extends Component {
         return ImgBlock;
     }
     render() {
-        console.log("this.state.count ", this.state.count)
-        console.log("this.state.touched.count ", this.state.touched.count)
+        // console.log("this.state.count ", this.state.count)
+        // console.log("this.state.touched.count ", this.state.touched.count)
         let test = this.state.touched;
         let orderObj = Object.keys(this.state.touched).map((name, count) => {
 
@@ -187,28 +176,53 @@ class Przepisy extends Component {
                 <div className={classes.SumBlock}>
                     <p><strong>Zamówienie:</strong></p><br />
                     {Object.entries(this.state.touched).map((name, i) => {
-                        console.log("test test ", name)
+                        // console.log("test test ", name)
 
-                        return name[1].count != 0 ? < span key={i} ><strong>Przedmiot: </strong> {name[0]} <strong>ilosc</strong>  {name[1].count} <strong>na kwotę</strong>  {name[1].count * name[1].price}</span> : null
+                        return name[1].count != 0 ?
+                            < div key={i} >
+                                <div className={classes.SumBlockCell}>
+                                    <p><strong>Przedmiot: </strong></p>
+                                    <p className={classes.UnderlineStyle}>{name[0]}</p>
+                                </div>
+                                <div className={classes.SumBlockCell}>
+                                    <p><strong>ilosc</strong> </p>
+                                    <p>{name[1].count} </p>
+                                </div>
+                                <div className={classes.SumBlockCell}>
+                                    <p><strong>waga</strong> </p>
+                                    <p>{name[1].count * 0.5} kg</p>
+                                </div>
+                                <div className={classes.SumBlockCell}>
+                                    <p><strong>na kwotę</strong> </p>
+                                    <p>{name[1].count * name[1].price} pln.</p>
+                                </div>
+                                <br />
+                            </div>
+                            : null
                     })
                     }
-                    <br />
-                    <span><strong>Do zapłaty: </strong>   {this.state.sumVal} pln</span>
-                </div > : null
+                    <div className={[classes.SumBlockCell, classes.SumBlockCellPay].join(' ')}>
+                        <p><strong>Do zapłaty: </strong></p>
+                        <p> {this.state.sumVal} pln.</p>
+                    </div>
+                    <ButtonBootstrap variant="success">Zamów</ButtonBootstrap>
+                </div >
+                : null
         )
         return (
             <div className={classes.Przepisy}>
                 <BackBtn />
-                <Button
-                    btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
-                    clicked={this.props.onAddNewPost} />
-                {this.props.addNewPostContainer && !this.props.loading ? <NewPost
+                {this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
+                    <Button
+                        btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
+                        clicked={this.props.onAddNewPost} /> : null}
+                {this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ? <NewPost
                     Przepisy={true}
                     field={'textField price'}
                     folderName={this.state.folderName}
                 /> : null}
 
-                {<GooglePayButton
+                {/* {<GooglePayButton
                     environment="TEST"
                     paymentRequest={{
                         apiVersion: 2,
@@ -250,7 +264,7 @@ class Przepisy extends Component {
                     onLoadPaymentData={paymentRequest => {
                         console.log('Success', paymentRequest);
                     }}
-                />}
+                />} */}
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
@@ -270,7 +284,9 @@ const mapStateToProps = state => {
         addNewPostContainer: state.newpost.addNewPostContainer,
         updateHandler: state.newpost.updateHandler,
         // postContent: state.main.postContent,
-        textVar: state.main.textVar
+        textVar: state.main.textVar,
+        isAuthenticated: state.auth.token !== null,
+        adminId: state.main.adminId
     };
 };
 const mapDispatchToProps = dispatch => {

@@ -30,6 +30,7 @@ const input = (props) => {
                     }
                     {...props.elementConfig}
                     value={props.value}
+                    step={0.01}
                     onChange={props.changed}
                     disabled={props.disabled} />;
             break;
@@ -72,7 +73,7 @@ const input = (props) => {
                 value={props.value}
                 onChange={props.changed} />;
     }
-    console.log("[hide props ]", props.hide ? "work!!! " + props.hide : null);
+    // console.log("[hide props ]", props.hide ? "work!!! " + props.hide : null);
     return (
         <div className={classes.Input}>
             <label className={classes.Label}>{props.label}</label>

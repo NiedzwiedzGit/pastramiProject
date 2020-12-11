@@ -13,7 +13,7 @@ var transporter = nodemailer.createTransport({
     }
 });
 export const sentMail = (test, test2) => {
-    console.log("sentMail inside func ", test);
+    // console.log("sentMail inside func ", test);
 
     var mailOptions = {
         from: 'youremail@gmail.com',
@@ -26,7 +26,7 @@ export const sentMail = (test, test2) => {
         if (error) {
             console.log(error);
         } else {
-            console.log('Email sent: ' + info.response);
+            console.log(info.response);
         }
     });
 }

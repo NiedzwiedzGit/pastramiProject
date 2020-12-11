@@ -14,9 +14,7 @@ import { css } from "@emotion/core";
 import NewPost from '../NewPost/NewPost';
 import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
-
-import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const override = css`
   position:absolut;
@@ -31,7 +29,7 @@ class Przepisy extends Component {
         folderName: 'info'
     }
     componentDidMount() {
-        this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
+        // this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
         this.props.onfetchTextContent('info')
     }
 
@@ -40,7 +38,7 @@ class Przepisy extends Component {
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
     }
     updatePostData = (postData) => {
-        console.log("Przepisy update test ", postData)
+        // console.log("Przepisy update test ", postData)
         this.props.onUpdatePostData(postData);
         this.props.onAddNewPost();
     }
@@ -64,11 +62,11 @@ class Przepisy extends Component {
             if (this.props.textVar.length !== 0) {
 
                 ImgBlock = this.props.textVar.map((res, index) => {
-                    console.log('split ', res.url.split(","))
-                    console.log('split res', res)
+                    // console.log('split ', res.url.split(","))
+                    // console.log('split res', res)
 
                     return <ImagesBlock
-                        auth={true}
+                        auth={this.props.isAuthenticated && this.localStorage.getItem('email') == this.props.adminId}
                         close={this.state.id.includes(res.key) ? 'Close' : null}
                         key={index}
                         url={res.url}
@@ -80,7 +78,7 @@ class Przepisy extends Component {
                         clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))}
                     />
                 });
-                console.log(ImgBlock);
+                // console.log(ImgBlock);
             }
         } else { return null };
 
@@ -89,11 +87,12 @@ class Przepisy extends Component {
     render() {
         return (
             <div className={classes.Przepisy}>
-                <Button
-                    btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
-                    clicked={this.props.onAddNewPost} />
+                {this.props.isAuthenticated && this.localStorage.getItem('email') == this.props.adminId ?
+                    <Button
+                        btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
+                        clicked={this.props.onAddNewPost} /> : null}
                 <BackBtn />
-                {this.props.addNewPostContainer && !this.props.loading ? <NewPost
+                {this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && this.localStorage.getItem('email') == this.props.adminId ? <NewPost
                     Przepisy={true}
                     field={'textField'}
                     folderName={this.state.folderName}

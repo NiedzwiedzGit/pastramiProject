@@ -24,7 +24,7 @@ class Layout extends Component {
         waitLoader: false,
     }
     componentDidMount() {
-        console.log(this.props.routes);
+        //  console.log(this.props.routes);
         // this.props.onFetchContent();
         this.props.onFetchPostContent();
         this.props.onFetchPrzepisyContent();
@@ -39,7 +39,7 @@ class Layout extends Component {
         });
     }
     render() {
-        console.log(!this.props.loading, !this.props.loadingContent);
+        // console.log(!this.props.loading, !this.props.loadingContent);
         return (
             <Aux>
                 {/* <Toolbar

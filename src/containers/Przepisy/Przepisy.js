@@ -1,4 +1,4 @@
-import React, { Suspense, Component, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -14,12 +14,10 @@ import { css } from "@emotion/core";
 import NewPost from '../NewPost/NewPost';
 import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
-
-import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
-import { Route, Switch, withRouter, Redirect, NavLink } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
 import { ParallaxBanner } from 'react-scroll-parallax';
-import { Parallax, Background } from 'react-parallax';
+import { Parallax } from 'react-parallax';
 import knifeRL from "../../assets/images/knifeRLup.png";
 
 
@@ -54,7 +52,7 @@ const Przepisy = React.memo(props => {
         props.updateHandler ? props.onUpdatePostData() : null;
     }
     let updatePostData = (postData) => {
-        console.log("Przepisy update test ", postData)
+        //console.log("Przepisy update test ", postData)
         props.onUpdatePostData(postData);
         props.onAddNewPost();
     }
@@ -95,9 +93,9 @@ const Przepisy = React.memo(props => {
         if (props.Przepisy !== null) {
             if (props.Przepisy.length !== 0) {
                 ImgBlock = props.Przepisy.map((res, index) => {
-                    console.log('split ', res.url.split(","))
+                    //console.log('split ', res.url.split(","))
                     return <ImagesBlock
-                        auth={true}
+                        auth={props.isAuthenticated && localStorage.getItem('email') == props.adminId}
                         close={id.includes(res.key) ? 'Close' : null}
                         key={index}
                         url={res.url}
@@ -113,7 +111,7 @@ const Przepisy = React.memo(props => {
                         clickedOn={() => postSelectedHandler(res.key, res.url.split(","))}
                     />
                 });
-                console.log(ImgBlock);
+                // console.log(ImgBlock);
             }
         } else { return null };
 
@@ -146,11 +144,14 @@ const Przepisy = React.memo(props => {
                 // link="/o_nas"
                 >
                     <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
-                </NavLink > <Button
-                    btnType={!props.addNewPostContainer ? "Add" : "Close"}
-                    clicked={props.onAddNewPost} />
+                </NavLink >
+                {props.isAuthenticated && localStorage.getItem('email') == props.adminId ?
+                    < Button
+                        btnType={!props.addNewPostContainer ? "Add" : "Close"}
+                        clicked={props.onAddNewPost} /> : null
+                }
                 {
-                    props.addNewPostContainer && !props.loading ? <NewPost
+                    props.addNewPostContainer && !props.loading && props.isAuthenticated && localStorage.getItem('email') == props.adminId ? <NewPost
                         Przepisy={true}
                         field={'skladniki przygotowanie webAddress'}
                         folderName={folderName}
@@ -187,7 +188,9 @@ const mapStateToProps = state => {
         addNewPostContainer: state.newpost.addNewPostContainer,
         updateHandler: state.newpost.updateHandler,
         // postContent: state.main.postContent,
-        Przepisy: state.main.Przepisy
+        Przepisy: state.main.Przepisy,
+        isAuthenticated: state.auth.token !== null,
+        adminId: state.main.adminId
     };
 };
 const mapDispatchToProps = dispatch => {

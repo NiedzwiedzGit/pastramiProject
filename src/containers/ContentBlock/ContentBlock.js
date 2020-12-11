@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import ButtonBootstrap from 'react-bootstrap/Button';
-import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 import NavigationItem from '../../components/Navigation/NavigationItems/NavigationItem/NavigationItem';
 
 import classes from './ContentBlock.css';
@@ -10,8 +7,8 @@ import backgroundImg1 from "../../assets/images/pastrami2.jpg";
 import backgroundImg2 from "../../assets/images/pastrami3.jpg";
 import backgroundImg3 from "../../assets/images/pastrami4.jpg";
 import backgroundImg4 from "../../assets/images/pastrami5.jpg";
-import knifeRL from "../../assets/images/knifeRL.png";
-import knifeLR from "../../assets/images/knifeLR.png";
+// import knifeRL from "../../assets/images/knifeRL.png";
+// import knifeLR from "../../assets/images/knifeLR.png";
 
 // const backgroundImg1 = asyncComponent(() => {
 //     return import('../../assets/images/pastrami1.jpg');

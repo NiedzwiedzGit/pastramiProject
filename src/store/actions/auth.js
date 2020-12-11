@@ -77,7 +77,7 @@ export const authCheckState = () => {
 
 export const authStateSuccess = (data) => {
 
-    console.log("authStateSuccess ", localStorage.getItem('name'))
+    // console.log("authStateSuccess ", localStorage.getItem('name'))
     return {
         type: actionTypes.AUTH_STATE_SUCCESS,
         // email: email,

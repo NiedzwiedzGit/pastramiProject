@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
 import ButtonBootstrap from 'react-bootstrap/Button';
 import classes from './ImagesBlock.css';
-import ImagesBlockContent from '../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent';
-import { ParallaxBanner } from 'react-scroll-parallax';
-import { Parallax, Background } from 'react-parallax';
+import { Parallax, } from 'react-parallax';
 
 
 
@@ -145,7 +142,7 @@ class ImagesBlock extends Component {
                 {/* {imageVar} */}
                 <br />
                 {
-                    !this.props.auth ? <div className={classes.ImagesBlockBtnSwipe}>
+                    this.props.auth ? <div className={classes.ImagesBlockBtnSwipe}>
                         <ButtonBootstrap variant="outline-danger" onClick={this.props.clicked}>Remove</ButtonBootstrap>
                         <ButtonBootstrap variant="outline-primary" onClick={this.props.clickedUpdate}>Update</ButtonBootstrap>
                     </div > : null

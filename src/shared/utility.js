@@ -22,6 +22,13 @@ export const checkValidity = (value, rules) => {
     if (rules.maxLength) {
         isValid = value.length <= rules.maxLength && isValid
     }
+    function isFloat(n) {
+        return Number(n) === n && n % 1 !== 0;
+    }
+    if (rules.step) {
+        isValid = !isFloat(value) && isValid
+        console.log("is Valid test ", isValid)
+    }
 
     if (rules.isEmail) {
         const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;

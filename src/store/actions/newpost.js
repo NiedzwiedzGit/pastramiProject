@@ -26,7 +26,7 @@ export const animateSuccesErrorButton = () => {
 };
 
 export const addComentContent = (dataContent) => {
-    console.log("fetchComentContent ", dataContent)
+    // console.log("fetchComentContent ", dataContent)
     return dispatch => {
         dispatch(addNewPostStart());
         let data = {
@@ -42,7 +42,7 @@ export const addComentContent = (dataContent) => {
         axios.post(`/coment.json`, data)
             .then(response => {
                 // dispatch(addNewPostSuccess(formData.imageFile));
-                console.log('---------', dataContent.key);
+                //console.log('---------', dataContent.key);
                 window.location.reload(false);
             })
             .catch(err => {
@@ -63,7 +63,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
         //formData.Przepisy ? folderName = 'Przepisy' : folderName = 'newposts';
         // console.log('addNewPost action folderName2', folderName2);
         if (formData.imageFile.length == null && !isUpdate) {
-            console.log('formData.imgName 1', formData);
+            // console.log('formData.imgName 1', formData);
 
             data = {
                 location: formData.location,
@@ -83,7 +83,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
             axios.post(`/${folderName}.json`, data)
                 .then(response => {
                     dispatch(addNewPostSuccess(formData.imageFile));
-                    console.log('---------', data.key);
+                    //console.log('---------', data.key);
                 })
                 .catch(err => {
                     dispatch(addNewPostFail())
@@ -102,8 +102,8 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                                 .ref(`${res.ref.fullPath}`)
                                 .getDownloadURL().then(
                                     url => {
-                                        console.log('addNewPost action imgName', imgName);
-                                        console.log(url.toString());
+                                        // console.log('addNewPost action imgName', imgName);
+                                        // console.log(url.toString());
                                         urlList.push(url);
                                         data = {
                                             location: formData.location,
@@ -125,7 +125,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                                             axios.post(`/${folderName}.json`, data)
                                                 .then(response => {
                                                     dispatch(addNewPostSuccess(formData.imageFile));
-                                                    console.log('---------', data.key);
+                                                    // console.log('---------', data.key);
                                                 })
                                                 .catch(err => {
                                                     dispatch(addNewPostFail())
@@ -136,12 +136,12 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                                 )
                         });
                 });
-                console.log('formData.imgName ', imgName);
+                // console.log('formData.imgName ', imgName);
 
             } else {
-                console.log('2');
+                //console.log('2');
                 if (formData.imageFile.length >= 1) {
-                    console.log('3');
+                    // console.log('3');
                     storage.ref(`/images/${formData.imgName}?key=${formData.key}`).delete().then(response => {
                         axios.delete(`/${folderName}/${formData.id}.json`, { data: { key: formData.key } }).then(response => {
                             Array.from(formData.imageFile).map(img => {
@@ -152,7 +152,7 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                                             .ref(`${res.ref.fullPath}`)
                                             .getDownloadURL().then(
                                                 url => {
-                                                    console.log(url.toString());
+                                                    // console.log(url.toString());
                                                     data = {
                                                         location: formData.location,
                                                         photographs: formData.photographs,
@@ -183,13 +183,13 @@ export const addNewPost = (formData, isUpdate, folderName) => {
                         })
                     })
                 } else {
-                    console.log('4');
+                    // console.log('4');
                     axios.delete(`/${folderName}/${formData.id}.json`, { data: { key: formData.key } }).then(response => {
-                        console.log(response);
+                        // console.log(response);
                         axios.post(`/${folderName}.json`, formData)
                             .then(response => {
                                 dispatch(addNewPostSuccess());
-                                console.log('-----update----', formData);
+                                // console.log('-----update----', formData);
 
                             })
                             .catch(err => {

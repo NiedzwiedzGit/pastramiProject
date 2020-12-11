@@ -1,13 +1,9 @@
 import React, { Suspense, Component } from 'react';
 import classes from './Main.css';
 import { connect } from 'react-redux';
-import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
-import StartBlock from '../../components/StartBlock/StartBlock';
 import ContentBlock from '../../containers/ContentBlock/ContentBlock';
 // import Coment from '../../components/Coment/Coment';
 
-import Button from '../../components/UI/Button/Button';
-import NewPost from '../NewPost/NewPost';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 
 import CircleLoader from "react-spinners/CircleLoader";
@@ -15,7 +11,7 @@ import { css } from "@emotion/core";
 import * as actions from '../../store/actions/index';
 
 import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 // import asyncAuth from '../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent';
 
 const override = css`
@@ -69,7 +65,7 @@ class Main extends Component {
         // ImgBlock = this.props.postContent.map((res, index) => {
         ImgBlock = testArray.map((res, index) => {
             // console.log('split ', res.url.split(","))
-            return <ContentBlock num={index} />
+            return <ContentBlock key={index} num={index} />
             // <ImagesBlock
             //     auth={true}
             //     close={this.state.id.includes(res.key) ? 'Close' : null}
@@ -87,7 +83,7 @@ class Main extends Component {
             //     clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))}
             // />
         });
-        console.log(ImgBlock);
+        //console.log(ImgBlock);
         // }
         //} else { return null };
 
@@ -98,17 +94,17 @@ class Main extends Component {
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
     }
     render() {
-        console.log(this.state.id)
+        //console.log(this.state.id)
         return (
 
             <div className={classes.Main} >
 
-                <Button
+                {/* <Button
                     btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                     clicked={this.props.onAddNewPost} />
                 {this.props.addNewPostContainer && !this.props.loading ? <NewPost
                     folderName={this.state.folderName}
-                /> : null}
+                /> : null} */}
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}

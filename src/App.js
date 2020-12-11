@@ -67,7 +67,7 @@ class App extends Component {
         </AnimatedSwitch>
       </Switch>
     );
-    console.log("test App");
+    //console.log("test App");
     return (
       <div >
         <Layout>

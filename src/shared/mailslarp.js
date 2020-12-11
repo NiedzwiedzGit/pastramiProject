@@ -25,13 +25,13 @@ export async function sentMail() {
     }
     return await axios
         .post(`https://api.mailslurp.com/createInbox?apiKey=${API_KEY}`, data)
-        .then((res) => { res.data; console.log("res test ", res) });
+        .then((res) => { res.data; });
 }
 
 
 export const sentMail2 = (inbox1, inbox2) => {
 
-    console.log("work!!")
+    // console.log("work!!")
     axios({
         method: "POST",
         url: `https://api.mailslurp.com/sendEmail?apiKey=${API_KEY}`,

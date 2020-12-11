@@ -2,22 +2,15 @@ import React, { Suspense, Component } from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-
-import Button from '../../components/UI/Button/Button';
 import classes from './Coments.css';
 import Coment from '../../components/Coment/Coment';
 
 import CircleLoader from "react-spinners/CircleLoader";
 import { css } from "@emotion/core";
 import ButtonBootstrap from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-
-import NewPost from '../NewPost/NewPost';
-import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import Input from '../../components/UI/Input/Input'
-import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const override = css`
   position:absolut;
@@ -38,7 +31,7 @@ class Coments extends Component {
         update: false
     }
     componentDidMount() {
-        this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
+        // this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
         this.props.onfetchComentContent('coment');
     }
 
@@ -47,7 +40,7 @@ class Coments extends Component {
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
     }
     updateComentData = (postData) => {
-        console.log("Przepisy update test ", postData)
+        // console.log("Przepisy update test ", postData)
         this.props.onUpdatePostData(postData);
         this.props.onAddNewPost();
     }
@@ -94,7 +87,7 @@ class Coments extends Component {
     onLoadComent = () => {
         let folderName = "coment"
 
-        console.log("[comentVar] ", this.props.comentVar)
+        // console.log("[comentVar] ", this.props.comentVar)
         let ImgBlock = <CircleLoader
             css={override}
             size={150}
@@ -131,7 +124,6 @@ class Coments extends Component {
     onLoadComent = () => {
         let folderName = "coment"
 
-        console.log("[comentVar] ", this.props.comentVar)
         let ImgBlock = <CircleLoader
             css={override}
             size={150}
@@ -140,12 +132,11 @@ class Coments extends Component {
         />;
         if (this.props.comentVar !== null) {
             if (this.props.comentVar.length !== 0) {
-                console.log("test of sort ", this.props.comentVar.sort(function (a, b) { return a.key - b.key }));
                 let sortedArr = this.props.comentVar.sort(function (a, b) { return a - b });
                 ImgBlock = sortedArr.map((res, index) => {
 
                     return <Coment
-                        auth={this.props.isAuthenticated && res.email == localStorage.getItem('email')}
+                        auth={this.props.isAuthenticated && res.email == localStorage.getItem('email') || this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
                         close={this.state.id.includes(res.key) ? 'Close' : null}
                         key={index}
                         date={res.date}
@@ -162,7 +153,6 @@ class Coments extends Component {
                         }
                     />
                 });
-                console.log(ImgBlock);
             }
         } else { return null };
 
@@ -253,7 +243,9 @@ const mapStateToProps = state => {
         textVar: state.main.textVar,
         comentVar: state.main.comentVar,
         updateData: state.newpost.updateData,
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        adminId: state.main.adminId,
+        authRedirectPath: state.auth.authRedirectPath
     };
 };
 const mapDispatchToProps = dispatch => {

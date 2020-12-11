@@ -3,8 +3,8 @@ import axios from '../../axios-orders';
 import { storage } from '../../shared/firebase';
 
 export const fetchMainContentSuccess = (path, fullPath) => {
-    console.log('path of img ', path);
-    console.log('fullPath of img ', fullPath);
+    // console.log('path of img ', path);
+    // console.log('fullPath of img ', fullPath);
     return {
         type: actionTypes.FETCH_MAIN_CONTENT_SUCCESS,
         path: path,
@@ -32,7 +32,7 @@ export const fetchPostContentSuccess = (postContent) => {
     };
 };
 export const fetchPrzepisySuccess = (Przepisy) => {
-    console.log('[reduser Przepisy] ', Przepisy);
+    // console.log('[reduser Przepisy] ', Przepisy);
     return {
         type: actionTypes.FETCH_PRZEPISY_SUCCESS,
         Przepisy: Przepisy
@@ -51,7 +51,7 @@ export const fetchPostContentFail = (error) => {
 };
 
 export const fetchTextSuccess = (textVar) => {
-    console.log('[reduser textVar] ', textVar);
+    // console.log('[reduser textVar] ', textVar);
     return {
         type: actionTypes.FETCH_TEXT_SUCCESS,
         textVar: textVar
@@ -59,7 +59,7 @@ export const fetchTextSuccess = (textVar) => {
 };
 
 export const fetchComentSuccess = (comentVar) => {
-    console.log('[reduser textVar] ', comentVar);
+    // console.log('[reduser textVar] ', comentVar);
     return {
         type: actionTypes.FETCH_COMENT_SUCCESS,
         comentVar: comentVar
@@ -68,7 +68,7 @@ export const fetchComentSuccess = (comentVar) => {
 
 
 export const getUrlArray = (urlArray) => {
-    console.log("getUrlArray ", urlArray)
+    // console.log("getUrlArray ", urlArray)
 
     return {
         type: actionTypes.FETCH_POST_URL_LIST,
@@ -103,7 +103,7 @@ export const fetchPrzepisyContent = () => {
         dispatch(() => fetchPostContentStart());
         axios.get('/przepisy.json')
             .then(response => {
-                console.log('[reduser Przepisy!!!] ', Przepisy);
+                // console.log('[reduser Przepisy!!!] ', Przepisy);
                 const Przepisy = [];
                 for (let key in response.data) {
                     Przepisy.push({
@@ -150,24 +150,24 @@ export const fetchComentContent = (folderName) => {
                     });
                 }
                 dispatch(fetchComentSuccess(comentVar));
-                console.log("comentVar ", comentVar)
+                //console.log("comentVar ", comentVar)
             }).catch(error => {
                 dispatch(fetchMainContentFail(error));
             });
     }
 }
 export const deletePost = (id, imgName, key, folderName) => {
-    console.log('[you want delete]=>', id)
-    console.log('[you want delete imgName]=>', imgName)
+    // console.log('[you want delete]=>', id)
+    // console.log('[you want delete imgName]=>', imgName)
     return dispatch => {
         axios.delete(`/${folderName}/${id}.json`, { data: { imgName: imgName } }).then(response => {
-            console.log(response);
+            // console.log(response);
         });
         axios.delete(`/${folderName}/${id}.json`, { data: { imgName: imgName } }).then(response => {
-            console.log(response);
+            // console.log(response);
         });
         Array.from(imgName.split(",")).map(rer => {
-            console.log(rer)
+            // console.log(rer)
             return storage.ref(`/images/${rer}?key=${key}`).delete();
 
         })
@@ -183,8 +183,8 @@ export const deletePost = (id, imgName, key, folderName) => {
 
 
 export const deleteComent = (id, key) => {
-    console.log('[you want delete]=>', id)
-    console.log('[you want delete key]=>', key)
+    // console.log('[you want delete]=>', id)
+    // console.log('[you want delete key]=>', key)
     return dispatch => {
         axios.delete(`/coment/${id}.json`, { data: { key: key } }).then(response => {
         });

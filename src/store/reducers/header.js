@@ -11,7 +11,7 @@ const initialState = {
 };
 
 const addHeaderItem = (state, action) => {
-    console.log("work");
+    // console.log("work");
     return state;
 }
 const reducer = (state = initialState, action) => {

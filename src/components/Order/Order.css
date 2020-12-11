@@ -11,10 +11,52 @@
 .Order span{
     height: 100%;
     padding: 2vh 0;
-    width: 25%;
+    width: 15%;
     font-size: 1.2em;
 }
 .Order button{
     margin: 1.8vh 0;
     height: 50%;
 }
+.UnderlineStyle{
+    text-transform: uppercase;
+    font-style: italic;
+}
+/*  */
+/* .OrderBlockBtn{
+
+} */
+
+@media(max-width:850px){
+    .Order{
+        width: 100vw;
+        height: auto;
+        flex-flow:column;
+        text-align: center;
+        justify-content: center;
+        margin: 0;
+    }
+    .Order span{
+        width: auto;
+
+    }
+    .OrderBlockBtn{
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        width: 100vw;
+        padding: 0 10px;
+ 
+       
+    }
+    .OrderBlockBtn button{
+        animation: preViewbtn .5s;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes preViewbtn {
+    0% {opacity: 0;}
+    100%{opacity: 1;
+     }
+  }

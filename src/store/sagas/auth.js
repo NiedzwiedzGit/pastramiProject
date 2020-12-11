@@ -42,18 +42,18 @@ export function* authUserSaga(action) {
     try {
 
         const response = yield axios.post(url, authData);
-        console.log("[work]] ", response);
+        // console.log("[work]] ", response);
         const expirationDate = yield new Date(new Date().getTime() + response.data.expiresIn * 1000);
-        console.log("[work]]expirationDate ", expirationDate);
+        // console.log("[work]]expirationDate ", expirationDate);
         yield localStorage.setItem('token', response.data.idToken);
         yield localStorage.setItem('expirationDate', expirationDate);
         yield localStorage.setItem('userId', response.data.localId);
         yield put(actions.authSuccess(response.data.idToken, response.data.localId));
         yield put(actions.checkAuthTimeout(response.data.expiresIn));
 
-        console.log("[work]] localStorage", localStorage);
+        // console.log("[work]] localStorage", localStorage);
     } catch (error) {
-        console.log("[noooo]]");
+        // console.log("[noooo]]");
         yield put(actions.authFail(error.response.data.error));
     }
 }
@@ -105,15 +105,15 @@ export function* authCheckStateSaga(action) {
 
     const token = yield localStorage.getItem('token');
     if (!token) {
-        console.log("work !token");
+        // console.log("work !token");
         yield put(actions.logout());
     } else {
         const expirationDate = yield new Date(localStorage.getItem('expirationDate'));
         if (expirationDate <= new Date()) {
-            console.log("work expirationDate <= new Date()");
+            //console.log("work expirationDate <= new Date()");
             yield put(actions.logout());
         } else {
-            console.log("work auto authCheckStateSaga");
+            // console.log("work auto authCheckStateSaga");
             const userId = yield localStorage.getItem('userId');
             yield put(actions.authSuccess(token, userId));
             yield put(actions.checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
@@ -136,7 +136,7 @@ export function* authCheckStateSaga(action) {
         }
         else {
             // User is signed out.
-            console.log(" User is signed out..");
+            // console.log(" User is signed out..");
 
         }
     })

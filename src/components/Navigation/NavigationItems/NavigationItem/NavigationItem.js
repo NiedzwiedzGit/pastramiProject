@@ -11,7 +11,7 @@ const navigationItem = (props) => (
             exact={props.exact}
             activeClassName={classes.active}
         >
-            <img className={classes.knifeRLimg} src={knifeRL} />
+            <img className={classes.knifeRLimg} src={knifeRL} alt='' />
 
             {props.children}
         </NavLink>

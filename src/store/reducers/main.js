@@ -11,7 +11,8 @@ const initialState = {
     textVar: [],
     comentVar: [],
     refresh: false,
-    urlArray: null
+    urlArray: null,
+    adminId: 'shkliarskiyigor@gmail.com'
 };
 
 const fetchMainContentStart = (state, action) => {

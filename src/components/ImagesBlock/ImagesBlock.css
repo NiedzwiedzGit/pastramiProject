@@ -87,7 +87,7 @@ transition-timing-function: liner;
     align-items:flex-start;
     align-content: flex-start;
     justify-content:flex-start;
-    margin-top: 40px;
+    margin: 40px 0;
 }
 .ImagesBlockText p{
     width: auto;

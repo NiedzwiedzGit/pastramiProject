@@ -46,7 +46,7 @@ class Main extends Component {
         this.props.onAddNewPost();
     }
     postSelectedHandler = (id, urlArray) => {
-        this.props.history.push({ pathname: id });
+        // this.props.history.push({ pathname: id });
         // console.log("urlArray ", urlArray)
         this.props.onUrlArray(urlArray);
     }

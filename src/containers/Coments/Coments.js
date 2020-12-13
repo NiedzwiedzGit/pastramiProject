@@ -1,4 +1,4 @@
-import React, { Suspense, Component } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -11,6 +11,9 @@ import ButtonBootstrap from 'react-bootstrap/Button';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import Input from '../../components/UI/Input/Input'
 import { withRouter } from 'react-router-dom';
+import * as swipe from "../../hoc/Swipe/Swipe";
+
+
 
 const override = css`
   position:absolut;
@@ -19,125 +22,136 @@ const override = css`
   margin: 20% auto;
   border-color: red;
 `;
-class Coments extends Component {
-    state = {
-        id: [],
-        comentId: null,
-        key: null,
-        folderName: 'coment',
-        cssClass: null,
-        date: null,
-        message: '',
-        update: false
-    }
-    componentDidMount() {
-        // this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
-        this.props.onfetchComentContent('coment');
-    }
+const Coments = React.memo(props => {
+    // state = {
+    //     id: [],
+    //     comentId: null,
+    //     key: null,
+    //     folderName: 'coment',
+    //     cssClass: null,
+    //     date: null,
+    //     message: '',
+    //     update: false
+    // }
+    const [id, setId] = useState([]);
+    const [comentId, setComentId] = useState(null);
+    const [key, setKey] = useState(null);
+    const [folderName, setFolderName] = useState('coment');
+    const [cssClass, setCssClass] = useState(null);
+    const [date, setDate] = useState(null);
+    const [message, setMessage] = useState('');
+    const [update, setUpdate] = useState(false);
 
-    closeHandler = () => {
-        this.props.onAddNewPost();
-        this.props.updateHandler ? this.props.onUpdatePostData() : null;
+
+
+    useEffect(() => {
+        props.onfetchComentContent('coment');
+    });
+
+    let closeHandler = () => {
+        props.onAddNewPost();
+        props.updateHandler ? props.onUpdatePostData() : null;
     }
-    updateComentData = (postData) => {
+    let updateComentData = (postData) => {
         // console.log("Przepisy update test ", postData)
-        this.props.onUpdatePostData(postData);
-        this.props.onAddNewPost();
+        props.onUpdatePostData(postData);
+        props.onAddNewPost();
     }
-    comentsHandler = () => {
+    let comentsHandler = () => {
         let date = `${new Date().getFullYear()}-${new Date().getMonth()}-${(new Date().getDate() < 10 ? '0' : '') + new Date().getDate()}  ${new Date().getHours()}:${(new Date().getMinutes() < 10 ? '0' : '') + new Date().getMinutes()}`;
-        let postKey = !this.props.updateHandler ? new Date().getTime() : this.props.updateData.key;
+        let postKey = !props.updateHandler ? new Date().getTime() : props.updateData.key;
         let data = {}
-        if (this.state.update) {
+        if (update) {
             data = {
                 name: localStorage.getItem('name'),
                 url: localStorage.getItem('url'),
                 email: localStorage.getItem('email'),
-                key: this.state.key,
-                id: this.state.comentId,
-                textField: this.state.message,
-                date: this.state.date
+                key: key,
+                id: comentId,
+                textField: message,
+                date: date
             }
-            this.props.onUpdateComentContent(data);
+            props.onUpdateComentContent(data);
         } else {
             data = {
                 name: localStorage.getItem('name'),
                 url: localStorage.getItem('url'),
                 email: localStorage.getItem('email'),
                 key: postKey,
-                textField: this.state.message,
+                textField: message,
                 date: date
             }
             this.props.onAddComentContent(data);
 
         }
         // this.props.onAddNewPost();
-        this.setState({ folderName: 'coment', Przepisy: true });
+        // this.setState({ folderName: 'coment', Przepisy: true });
+        setFolderName('coment');
 
     }
-    deleteComent = (id, key) => {
+    let deleteComent = (id, key) => {
         // this.setState({ id: [...this.state.id, key] });
-        this.props.onDeleteComent(id, key);
+        props.onDeleteComent(id, key);
     }
-    postSelectedHandler = (id, urlArray) => {
-        this.props.history.push({ pathname: "info/" + id });
+    let postSelectedHandler = (id, urlArray) => {
+        props.history.push({ pathname: "info/" + id });
         // console.log("urlArray ", urlArray)
-        this.props.onUrlArray(urlArray);
+        props.onUrlArray(urlArray);
     }
-    onLoadComent = () => {
+    // let onLoadComent = () => {
+    //     let folderName = "coment"
+
+    //     // console.log("[comentVar] ", this.props.comentVar)
+    //     let ImgBlock = <CircleLoader
+    //         css={override}
+    //         size={150}
+    //         color={"grey"}
+    //         loading={true}
+    //     />;
+    // if (this.props.comentVar !== null) {
+    //     if (this.props.comentVar.length !== 0) {
+
+    //         ImgBlock = this.props.comentVar.map((res, index) => {
+    //             console.log('split ', res.url.split(","))
+    //             console.log('split res', res.name)
+
+    //             return <Coment
+    //                 auth={this.props.isAuthenticated}
+    //                 close={this.state.id.includes(res.key) ? 'Close' : null}
+    //                 key={index}
+    //                 url={res.url}
+    //                 name={res.name}
+    //                 page="coment"
+    //                 text={res.textField}
+    //                 id={res.key}
+    //                 clicked={() => this.deletePost(res.id, res.imgName, res.key, folderName)}
+    //                 clickedUpdate={() => this.updatePostData(res)}
+    //                 clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))}
+    //             />
+    //         });
+    //         console.log(ImgBlock);
+    //     }
+    // } else { return null };
+
+    //     return ImgBlock;
+    // }
+    let onLoadComent = () => {
         let folderName = "coment"
 
-        // console.log("[comentVar] ", this.props.comentVar)
         let ImgBlock = <CircleLoader
             css={override}
             size={150}
             color={"grey"}
-            loading={this.state.waitLoader}
+            loading={true}//waitLoader
         />;
-        // if (this.props.comentVar !== null) {
-        //     if (this.props.comentVar.length !== 0) {
-
-        //         ImgBlock = this.props.comentVar.map((res, index) => {
-        //             console.log('split ', res.url.split(","))
-        //             console.log('split res', res.name)
-
-        //             return <Coment
-        //                 auth={this.props.isAuthenticated}
-        //                 close={this.state.id.includes(res.key) ? 'Close' : null}
-        //                 key={index}
-        //                 url={res.url}
-        //                 name={res.name}
-        //                 page="coment"
-        //                 text={res.textField}
-        //                 id={res.key}
-        //                 clicked={() => this.deletePost(res.id, res.imgName, res.key, folderName)}
-        //                 clickedUpdate={() => this.updatePostData(res)}
-        //                 clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))}
-        //             />
-        //         });
-        //         console.log(ImgBlock);
-        //     }
-        // } else { return null };
-
-        return ImgBlock;
-    }
-    onLoadComent = () => {
-        let folderName = "coment"
-
-        let ImgBlock = <CircleLoader
-            css={override}
-            size={150}
-            color={"grey"}
-            loading={this.state.waitLoader}
-        />;
-        if (this.props.comentVar !== null) {
-            if (this.props.comentVar.length !== 0) {
-                let sortedArr = this.props.comentVar.sort(function (a, b) { return a - b });
+        if (props.comentVar !== null) {
+            if (props.comentVar.length !== 0) {
+                let sortedArr = props.comentVar.sort(function (a, b) { return a - b });
                 ImgBlock = sortedArr.map((res, index) => {
 
                     return <Coment
-                        auth={this.props.isAuthenticated && res.email == localStorage.getItem('email') || this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
-                        close={this.state.id.includes(res.key) ? 'Close' : null}
+                        auth={props.isAuthenticated && res.email == localStorage.getItem('email') || props.isAuthenticated && localStorage.getItem('email') == props.adminId}
+                        close={id.includes(res.key) ? 'Close' : null}
                         key={index}
                         date={res.date}
                         url={res.url}
@@ -145,9 +159,23 @@ class Coments extends Component {
                         page="coment"
                         text={res.textField}
                         id={res.key}
-                        clicked={() => (this.deleteComent(res.id, res.key), this.setState({ id: [...this.state.id, res.key] }))
+                        clicked={() => (this.deleteComent(res.id, res.key), setId([...id, res.key]))
                         }
-                        clickedUpdate={() => (this.setState({ message: res.textField, update: true, comentId: res.id, key: res.key, date: res.date }), window.scrollTo(0, 0))
+                        clickedUpdate={() => (
+                            setMessage(res.textField),
+                            setUpdate(true),
+                            setComentId(res.id),
+                            setKey(res.key),
+                            setDate(res.date),
+                            // this.setState({
+                            //         message: res.textField,
+                            //         update: true,
+                            //         comentId: res.id,
+                            //         key: res.key,
+                            //         date: res.date
+                            //     }),
+                            window.scrollTo(0, 0)
+                        )
                         }
                         clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))
                         }
@@ -158,13 +186,13 @@ class Coments extends Component {
 
         return ImgBlock;
     }
-    render() {
-        return (
-            <div className={classes.Coments}>
-                {/* <Button
+
+    return (
+        <div className={classes.Coments}  {...swipe.handlers(props.history, '/')}>
+            {/* <Button
                     btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                     clicked={this.props.onAddNewPost} /> */}
-                {/* {this.props.addNewPostContainer && !this.props.loading ? <NewPost
+            {/* {this.props.addNewPostContainer && !this.props.loading ? <NewPost
                     classType={'OnPage'}
                     Przepisy={true}
                     field={'textField photographs'}
@@ -176,7 +204,7 @@ class Coments extends Component {
                     field={'textField photographs'}
                     folderName={this.state.folderName}
                 /> */}
-                {/* <Form action={console.log("work")}>
+            {/* <Form action={console.log("work")}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Example textarea</Form.Label>
                         <Form.Control as="textarea" rows={3} />
@@ -186,55 +214,61 @@ class Coments extends Component {
                     // onClick={this.comentsHandler}
                     >Zostaw Komentarz</ButtonBootstrap>
                 </Form> */}
-                <Input
-                    anableHideBtn="false"
-                    classAdd={!this.props.isAuthenticated ? "ContactHide" : "Contact"}
-                    disabled={!this.props.isAuthenticated ? 'true' : null}
-                    // onClick={() => console.log('work')}
-                    elementType='textarea'
-                    value={this.state.message}
-                    changed={(event) => this.setState({ message: event.target.value })}
-                />
-                {this.state.update ? <ButtonBootstrap variant="danger"
-                    className={classes.SendMessageBtn}
-                    onClick={() => this.setState({ update: false, message: '' })}
-                    disabled={!this.props.isAuthenticated ? true : false}
-                >Rezygnacja</ButtonBootstrap> : null}
-                {this.state.update ?
+            <Input
+                anableHideBtn="false"
+                classAdd={!props.isAuthenticated ? "ContactHide" : "Contact"}
+                disabled={!props.isAuthenticated ? 'true' : null}
+                // onClick={() => console.log('work')}
+                elementType='textarea'
+                value={message}
+                changed={(event) => setMessage(event.target.value)}
+            />
+            {update ? <ButtonBootstrap variant="danger"
+                className={classes.SendMessageBtn}
+                onClick={() => (setUpdate(false), setMessage(''))}
+                disabled={!props.isAuthenticated ? true : false}
+            >Rezygnacja</ButtonBootstrap> : null
+            }
+            {
+                update ?
                     <ButtonBootstrap variant="primary"
                         className={classes.SendMessageBtn}
-                        onClick={this.comentsHandler}
-                        disabled={!this.props.isAuthenticated ? true : false}
-                    >Podtwirdz</ButtonBootstrap>
-                    : <ButtonBootstrap variant={!this.props.isAuthenticated ? "danger" : "success"}
+                        onClick={comentsHandler}
+                        disabled={!props.isAuthenticated ? true : false}
+                    > Podtwirdz</ButtonBootstrap >
+                    : <ButtonBootstrap variant={!props.isAuthenticated ? "danger" : "success"}
                         className={classes.SendMessageBtn}
-                        onClick={this.comentsHandler}
-                        disabled={!this.props.isAuthenticated ? true : false}
-                    >{!this.props.isAuthenticated ? "Zaloguj się" : "Zostaw Komentarz"}</ButtonBootstrap>
-                }
+                        onClick={comentsHandler}
+                        disabled={!props.isAuthenticated ? true : false}
+                    >{!props.isAuthenticated ? "Zaloguj się" : "Zostaw Komentarz"}</ButtonBootstrap>
+            }
 
-                {
-                    this.props.addNewPostContainer ? <Backdrop
-                        show={this.props.addNewPostContainer}
-                        clicked={this.closeHandler} /> : null
-                }
-                {!this.props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => this.props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
-                    <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null}
+            {
+                props.addNewPostContainer ? <Backdrop
+                    show={props.addNewPostContainer}
+                    clicked={closeHandler} /> : null
+            }
+            {
+                !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
+                    <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null
+            }
 
-                {!this.props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => this.props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                    <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null}
-                <Suspense fallback={<div>loading</div>}>
-                    <br />
-                    <br />
-                    <div className={classes.Column}>
-                        {this.onLoadComent()}
-                    </div>
-                </Suspense>
-            </div >
-        );
-    }
+            {
+                !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                    <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null
+            }
+            <Suspense fallback={<div>loading</div>}>
+                <br />
+                <br />
+                <div className={classes.Column}>
+                    {onLoadComent()}
+                </div>
+            </Suspense>
+        </div >
+    );
 
-}
+
+})
 const mapStateToProps = state => {
     return {
         addNewPostContainer: state.newpost.addNewPostContainer,

@@ -19,6 +19,7 @@ import { useSwipeable } from "react-swipeable";
 import { ParallaxBanner } from 'react-scroll-parallax';
 import { Parallax } from 'react-parallax';
 import knifeRL from "../../assets/images/knifeRLup.png";
+import * as swipe from "../../hoc/Swipe/Swipe";
 
 
 const override = css`
@@ -127,7 +128,7 @@ const Przepisy = React.memo(props => {
                 <div >HTML inside the parallax</div>
             </div> */}
 
-            < div className={classes.Przepisy} {...handlers} >
+            < div className={classes.Przepisy} {...swipe.handlers(props.history, '/')} >
                 {/* <Parallax strength={500} >
             <Background className="custom-bg">
                 <div

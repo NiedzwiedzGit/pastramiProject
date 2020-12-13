@@ -75,7 +75,7 @@ const Conact = React.memo(props => {
     }
 
     let callApi = async () => {
-        const response = await fetch('/api/hello');
+        const response = await fetch('/api');
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
         // console.log("test body ", body);
@@ -85,7 +85,7 @@ const Conact = React.memo(props => {
 
     let handleSubmit = async e => {
         e.preventDefault();
-        const response = await fetch('/api/mail', {
+        const response = await fetch('/api', {//'/api/mail' to bylo
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

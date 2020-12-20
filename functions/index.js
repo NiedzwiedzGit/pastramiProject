@@ -41,8 +41,8 @@ app.post('/api/mail', (req, res) => {
         auth: {
             // user: 'katlyn16@ethereal.email',
             // pass: 'AcwaqnbqXtEXHaGnDA'
-            user: 'shkliarskiyigor@gmail.com',
-            pass: '42091klak'
+            user: '',
+            pass: ''
         },
         tls: {
             rejectUnauthorized: false

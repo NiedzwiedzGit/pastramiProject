@@ -1,0 +1,96 @@
+.Przepisy{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: auto;
+    padding-top: 5em;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    /* background: lightblue url("../../assets//images///elephant-monochrome-black-background-closeup-3504x2336-2957.jpg") no-repeat fixed center; */
+    background-size: 100% 100%;
+    background-color: #F2F3F5;
+}
+.Przepisy p{
+    margin: auto;
+}
+.ContentDiv{
+    margin-top: 5em;
+    background-color: #F2F3F5;
+}
+.SumBlock{
+    display: flex;
+    flex-flow: column;
+    justify-content:center;
+    width: 40vw;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+    border-radius: 25px;
+    
+}
+.SumBlockCellPay{
+background-color: blanchedalmond;
+}
+.SumBlock button{
+    display: flex;
+    margin: 40px 0 0 0;
+    /* width: 100vw; */
+    border-radius:0 0 25px 25px;
+    text-align: center;
+    justify-content: center;
+}
+.SumBlock>div{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+.SumBlock div p{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+}
+.SumBlock span:last-child{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 40%;
+}
+.UnderlineStyle{
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+@media(max-width:850px){
+    .SumBlock{
+        width: 100vw;
+        margin: 0 0 40px 0;
+        display: flex;
+       
+    }
+    .SumBlock button{
+        display: flex;
+        margin: 40px 0 0 0;
+        width: 100vw;
+        border-radius:0 0 25px 25px;
+        text-align: center;
+        justify-content: center;
+    }
+    .SumBlock div{
+        flex-flow: column;
+        justify-content: center;
+        text-align: center;
+    }
+    .SumBlockCell{
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+        border-radius: 25px;
+        width: auto;
+
+    }
+    .SumBlock div p{
+        display: flex;
+        font-size: 1.2em;
+        width: auto;
+        justify-content: center; 
+    }
+}

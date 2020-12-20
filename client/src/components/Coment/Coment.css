@@ -1,0 +1,147 @@
+.ComentsBlock{
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    margin: 0;
+    padding: 10px 0;
+    left: 0;
+    /* border: 2px solid grey; */
+    text-align: left;
+    box-shadow: 0 5px 15px 10px #88888879;   
+    background-color: rgb(255, 255, 255);
+    justify-content:space-around;
+
+    border-radius: 25px;
+}
+.ComentsBlockWraper{
+    padding:80px 0 0 80px;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    /* border: 1px solid grey; */
+    align-content: center;
+    align-items: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.Wraper img{
+    display: flex;
+    float: left;
+    clear: both;
+left: 0;
+margin: 0 15px 0 0;
+padding-bottom: 5px;
+width:100px!important;
+height: 100px!important;
+border-radius: 50px;
+}
+
+/* .ComentsBlock ::content{
+    position: relative;
+    float: left;
+    text-align: left;
+} */
+.Wraper{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    float: left;
+    clear: both;
+left: 0;
+/* margin: 10px 0 5px 0; */
+}
+.PWraper{
+background-color:white;
+border-radius: 25px;
+padding: 15px;
+margin: 0 15px 0 0;
+}
+.PWraper p{
+    text-align: justify;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+ }
+.ComentsBlockBtnSwipe {
+    display: flex;
+    /* flex-direction: row; */
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    width: 5%;
+    right: 0;
+    height: 100%;
+    transition:  margin 0.5s,opacity 0.2s;
+    transition-timing-function: liner;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid black; */
+    border-radius: 25px;
+    background-color: #F2F3F5;
+    box-shadow:inset  4px 4px 8px #646662,inset -4px -4px 2px white;  
+    }
+/* .ComentsBlockWraper:hover .ComentsBlockBtnSwipe{
+    opacity: 1;
+    margin-top:0;
+} */
+.ComentsBlockBtnSwipe svg{
+    transition: all .1s ease-in-out;
+}
+.ComentsBlockBtnSwipe:hover svg{
+    transform: scale(2);
+}
+.Close{
+    display: none;
+}
+@media(max-width:768px){
+    .ComentsBlock{
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        padding: 10px 0 5px 0;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+    }
+    .ComentsBlockWraper{
+        width: 80vw;
+        margin:20px 20px 0 20px;
+    }
+    .ComentsBlock img{
+        display: flex;
+        float: left;
+        clear: both;
+    left: 0;
+    margin: 0 15px 0 0;
+    padding-bottom: 5px;
+    width:100px!important;
+    height: 100px!important;
+    border-radius: 50px;
+    }
+    .PWraper{
+        width: 90vw;
+        font-size: 1.2em;
+    }
+    .ComentsBlockWraper .ComentsBlockBtnSwipe{
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        margin: 0 35px;
+        opacity: 1;
+        /* margin-top:0; */
+        justify-content: space-between;
+    }
+    .ComentsBlockWraper .ComentsBlockBtnSwipe svg{
+/* margin:2vh 20vw; */
+/* background: rgb(240,248,255);
+box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; */
+
+width: 20px;
+height: 20px;
+/* border-radius:50px; */
+    }
+}

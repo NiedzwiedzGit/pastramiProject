@@ -1,0 +1,89 @@
+.Coments{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: auto;
+    padding-top: 5em;
+    width: 100vw;
+    height: 500px;
+    text-align: center;
+    /* background: lightblue url("../../assets//images///elephant-monochrome-black-background-closeup-3504x2336-2957.jpg") no-repeat fixed center; */
+    background-size: 100% 100%;
+    background-color: #F2F3F5;
+}
+.Coments p{
+    margin: auto;
+
+}
+.Column{
+    display: flex;
+    flex-flow: column-reverse;
+    width: 100vw;
+    /* border: 1px solid black; */
+    background-color: #F2F3F5;
+}
+.Column:hover {}
+.Coments button{
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; */
+    display: flex;
+    flex-flow: row;
+    text-align: center;
+    align-content: center;
+    border-radius: 10px!important;
+margin: 15px;
+    height: 50px;
+    width: 300px;
+    background-color: #F2F3F5;
+    box-shadow:  4px 4px 8px #646662,inset 2px 2px 4px white;  //#72ca38
+    transition: .45s;
+}
+.Coments button:hover{
+    background-color: #F2F3F5;
+
+    box-shadow:  5px 3px 5px #72ca38,inset 2px 2px 4px white; 
+}
+
+.SendMessageBtn{
+   justify-content: center; 
+
+}
+.SendMessageBtnUn{
+    justify-content: center; 
+    background: rgb(218,80,80);
+    background: linear-gradient(158deg, rgba(218,80,80,1) 0%, rgba(255,44,3,1) 100%);
+    box-shadow:  8px 5px 8px red, inset 2px 2px 4px white!important; 
+    transition: .45s;
+}
+.SendMessageBtnUn:hover{
+    box-shadow:  5px 3px 5px red, -5px -5px 7px white!important;  
+}
+.Comentst .GoogleBtn{
+    display: flex;
+    flex-flow: row;
+    align-content: center;
+    border-radius: 10px!important;
+    height: 50px;
+    width: 300px;
+}
+.Coments .GoogleIcon {
+    position: absolute;
+    /* margin-top: 11px;
+    margin-left: 11px; */
+    margin: auto 12px;
+    width: 18px;
+    height: 18px;
+    /* background: rgb(255,255,255)!important;
+    background: linear-gradient(158deg, rgba(255,255,255,1) 57%, rgba(157,236,34,1) 100%)!important; */
+    
+  }
+.Column::-webkit-scrollbar {
+    display: none;
+  }
+  @media(max-width:768px){
+    .Coments textarea{
+width: 100vw;
+
+/* height: 50vh; */
+
+  }
+}

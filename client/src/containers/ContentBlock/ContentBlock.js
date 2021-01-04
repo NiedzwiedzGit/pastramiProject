@@ -118,9 +118,9 @@ class ContentBlock extends Component {
             console.log("content ", res)
         });
         return (
-            <div className={[classes.ContentBlock, classes[this.state.active]].join(' ')}//classes.ContentBlock,
-                onMouseEnter={() => this.setState({ active: "Active" })}
-                onMouseLeave={() => this.setState({ active: "ContentBlock" })}
+            <div className={[classes.ContentBlock, classes[this.state.active], classes[this.props.class]].join(' ')}//classes.ContentBlock,
+            // onMouseEnter={() => this.setState({ active: "Active" })}
+            // onMouseLeave={() => this.setState({ active: "ContentBlock" })}
             >
                 {contentBlock}
             </div >

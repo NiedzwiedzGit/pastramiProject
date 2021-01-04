@@ -8,15 +8,38 @@
     border-radius: 25px;
     height: 80px;
 }
+
+.Price::after,.Price::before{
+    content: "";
+    margin: 10px 20px;
+    border-left: 1px solid black;
+}
 .Order span{
     height: 100%;
     padding: 2vh 0;
-    width: 15%;
+    width: 20%;
     font-size: 1.2em;
+    transition: .45s
+}
+.CountVisible{
+    width: 5%!important;
+    opacity: 1;
+}
+.CountUnVisible{
+    width: 5%!important;
+    opacity: 0!important;
+}
+.BlockBtnMinusVisible{
+    opacity: 1;
+}
+.BlockBtnMinusUnVisible{
+    opacity: 0!important;
+    
 }
 .Order button{
-    margin: 1.8vh 0;
+    margin: 1.8vh 10px;
     height: 50%;
+    transition: .45s
 }
 .UnderlineStyle{
     text-transform: uppercase;

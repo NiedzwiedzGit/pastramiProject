@@ -33,7 +33,8 @@ class Main extends Component {
         text: false,
         test: null,
         id: [],
-        folderName: 'newposts'
+        folderName: 'newposts',
+        active: null
     }
 
     deletePost = (id, imgName, key) => {
@@ -65,7 +66,22 @@ class Main extends Component {
         // ImgBlock = this.props.postContent.map((res, index) => {
         ImgBlock = testArray.map((res, index) => {
             // console.log('split ', res.url.split(","))
-            return <ContentBlock key={index} num={index} />
+            // return <ContentBlock key={index} num={index} />
+            //<div className={[classes[this.state.active]].join(' ')}
+            // onMouseEnter={() => this.setState({ active: "Active" })}
+            // onMouseLeave={() => this.setState({ active: "ContentBlock" })}>
+
+
+            // </div>
+
+            return <div className={[classes[this.state.active]].join(' ')}
+                onMouseEnter={() => this.setState({ active: "Active" })}
+                onMouseLeave={() => this.setState({ active: "ContentBlock" })}>
+
+                <ContentBlock key={index} num={index} class={index % 2 ? "ContentBlockPaire" : null} />
+
+            </div>
+
             // <ImagesBlock
             //     auth={true}
             //     close={this.state.id.includes(res.key) ? 'Close' : null}
@@ -94,7 +110,10 @@ class Main extends Component {
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
     }
     render() {
-        //console.log(this.state.id)
+        console.log(this.state.active)
+
+
+
         return (
 
             <div className={classes.Main} >

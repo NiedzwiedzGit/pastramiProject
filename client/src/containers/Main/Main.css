@@ -1,11 +1,12 @@
 .Main{
     display: flex;
-    /* flex-flow: column;
-    align-items: center; */
+    flex-flow: row;
+    align-items: center;
+    justify-content:center;
     margin: 0;
     padding: 0;
     /* margin-top: 5vh; if header in Layout will be available*/ 
-    width: 100%;
+    width: 100vw;
     overflow: hidden; 
     height: 100vh;
     /* text-align: center;
@@ -15,6 +16,32 @@
     background-color: #F2F3F5;
 }
 
+.Main>div{
+    display: inline-block;
+    width: 20vw;
+   height: 100vh;
+   padding: 0;
+   margin: 0;
+   transition: 0.45s;
+}
+.Main>div:hover{
+    width: 35vw;
+}
+/* .Main>div:last-child:hover .Main>div{
+    width: 2vw;
+} */
+.Active :hover{
+    opacity: 1; 
+}
+
+.Active:not(:hover){
+    opacity:0.5; 
+}
+.Active{
+   opacity:1; 
+   transition: 0.45s;
+   animation-direction: reverse;
+}
 .Main::-webkit-scrollbar-button {
     display: none;
   }

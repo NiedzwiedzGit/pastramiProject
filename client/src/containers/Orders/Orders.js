@@ -17,6 +17,11 @@ import Order from '../../components/Order/Order';
 
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import { withRouter } from 'react-router-dom';
+import imgUrl from '../../assets/images/steamCook.png';
+import imgUrlRight from '../../assets/images/steamCookRight.png';
+import imgUrlOff from '../../assets/images/steamCookOfEmpty.png';
+import imgUrlOn from '../../assets/images/steamCookEmpty.png';
+import imgUrlEmptyWrapert from '../../assets/images/steamCookEmptyWrapper.png';
 
 const override = css`
   position:absolut;
@@ -32,10 +37,8 @@ class Przepisy extends Component {
         sumVal: null,
         touched: {
         }
-        // count: null
     }
     componentDidMount() {
-        // this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
         this.props.onfetchTextContent('orders');
     }
 
@@ -44,7 +47,6 @@ class Przepisy extends Component {
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
     }
     updatePostData = (postData) => {
-        // console.log("Przepisy update test ", postData)
         this.props.onUpdatePostData(postData);
         this.props.onAddNewPost();
     }
@@ -54,33 +56,24 @@ class Przepisy extends Component {
     }
     postSelectedHandler = (id, urlArray) => {
         this.props.history.push({ pathname: "info/" + id });
-        // console.log("urlArray ", urlArray)
         this.props.onUrlArray(urlArray);
     }
     addHandler = (price, textField) => {
         let countHendler = 1;
         if (this.state.touched[textField]) {
-            // if (this.state.touched[res.textField].visibility && this.state.touched[res.textField].count >= 0) {
             countHendler = ++this.state.touched[textField].count
-            // }
         }
         this.setState(prevState => {
-            // console.log('prevState ', prevState)
             return {
                 sumVal: prevState.sumVal + parseInt(price),
                 touched: {
                     ...this.state.touched, [textField]: { visibility: true, count: countHendler, price: parseInt(price) }
-                } //count: prevState.count + 1
+                }
             }
         })
-        // console.log("this.state.touched ", this.state.touched)
-
-
-        // console.log("this.state.touched.nameOfField ", this.state.touched[textField])
     }
     removeHandler = (price, textField) => {
         let countHendler = this.state.touched[textField].count - 1;
-        // console.log("test of this.state.sumVal removeHandler ", this.state.sumVal)
         let disable;
         this.state.touched[textField].count <= 1 ? disable = true : disable = false
         this.setState(prevState => {
@@ -130,7 +123,6 @@ class Przepisy extends Component {
                     let countHandler;
                     if (this.state.touched[res.textField]) {
                         if (this.state.touched[res.textField].visibility && this.state.touched[res.textField].count >= 0) {
-                            // console.log("this.state.touched[res.textField].visibility ", this.state.touched[res.textField].visibility);
                             disHandler = this.state.touched[res.textField].visibility
                             countHandler = `x ${this.state.touched[res.textField].count}`
                         }
@@ -140,9 +132,6 @@ class Przepisy extends Component {
                         auth={this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
                         name={res.textField}
                         price={res.price}
-                        // disable={this.state.sumVal == null || this.state.sumVal <= 0 && this.state.touched ? true : false
-                        // }
-
                         disable={
                             !disHandler
                         }
@@ -156,16 +145,12 @@ class Przepisy extends Component {
                     />
 
                 });
-
-                // console.log(ImgBlock);
             }
         } else { return null };
 
         return ImgBlock;
     }
     render() {
-        // console.log("this.state.count ", this.state.count)
-        // console.log("this.state.touched.count ", this.state.touched.count)
         let test = this.state.touched;
         let orderObj = Object.keys(this.state.touched).map((name, count) => {
 
@@ -174,55 +159,81 @@ class Przepisy extends Component {
         let sumBlock = (
             this.state.sumVal ?
                 <div className={classes.SumBlock}>
-                    <p><strong>Zamówienie:</strong></p><br />
-                    {Object.entries(this.state.touched).map((name, i) => {
-                        // console.log("test test ", name)
+                    <div className={classes.SumBlockContentWrasper}>
+                        <p><strong>Zamówienie:</strong></p><br />
+                        {Object.entries(this.state.touched).map((name, i) => {
 
-                        return name[1].count != 0 ?
-                            < div key={i} >
-                                <div className={classes.SumBlockCell}>
-                                    <p><strong>Przedmiot: </strong></p>
-                                    <p className={classes.UnderlineStyle}>{name[0]}</p>
+                            return name[1].count != 0 ?
+                                < div className={classes.SumBlockCellHolder} key={i} >
+                                    <div className={[classes.SumBlockCell, classes.SumBlockCellName].join(' ')}>
+                                        <p><strong>Przedmiot: </strong></p>
+                                        <p className={classes.UnderlineStyle}>{name[0]}</p>
+                                    </div>
+                                    <div className={classes.SumBlockCell}>
+                                        <p><strong>ilosc</strong> </p>
+                                        <p>{name[1].count} </p>
+                                    </div>
+                                    <div className={classes.SumBlockCell}>
+                                        <p><strong>waga</strong> </p>
+                                        <p>{name[1].count * 0.5} kg</p>
+                                    </div>
+                                    <div className={classes.SumBlockCell}>
+                                        <p><strong>na kwotę</strong> </p>
+                                        <p>{name[1].count * name[1].price} pln.</p>
+                                    </div>
+                                    <br />
                                 </div>
-                                <div className={classes.SumBlockCell}>
-                                    <p><strong>ilosc</strong> </p>
-                                    <p>{name[1].count} </p>
-                                </div>
-                                <div className={classes.SumBlockCell}>
-                                    <p><strong>waga</strong> </p>
-                                    <p>{name[1].count * 0.5} kg</p>
-                                </div>
-                                <div className={classes.SumBlockCell}>
-                                    <p><strong>na kwotę</strong> </p>
-                                    <p>{name[1].count * name[1].price} pln.</p>
-                                </div>
-                                <br />
-                            </div>
-                            : null
-                    })
-                    }
-                    <div className={[classes.SumBlockCell, classes.SumBlockCellPay].join(' ')}>
-                        <p><strong>Do zapłaty: </strong></p>
-                        <p> {this.state.sumVal} pln.</p>
+                                : null
+                        })
+                        }
+                        <div className={[classes.SumBlockCell, classes.SumBlockCellPay].join(' ')}>
+                            <p><strong>Do zapłaty: </strong></p>
+                            <p> {this.state.sumVal} pln.</p>
+                        </div>
                     </div>
-                    <ButtonBootstrap variant="success">Zamów</ButtonBootstrap>
+                    <div className={classes.SumBlockButton}>
+                        <ButtonBootstrap variant="success">Zamów</ButtonBootstrap>
+                    </div>
                 </div >
                 : null
         )
+        console.log("this.state.touched ", this.state.touched.count)
         return (
             <div className={classes.Przepisy}>
-                <BackBtn />
-                {this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
-                    <Button
-                        btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
-                        clicked={this.props.onAddNewPost} /> : null}
-                {this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ? <NewPost
-                    Przepisy={true}
-                    field={'textField price'}
-                    folderName={this.state.folderName}
-                /> : null}
+                <div className={[classes.ImgOrderBlock].join(' ')} >
+                    <div className={classes.Scene}>
+                        <div className={[classes.Cube, classes[this.state.sumVal ? 'Show_right' : null]].join(' ')}>
+                            <div className={[classes.Cube__face, classes['Cube__face--front']].join(' ')}>
+                                <img className={[classes[this.state.sumVal ? 'SteamOff' : 'SteamOn']].join(' ')} src={imgUrlOn} alt="" />
+                            </div>{/*, classes[this.state.sumVal ? 'Show_front' : null]*/}
+                            <div className={[classes.Cube__face, classes['Cube__face--back']].join(' ')}>back</div>{/*, classes[this.state.sumVal ? 'Show_back' : null] */}
+                            <div className={[classes.Cube__face, classes['Cube__face--right']].join(' ')}>
+                                <img className={[classes[this.state.sumVal ? null : 'SteamOn']].join(' ')} src={imgUrlRight} alt="" />
+                            </div>
+                            <div className={[classes.Cube__face, classes['Cube__face--left']].join(' ')}>left</div>{/*, classes[this.state.sumVal ? 'Show_left' : null] */}
+                            <div className={[classes.Cube__face, classes['Cube__face--top']].join(' ')}> top</div >{/*, classes[this.state.sumVal ? 'Show_top' : null] */}
+                            <div className={[classes.Cube__face, classes['Cube__face--bottom']].join(' ')}>bottom</div>{/*, classes[this.state.sumVal ? 'Show_bottom' : null] */}
+                        </div >
+                    </div >
+                    {/* <img className={[classes[this.state.sumVal ? 'SteamOff' : 'SteamOn']].join(' ')} src={imgUrlOf} alt="" /> */}
+                </div >
+                <div className={classes.OrderBlock}>
+                    <BackBtn /><br /><br />
+                    {
+                        this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
+                            <Button
+                                btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
+                                clicked={this.props.onAddNewPost} /> : null
+                    }
+                    {
+                        this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ? <NewPost
+                            Przepisy={true}
+                            field={'textField price'}
+                            folderName={this.state.folderName}
+                        /> : null
+                    }
 
-                {/* {<GooglePayButton
+                    {/* {<GooglePayButton
                     environment="TEST"
                     paymentRequest={{
                         apiVersion: 2,
@@ -265,16 +276,23 @@ class Przepisy extends Component {
                         console.log('Success', paymentRequest);
                     }}
                 />} */}
-                {this.props.addNewPostContainer ? <Backdrop
-                    show={this.props.addNewPostContainer}
-                    clicked={this.closeHandler} /> : null}
-                <div className={classes.ContentDiv}>
-                    <Suspense fallback={<div>loading</div>}>
-                        {this.onLoadContent()}
+                    {
+                        this.props.addNewPostContainer ? <Backdrop
+                            show={this.props.addNewPostContainer}
+                            clicked={this.closeHandler} /> : null
+                    }
+                    <div className={classes.ContentDiv}>
+                        <Suspense fallback={<div>loading</div>}>
+                            {this.onLoadContent()}
+                        </Suspense>
+                    </div>
+                    <div className={[classes.SumBlockWraper, classes[this.state.sumVal ? "Pulse" : null]].join(' ')}>
                         {sumBlock}
-                    </Suspense>
+                    </div>
                 </div>
-            </div>
+
+
+            </div >
         );
     }
 

@@ -9,11 +9,12 @@ const order = (props) => {
     return (
         <div className={classes.Order}>
             <span className={classes.UnderlineStyle}>{props.name}</span>
-            <span>{props.price} /500g.</span>
-            <span>{props.count}</span>
+            <span className={classes.Price}>{props.price} /500g.</span>
+            <span className={!props.disable ? classes.CountVisible : classes.CountUnVisible}>{props.count}</span>
             <div className={classes.OrderBlockBtn}>
+                <ButtonBootstrap className={!props.disable ? classes.BlockBtnMinusVisible : classes.BlockBtnMinusUnVisible} variant="outline-danger" onClick={props.clickedMinus} disabled={props.disable}>-</ButtonBootstrap>
                 <ButtonBootstrap variant="outline-primary" onClick={props.clickedPlus}>+</ButtonBootstrap>
-                {!props.disable ? <ButtonBootstrap variant="outline-danger" onClick={props.clickedMinus} disabled={props.disable}>-</ButtonBootstrap> : null}
+
             </div>
             {
                 props.auth ? <div className={classes.ImagesBlockBtnSwipe}>

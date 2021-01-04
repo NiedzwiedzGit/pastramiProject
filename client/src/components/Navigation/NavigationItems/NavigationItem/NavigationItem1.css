@@ -1,0 +1,36 @@
+.NavigationItem{
+width: 20vw;
+height: 100vh;
+background-repeat: no-repeat;
+}
+.NavigationItem a{
+    font: 900 2vw myFirstFont,italic;
+-webkit-font-smoothing: antialiased;
+text-align: center;
+text-decoration: none;
+color:white;
+pointer-events: auto;
+background-repeat: no-repeat;
+box-sizing: inherit;
+touch-action: manipulation;
+position: relative;
+display: inline-block;
+overflow: hidden;
+cursor: pointer;
+white-space: normal;
+transition-property: transform,opacity,-webkit-transform;
+transition-duration: .45s;
+transition-delay: 0ms;
+transition-timing-function: cubic-bezier(.5,0,.1,1);
+will-change: transform,opacity;
+width: 100%;
+height: 100vh;
+background-size: auto 100% ;
+background-repeat: no-repeat;
+transform: translate3d(0px, 0px, 0px) scale(1);
+transition: .45s;
+/* transform: rotate(-90deg); */
+
+
+/* opacity: 0.8; */
+}

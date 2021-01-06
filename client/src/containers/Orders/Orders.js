@@ -201,6 +201,7 @@ class Przepisy extends Component {
         return (
             <div className={classes.Przepisy}>
                 <div className={[classes.ImgOrderBlock].join(' ')} >
+                    <div></div><br />
                     <div className={classes.Scene}>
                         <div className={[classes.Cube, classes[this.state.sumVal ? 'Show_right' : null]].join(' ')}>
                             <div className={[classes.Cube__face, classes['Cube__face--front']].join(' ')}>
@@ -215,6 +216,11 @@ class Przepisy extends Component {
                             <div className={[classes.Cube__face, classes['Cube__face--bottom']].join(' ')}>bottom</div>{/*, classes[this.state.sumVal ? 'Show_bottom' : null] */}
                         </div >
                     </div >
+                    <div className={[classes.SumBlockWraper, classes['Left'], classes[this.state.sumVal ? "GrowLeft" : null]].join(' ')}>
+                        <div className={[classes.SumBlockLineTopLeft, classes[this.state.sumVal ? "GrowTopLeft" : null]].join(' ')}></div>
+                        <div className={[classes.SumBlockLineLeft].join(' ')}></div>
+                        {/* {sumBlock} */}
+                    </div>
                     {/* <img className={[classes[this.state.sumVal ? 'SteamOff' : 'SteamOn']].join(' ')} src={imgUrlOf} alt="" /> */}
                 </div >
                 <div className={classes.OrderBlock}>
@@ -286,8 +292,10 @@ class Przepisy extends Component {
                             {this.onLoadContent()}
                         </Suspense>
                     </div>
-                    <div className={[classes.SumBlockWraper, classes[this.state.sumVal ? "Pulse" : null]].join(' ')}>
-                        {sumBlock}
+                    <div className={[classes.SumBlockWraper, classes['Right'], classes[this.state.sumVal ? "GrowRight" : null]].join(' ')}>
+                        <div className={[classes.SumBlockLineTopRight, classes[this.state.sumVal ? "GrowTopRight" : null]].join(' ')}></div>
+                        <div className={[classes.SumBlockLineRight].join(' ')}></div>
+                        {/* {sumBlock} */}
                     </div>
                 </div>
 

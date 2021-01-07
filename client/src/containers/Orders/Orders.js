@@ -16,7 +16,11 @@ import NewPost from '../NewPost/NewPost';
 import Order from '../../components/Order/Order';
 
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
+
+import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
+
 import imgUrl from '../../assets/images/steamCook.png';
 import imgUrlRight from '../../assets/images/steamCookRight.png';
 import imgUrlOff from '../../assets/images/steamCookOfEmpty.png';
@@ -98,27 +102,25 @@ class Przepisy extends Component {
             color={"grey"}
             loading={true}
         />;
+        let LinkBlock = [];
         if (this.props.textVar !== null) {
             if (this.props.textVar.length !== 0) {
+                // LinkBlock = this.props.textVar.map((res, index) => {
+                //     return <Link
+                //         activeClass="active"
+                //         to="test1"
+                //         spy={true}
+                //         smooth={true}
+                //         duration={250}
+                //         containerId="containerElement"
+                //         style={{ display: "inline-block", margin: "20px" }}
+                //     >
+                //         Go to test1
+                //         </Link>
+
+                // })
 
                 ImgBlock = this.props.textVar.map((res, index) => {
-
-                    // return <ImagesBlock
-                    //     auth={true}
-                    //     close={this.state.id.includes(res.key) ? 'Close' : null}
-                    //     key={index}
-                    //     url={res.url}
-                    //     page="Orders"
-                    //     showImg={false}
-                    //     text={res.textField}
-                    //     price={res.price}
-                    //     id={res.key}
-                    //     clicked={() => this.deletePost(res.id, res.imgName, res.key)}
-                    //     clickedUpdate={() => this.updatePostData(res)}
-                    //     clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))}
-                    // />
-                    // console.log('res.price ', typeof (res.price));
-                    // console.log("localStorage.getItem('email') ", localStorage.getItem('email'))
                     let disHandler;
                     let countHandler;
                     if (this.state.touched[res.textField]) {
@@ -127,10 +129,24 @@ class Przepisy extends Component {
                             countHandler = `x ${this.state.touched[res.textField].count}`
                         }
                     }
+                    LinkBlock.push(<Link
+                        activeClass="active"
+                        to={`orderBlock${index}`}
+                        spy={true}
+                        smooth={true}
+                        duration={250}
+                        containerId="containerElement"
+                        style={{ display: "inline-block", margin: "20px" }}
+                    >
+                        -
+                        -
+                        -
+                        </Link>)
 
-                    return <Order
+                    return <div><Order
                         auth={this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
                         name={res.textField}
+                        idCount={index}
                         price={res.price}
                         disable={
                             !disHandler
@@ -143,12 +159,24 @@ class Przepisy extends Component {
                         clickedUpdate={() => this.updatePostData(res)}
                         clicked={() => this.deletePost(res.id, res.imgName, res.key)}
                     />
+                        <div className={classes.BlockPriceTest}>
+                            <span >{res.price}_500</span>
+                        </div>
+                    </div>
 
                 });
             }
         } else { return null };
 
-        return ImgBlock;
+        console.log('map LinkBlock ', LinkBlock);
+        return [LinkBlock, ImgBlock];
+    }
+    scrollTo = () => {
+        scroller.scrollTo('2', {
+            duration: 800,
+            delay: 0,
+            smooth: 'easeInOutQuart'
+        })
     }
     render() {
         let test = this.state.touched;
@@ -197,6 +225,7 @@ class Przepisy extends Component {
                 </div >
                 : null
         )
+        let content = this.onLoadContent();
         console.log("this.state.touched ", this.state.touched.count)
         return (
             <div className={classes.Przepisy}>
@@ -224,7 +253,9 @@ class Przepisy extends Component {
                     {/* <img className={[classes[this.state.sumVal ? 'SteamOff' : 'SteamOn']].join(' ')} src={imgUrlOf} alt="" /> */}
                 </div >
                 <div className={classes.OrderBlock}>
-                    <BackBtn /><br /><br />
+
+                    <BackBtn />
+
                     {
                         this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
                             <Button
@@ -287,11 +318,25 @@ class Przepisy extends Component {
                             show={this.props.addNewPostContainer}
                             clicked={this.closeHandler} /> : null
                     }
-                    <div className={classes.ContentDiv}>
+                    {/* onWheel = {(e) => this.wheel(e)} */}
+
+
+                    <Element className={classes.ContentDiv}
+                        id="containerElement"
+                    >
+
+                        {/* <Link activeClass="active" className="test6" to="test2" spy={true} smooth={true} duration={500}>Test 6 (anchor)</Link> */}
                         <Suspense fallback={<div>loading</div>}>
-                            {this.onLoadContent()}
+                            {content[1]}
+                            {/* <div className={classes.ContentNav}>
+                                <ButtonBootstrap variant="outline-danger" onClick={() => this.scrollTo()}>Remove</ButtonBootstrap><br />
+                            </div> */}
                         </Suspense>
+                    </Element>
+                    <div className={classes.ContentDivLink}>
+                        {content[0]}
                     </div>
+                    {/* <div className={classes.ContentDivTest}></div> */}
                     <div className={[classes.SumBlockWraper, classes['Right'], classes[this.state.sumVal ? "GrowRight" : null]].join(' ')}>
                         <div className={[classes.SumBlockLineTopRight, classes[this.state.sumVal ? "GrowTopRight" : null]].join(' ')}></div>
                         <div className={[classes.SumBlockLineRight].join(' ')}></div>

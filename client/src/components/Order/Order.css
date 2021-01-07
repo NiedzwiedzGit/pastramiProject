@@ -1,19 +1,36 @@
 .Order{
-    display: flex;
-    flex-flow: row;
-    width: 40vw;
+    display: flex!important;
+    flex-direction: column!important;
+    width: 100vw!important;
+    height: 100vh;
     margin: 20px 0;
     justify-content: space-around;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; */
     border-radius: 25px;
-    height: 80px;
+    /* height: 80px; */
 }
+@font-face {
+    font-family: sidePriceFont;
+    /* src: url(../../assets/font/anybody/Anybody-CondensedBlackItalic.woff2); */
+    /* src: url(../../assets/font/ArfelickFeather/ArfelickFeather.otf); */
+    src: url(../../assets/font/SourceSans/SourceSansPro-Black.ttf);
 
-.Price::after,.Price::before{
+  }
+
+.Price{
+    font-size: 1000%;
+    width: 100px;
+    height: 100px;
+    transform: rotate(90deg) translateY(-550px) translateX(-300px);
+    /* font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 900!important; */
+    font: 900 4vw sidePriceFont,sans-serif;
+}
+/* .Price::after,.Price::before{
     content: "";
     margin: 10px 20px;
     border-left: 1px solid black;
-}
+} */
 .Order span{
     height: 100%;
     padding: 2vh 0;
@@ -42,8 +59,9 @@
     transition: .45s
 }
 .UnderlineStyle{
-    text-transform: uppercase;
-    font-style: italic;
+    font-size: 400%!important;
+    /* text-transform: uppercase; */
+    font-family: 'Source Sans Pro', sans-serif;
 }
 /*  */
 /* .OrderBlockBtn{

@@ -40,7 +40,8 @@ class Przepisy extends Component {
         folderName: 'orders',
         sumVal: null,
         touched: {
-        }
+        },
+        classHandler: false
     }
     componentDidMount() {
         this.props.onfetchTextContent('orders');
@@ -123,6 +124,7 @@ class Przepisy extends Component {
                 ImgBlock = this.props.textVar.map((res, index) => {
                     let disHandler;
                     let countHandler;
+                    let classHandler;
                     if (this.state.touched[res.textField]) {
                         if (this.state.touched[res.textField].visibility && this.state.touched[res.textField].count >= 0) {
                             disHandler = this.state.touched[res.textField].visibility
@@ -143,22 +145,27 @@ class Przepisy extends Component {
                         -
                         </Link>)
 
-                    return <div><Order
-                        auth={this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
-                        name={res.textField}
-                        idCount={index}
-                        price={res.price}
-                        disable={
-                            !disHandler
-                        }
-                        count={countHandler}
-                        clickedMinus={() => this.removeHandler(res.price, res.textField)
-                        }
-                        clickedPlus={() => this.addHandler(res.price, res.textField)
-                        }
-                        clickedUpdate={() => this.updatePostData(res)}
-                        clicked={() => this.deletePost(res.id, res.imgName, res.key)}
-                    />
+                    return <div
+                        id="dsfsdf"
+                        onMouseEnter={() => this.setState({ classHandler: true })}
+                        onMouseLeave={() => this.setState({ classHandler: false })}
+                    ><Order
+                            auth={this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
+                            name={res.textField}
+                            idCount={index}
+                            price={res.price}
+                            disable={
+                                !disHandler
+                            }
+                            activeClass={this.state.classHandler}
+                            count={countHandler}
+                            clickedMinus={() => this.removeHandler(res.price, res.textField)
+                            }
+                            clickedPlus={() => this.addHandler(res.price, res.textField)
+                            }
+                            clickedUpdate={() => this.updatePostData(res)}
+                            clicked={() => this.deletePost(res.id, res.imgName, res.key)}
+                        />
                         <div className={classes.BlockPriceTest}>
                             <span >{res.price}_500</span>
                         </div>

@@ -14,10 +14,14 @@ const order = (props) => {
             <div>
                 <span className={classes.UnderlineStyle} >{props.name}</span>
                 <span className={!props.disable ? classes.CountVisible : classes.CountUnVisible} >{props.count}</span>
-                < div className={classes.OrderBlockBtn} >
+                {/* < div className={classes.OrderBlockBtn} >
                     <ButtonBootstrap className={!props.disable ? classes.BlockBtnMinusVisible : classes.BlockBtnMinusUnVisible} variant="outline-danger" onClick={props.clickedMinus} disabled={props.disable}>-</ButtonBootstrap>
                     <ButtonBootstrap variant="outline-primary" onClick={props.clickedPlus}>+</ButtonBootstrap>
 
+                </div > */}
+                < div className={!props.activeClass ? classes.OrderBlockBtn : classes.OrderBlockBtnRotate} >
+                    <button className={!props.disable ? classes.BlockBtnMinusVisible : classes.BlockBtnMinusUnVisible} onClick={props.clickedMinus} >-</button>{/*disabled={props.disable}*/}
+                    <button className={!props.activeClass ? classes.BlockBtnPlusHide : classes.BlockBtnPlus} onClick={props.clickedPlus}>+</button>
                 </div >
                 {
                     props.auth ? <div className={classes.ImagesBlockBtnSwipe}>

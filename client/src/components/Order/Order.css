@@ -46,22 +46,67 @@
     width: 5%!important;
     opacity: 0!important;
 }
-.BlockBtnMinusVisible{
-    opacity: 1;
-}
-.BlockBtnMinusUnVisible{
-    opacity: 0!important;
-    
-}
+
 .Order button{
     margin: 1.8vh 10px;
-    height: 50%;
+    /* height: 50%; */
     transition: .45s
 }
 .UnderlineStyle{
     font-size: 400%!important;
     /* text-transform: uppercase; */
     font-family: 'Source Sans Pro', sans-serif;
+}
+.OrderBlockBtn{
+    display: flex!important;
+    flex-direction: column!important;
+    justify-content: center;
+    align-items: center;
+    transition:1s;
+}
+.OrderBlockBtnRotate{
+    display: flex!important;
+    flex-direction: column!important;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-90deg);
+    transition:1s;
+}
+.BlockBtnMinusVisible{
+    opacity: 1;
+    width: 50px;
+    height: 70px;
+    background: black;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 50%);
+    transition:1s;
+}
+.BlockBtnMinusVisible:hover{
+    /* clip-path: polygon(0 0, 100% 0, 100% 4%, 0 4%); */
+}
+.BlockBtnMinusUnVisible{
+    /* opacity: 0!important; */
+    width: 50px;
+    height: 70px;
+    background: black;
+    clip-path: polygon(0 44%, 100% 44%, 100% 52%, 0 52%);
+    transition:1s;
+}
+
+.BlockBtnPlus{
+    opacity: 1;
+    width: 50px;
+    height: 70px;
+    background: black;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 50%);
+    transform: rotate(-90deg);
+}
+.BlockBtnPlusHide{
+    width: 50px;
+    height: 70px;
+    background: black;
+    clip-path: polygon(0 44%, 100% 44%, 100% 52%, 0 52%);
+    transition:1s;
+    /* transform: rotate(90deg); */
 }
 /*  */
 /* .OrderBlockBtn{

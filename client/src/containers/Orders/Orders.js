@@ -41,7 +41,9 @@ class Przepisy extends Component {
         sumVal: null,
         touched: {
         },
-        classHandler: false
+        classHandler: false,
+        active: null,
+        clickLinkWraper: false
     }
     componentDidMount() {
         this.props.onfetchTextContent('orders');
@@ -131,19 +133,22 @@ class Przepisy extends Component {
                             countHandler = `x ${this.state.touched[res.textField].count}`
                         }
                     }
-                    LinkBlock.push(<Link
-                        activeClass="active"
-                        to={`orderBlock${index}`}
-                        spy={true}
-                        smooth={true}
-                        duration={250}
-                        containerId="containerElement"
-                        style={{ display: "inline-block", margin: "20px" }}
-                    >
-                        -
-                        -
-                        -
-                        </Link>)
+                    LinkBlock.push(
+                        <div
+                            className={this.props.active == index ? classes.Active : classes.LinkWraper}  > <Link /*classes.LinkWraper,*/
+                                activeClass="active"
+                                to={`orderBlock${index}`}
+                                spy={true}
+                                smooth={true}
+                                duration={250}
+                                containerId="containerElement"
+                                style={{ display: "inline-block", margin: "20px" }}
+                                onClick={() => this.setState({ active: index })}
+                            >
+                                -
+                                -
+                                -
+                        </Link></ div >)
 
                     return <div
                         id="dsfsdf"
@@ -221,21 +226,47 @@ class Przepisy extends Component {
                                 : null
                         })
                         }
-                        <div className={[classes.SumBlockCell, classes.SumBlockCellPay].join(' ')}>
+                        {/* <div className={[classes.SumBlockCell, classes.SumBlockCellPay].join(' ')}>
                             <p><strong>Do zapłaty: </strong></p>
                             <p> {this.state.sumVal} pln.</p>
-                        </div>
+                        </div> */}
                     </div>
-                    <div className={classes.SumBlockButton}>
+                    {/* <div className={classes.SumBlockButton}>
                         <ButtonBootstrap variant="success">Zamów</ButtonBootstrap>
-                    </div>
+                    </div> */}
                 </div >
                 : null
         )
         let content = this.onLoadContent();
-        console.log("this.state.touched ", this.state.touched.count)
+        console.log("this.state.clickLinkWraper ", this.state.clickLinkWraper)
         return (
             <div className={classes.Przepisy}>
+                <div className={[classes.OrderListwraper].join(' ')}
+                    onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}>
+                    <div className={[
+                        classes.LinkWraper,
+                        classes[this.state.sumVal ? "CheckBasket" : null],
+                        classes[this.state.clickLinkWraper ? "ClickLinkWraper" : null]].join(' ')}
+                    // onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}
+                    >
+                        <Link /*classes.LinkWraper,*/
+                            activeClass="active"
+                            // to={`orderBlock${index}`}
+                            spy={true}
+                            smooth={true}
+                            duration={250}
+                            containerId="containerElement"
+                            style={{ display: "inline-block", margin: "20px" }}
+                            // onClick={() => this.setState({ active: index })}
+                            onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}
+                        >
+                            -
+                            -
+                            -
+                        </Link>
+                    </div>
+                </div>
+                <div className={classes.Logo}></div>
                 <div className={[classes.ImgOrderBlock].join(' ')} >
                     <div></div><br />
                     <div className={classes.Scene}>
@@ -344,14 +375,30 @@ class Przepisy extends Component {
                         {content[0]}
                     </div>
                     {/* <div className={classes.ContentDivTest}></div> */}
-                    <div className={[classes.SumBlockWraper, classes['Right'], classes[this.state.sumVal ? "GrowRight" : null]].join(' ')}>
-                        <div className={[classes.SumBlockLineTopRight, classes[this.state.sumVal ? "GrowTopRight" : null]].join(' ')}></div>
-                        <div className={[classes.SumBlockLineRight].join(' ')}></div>
-                        {/* {sumBlock} */}
+                    <div className={[
+                        classes.SumBlockWraper,
+                        classes['Right'],
+                        classes[this.state.sumVal ? "GrowRight" : null]].join(' ')}>
+                        <div className={[
+                            classes.SumBlockLineTopRight,
+                            classes[this.state.sumVal ? "GrowTopRight" : null]].join(' ')}>
+                        </div>
+                        <div className={[
+                            classes.SumBlockLineRight].join(' ')}>
+                            <div className={[
+                                classes.SumBlockCell,
+                                classes.SumBlockCellPay].join(' ')}>
+                                <p><strong>Do zapłaty: </strong></p>
+                                <p> {this.state.sumVal} pln.</p>
+                            </div>
+                            <div className={classes.SumBlockButton}>
+                                <ButtonBootstrap variant="success">Zamów</ButtonBootstrap>
+                            </div></div>
+
                     </div>
                 </div>
 
-
+                {sumBlock}
             </div >
         );
     }

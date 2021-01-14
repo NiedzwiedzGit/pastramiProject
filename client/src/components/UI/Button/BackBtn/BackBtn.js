@@ -5,12 +5,14 @@ import ButtonBootstrap from 'react-bootstrap/Button';
 import classes from './BackBtn.css';
 
 const buttonBack = (props) => (
-    <NavLink
-        to={"/"}
-        className={classes.BackBtn}
-    // link="/o_nas"
-    >
-        <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
-    </NavLink>
+    <div className={classes.BackBtnBlock}>
+        <NavLink
+            to={"/"}
+            className={classes.BackBtn}
+        // link="/o_nas"
+        >
+            <ButtonBootstrap variant="dark"> </ButtonBootstrap>
+        </NavLink>
+    </div>
 );
 export default buttonBack;

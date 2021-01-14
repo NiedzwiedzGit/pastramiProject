@@ -48,12 +48,12 @@
 }
 
 .Order button{
-    margin: 1.8vh 10px;
+    margin: 1.8vh;
     /* height: 50%; */
     transition: .45s
 }
 .UnderlineStyle{
-    font-size: 400%!important;
+    font-size: 600%!important;
     /* text-transform: uppercase; */
     font-family: 'Source Sans Pro', sans-serif;
 }
@@ -72,6 +72,13 @@
     transform: rotate(-90deg);
     transition:1s;
 }
+.OrderBlockCirkle{
+    width: 20px!important;
+    height: 20px!important;
+    padding: 0!important;
+    background: black;
+    clip-path: circle(50% at 50% 50%);
+}
 .BlockBtnMinusVisible{
     opacity: 1;
     width: 50px;
@@ -88,7 +95,7 @@
     width: 50px;
     height: 70px;
     background: black;
-    clip-path: polygon(0 44%, 100% 44%, 100% 52%, 0 52%);
+    clip-path: polygon(0 48%, 100% 48%, 100% 52%, 0 52%);
     transition:1s;
 }
 
@@ -104,9 +111,9 @@
     width: 50px;
     height: 70px;
     background: black;
-    clip-path: polygon(0 44%, 100% 44%, 100% 52%, 0 52%);
+    clip-path: polygon(0 48%, 100% 48%, 100% 52%, 0 52%);
     transition:1s;
-    /* transform: rotate(90deg); */
+    transform: rotate(90deg);
 }
 /*  */
 /* .OrderBlockBtn{

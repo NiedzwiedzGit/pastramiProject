@@ -36,6 +36,7 @@
 
 .Active:not(:hover){
     opacity:0.5; 
+    filter: blur(4px);
 }
 .Active{
    opacity:1; 

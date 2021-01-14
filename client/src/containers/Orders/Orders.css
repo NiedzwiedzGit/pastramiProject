@@ -12,7 +12,15 @@
     background-size: 100% 100%;
     background-color: #F2F3F5;
 }
-
+.Logo{
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    left: 5%;
+    top:5%;
+    background:  url("../../assets//images/logo.png")no-repeat  center;
+    background-size: 100% ;
+}
 
 .ImgOrderBlock{
     display: flex;
@@ -243,17 +251,67 @@ background-size: auto 80%;
     opacity: 0.5;
 }
 .BlockPriceTest{
-    height: 30px;
+    /* height: 30px; */
     font-size: 1000%;
     transform: rotate(90deg);
 }
 .ContentDivLink{
     position: absolute;
+    height: 70vh;
     display: flex;
     flex-direction: column;
-    top:50%;
-    left:49%;
+    justify-content: flex-end;
+    top:10%;
+    left:48.5%;
+
+
 }
+
+.ContentDivLink a{
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    cursor: pointer;
+    clip-path: polygon(0% 99%, 0% 0%, 100% 0, 100% 100%, 95% 100%, 95% 5%, 48% 5%, 5% 5%, 5% 100%);
+    transition:.3s;
+}
+
+.OrderListwraper{
+    position: absolute;
+    left:48%;
+    transition:3s;
+}
+.OrderListwraper a{
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    cursor: pointer;
+    clip-path: polygon(100% 5%, 5% 5%, 5% 30%, 0 30%, 0 0, 100% 0, 100% 3%, 100% 27%, 95% 27%, 95% 47%, 15% 47%, 0 47%, 0 72%, 5% 72%, 5% 52%, 100% 52%, 100% 70%, 95% 70%, 95% 95%, 44% 95%, 0 95%, 0 100%, 82% 100%, 100% 100%, 100% 65%);    transition:.3s;
+}
+.OrderListwraper .LinkWraper:hover a{
+    clip-path: polygon(100% 26%, 5% 27%, 5% 47%, 0 47%, 0 22%, 100% 21%, 100% 35%, 100% 27%, 95% 27%, 95% 47%, 15% 47%, 0 47%, 0 72%, 5% 72%, 5% 52%, 100% 52%, 100% 52%, 95% 51%, 95% 70%, 44% 70%, 0 70%, 0 75%, 82% 75%, 100% 75%, 100% 41%);
+}
+.OrderListwraper .ClickLinkWraper:hover a,
+.ClickLinkWraper a
+{
+    clip-path: polygon(31% 100%, 0 100%, 0 80%, 0 72%, 0 63%, 0 50%, 0 43%, 0 27%, 0 12%, 0 0, 26% 0, 30% 0, 71% 100%, 70% 0, 85% 0, 100% 0, 100% 19%, 100% 49%, 100% 68%, 100% 87%, 100% 100%, 95% 100%, 86% 100%, 71% 100%, 30% 0);
+
+}
+.CheckBasket a{
+    animation: wave 3s infinite;  
+    }
+
+.ContentDivLink .LinkWraper:hover a{
+    clip-path: polygon(50% 100%, 0% 0%, 100% 0, 50% 100%, 50% 100%, 95% 5%, 50% 100%, 5% 5%, 50% 100%);
+    transition:.3s;
+} 
+
+.ContentDivLink .LinkWraper:focus a{
+
+    clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);
+    transition:.3s;
+} 
+
 .OrderBlockBackButtom{
     position: absolute;
 
@@ -264,15 +322,18 @@ height: 400px;
 }
 .ContentDiv div{ display:block;width: 100%;}
 .SumBlock{
+    position: absolute!important;
+    top: 10%!important;
+    left:35%;
     display: flex;
     flex-flow: row;
     justify-content:space-between;
     align-items: stretch;
-    height: 100%;
-    width:  100%;
+    height: 500px;
+    width:  500px;
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
     border-radius: 25px; */
-    color: #F2F3F5;
+    color: rgb(20, 20, 20);
     /* transform: rotate(-5deg); */
         /* transform: skewX(170deg); */
 }
@@ -396,4 +457,14 @@ height: 400px;
     to {
         height:0px;
     }
+}
+
+@keyframes wave{
+    0% {
+        clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%, 95% 100%, 95% 5%, 94% 5%, 5% 50%, 5% 100%);    }
+    50%{
+        clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%, 95% 100%, 95% 5%, 95% 50%, 5% 5%, 5% 100%);
+    }
+    100% {
+        clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%, 95% 100%, 95% 5%, 94% 5%, 5% 50%, 5% 100%);    }
 }

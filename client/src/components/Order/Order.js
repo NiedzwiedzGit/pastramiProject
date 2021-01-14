@@ -21,6 +21,7 @@ const order = (props) => {
                 </div > */}
                 < div className={!props.activeClass ? classes.OrderBlockBtn : classes.OrderBlockBtnRotate} >
                     <button className={!props.disable ? classes.BlockBtnMinusVisible : classes.BlockBtnMinusUnVisible} onClick={props.clickedMinus} >-</button>{/*disabled={props.disable}*/}
+                    <button className={classes.OrderBlockCirkle}></button>
                     <button className={!props.activeClass ? classes.BlockBtnPlusHide : classes.BlockBtnPlus} onClick={props.clickedPlus}>+</button>
                 </div >
                 {

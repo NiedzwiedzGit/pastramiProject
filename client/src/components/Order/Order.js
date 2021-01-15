@@ -31,6 +31,9 @@ const order = (props) => {
                     </div > : null
                 }
             </div>
+            {/* <span className={[classes.OrderHelp, classes.OrderPlus].join(' ')}>+</span>
+            <span className={[classes.OrderHelp, classes.OrderMinus].join(' ')}>-</span> */}
+
             <div className={classes.Price}>
                 {/* <span className={classes.Price}>{props.price}_500g.</span> */}
             </div>

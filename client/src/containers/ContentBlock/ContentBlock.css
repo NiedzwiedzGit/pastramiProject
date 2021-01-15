@@ -20,6 +20,7 @@
     transition-timing-function: cubic-bezier(.5,0,.1,1);
     will-change: transform,opacity;
     transition: .45s;
+ 
     /* opacity: 0.8; */
  /* box-shadow: 0 5px 15px 10px #888888;   
   border-radius: 25px; */
@@ -86,6 +87,7 @@ transition-delay: .30s;
     outline-width: 0;
      transform: translate3d(0px, 0px, 0px) scale(1); 
     opacity: 1; 
+    
 }
 /* .Active:hover ~.ContentBlock a{
     color: blue;
@@ -147,7 +149,7 @@ transition-delay: .30s;
     z-index: 100;
 }
 @media(max-width:700px){
-    .ContentBlock {
+    /* .ContentBlock {
         display: block;
         position: relative;
         flex-flow: column;
@@ -160,7 +162,7 @@ transition-delay: .30s;
         overflow: none;
         text-align: center;
         border: 2px solid black;
-        }
+        } */
         .ContentBlock p{
             padding: 0;
         }

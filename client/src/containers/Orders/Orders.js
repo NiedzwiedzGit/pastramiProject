@@ -172,7 +172,7 @@ class Przepisy extends Component {
                             clicked={() => this.deletePost(res.id, res.imgName, res.key)}
                         />
                         <div className={classes.BlockPriceTest}>
-                            <span >{res.price}_500</span>
+                            <span >{res.price}pln_500g</span>
                         </div>
                     </div>
 
@@ -198,9 +198,10 @@ class Przepisy extends Component {
         })
         let sumBlock = (
             this.state.sumVal ?
-                <div className={classes.SumBlock}>
+                <div className={[classes.SumBlock, classes[this.state.clickLinkWraper ? 'SumBlockShow' : null]].join(' ')
+                }>
                     <div className={classes.SumBlockContentWrasper}>
-                        <p><strong>Zamówienie:</strong></p><br />
+                        <div><strong>Zamówienie:</strong></div><br />
                         {Object.entries(this.state.touched).map((name, i) => {
 
                             return name[1].count != 0 ?
@@ -241,11 +242,15 @@ class Przepisy extends Component {
         console.log("this.state.clickLinkWraper ", this.state.clickLinkWraper)
         return (
             <div className={classes.Przepisy}>
-                <div className={[classes.OrderListwraper].join(' ')}
+                {/* <span className={[classes.OrderHelp, classes.OrderPlus].join(' ')}>+</span>
+                <span className={[classes.OrderHelp, classes.OrderMinus].join(' ')}>-</span> */}
+                <div className={this.state.clickLinkWraper ? classes.BlurBlock : null}></div>
+                <div className={[classes.OrderListwraper,
+                classes[this.state.sumVal ? "OrderListwraperShow" : null]].join(' ')}
                     onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}>
                     <div className={[
                         classes.LinkWraper,
-                        classes[this.state.sumVal ? "CheckBasket" : null],
+                        // classes[this.state.sumVal ? "CheckBasket" : null],
                         classes[this.state.clickLinkWraper ? "ClickLinkWraper" : null]].join(' ')}
                     // onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}
                     >
@@ -255,7 +260,7 @@ class Przepisy extends Component {
                             spy={true}
                             smooth={true}
                             duration={250}
-                            containerId="containerElement"
+                            // containerId="containerElement"
                             style={{ display: "inline-block", margin: "20px" }}
                             // onClick={() => this.setState({ active: index })}
                             onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}
@@ -387,13 +392,15 @@ class Przepisy extends Component {
                             classes.SumBlockLineRight].join(' ')}>
                             <div className={[
                                 classes.SumBlockCell,
-                                classes.SumBlockCellPay].join(' ')}>
-                                <p><strong>Do zapłaty: </strong></p>
+                                classes.SumBlockCellPay, classes[this.state.sumVal ? "SumBlockCellPayActive" : null]].join(' ')}>
+                                <p><strong>SUMA: </strong></p>
                                 <p> {this.state.sumVal} pln.</p>
+                                <div className={classes.SumBlockButton}>
+                                    <ButtonBootstrap variant="dark">Zamów</ButtonBootstrap>
+                                </div>
                             </div>
-                            <div className={classes.SumBlockButton}>
-                                <ButtonBootstrap variant="success">Zamów</ButtonBootstrap>
-                            </div></div>
+
+                        </div>
 
                     </div>
                 </div>

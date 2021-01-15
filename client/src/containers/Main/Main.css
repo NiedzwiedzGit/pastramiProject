@@ -23,9 +23,11 @@
    padding: 0;
    margin: 0;
    transition: 0.45s;
+   filter: grayscale(100%);
 }
 .Main>div:hover{
     width: 35vw;
+    filter: grayscale(0%);
 }
 /* .Main>div:last-child:hover .Main>div{
     width: 2vw;
@@ -36,7 +38,7 @@
 
 .Active:not(:hover){
     opacity:0.5; 
-    filter: blur(4px);
+    filter: blur(4px) grayscale(100%);
 }
 .Active{
    opacity:1; 
@@ -52,10 +54,27 @@
 }
 .MainContentPicture:hover{
     transform: scale(1.5);
+    
 }
 @media(max-width:700px){
     .Main{
         display: block;
     overflow: none;
 }
+.Main>div {
+    display: block;
+    position: relative;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    /* clear: both;
+    margin: 0;
+    padding: 0; */
+    width: 100vw;
+    height: 20vh;
+    /* overflow: none; */
+    text-align: center;
+    border: 2px solid black;
+    }    
+     .Main>div p{width: 100%!important;}
 }

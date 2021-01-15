@@ -52,9 +52,8 @@ background-size: auto 60%;
     margin-right: auto;
     width: 400px;
   height: 400px;
-  /* border: 1px solid #CCC; */
-  /* margin: 80px; */
   perspective: 800px;
+  transition:1s;
   }
   
   .Cube {
@@ -76,12 +75,12 @@ background-size: auto 60%;
   font-weight: bold;
   color: white;
   text-align: center;
+  transition:1s;
   }
   .Cube__face img{
       width: 100%;
       height: 100%;
   }
-  /* .Cube .Show_front  { transform: translateZ(-100px) rotateY(0deg); } */
 .Show_right  { transform: translateZ(-100px) rotateY(-20deg); }
   /* .Cube .Show_back   { transform: translateZ(-100px) rotateY(-180deg); }
   .Cube .Show_left   { transform: translateZ(-100px) rotateY(90deg); }
@@ -113,10 +112,6 @@ transition: 1s;
 opacity: 0;
 transition: 1s;
 }
-/* .SteamOn{
-    background: #F2F3F5 url("../../assets//images/steamCookOf.png") no-repeat center;
-background-size: auto 80%;
-} */
    
 .OrderBlock{
     height: 100vh;
@@ -131,9 +126,40 @@ background-size: auto 80%;
 }
 /* .OrderBlock button{transform: skewX(175deg); } */
 
+.SumBlock{
+    position: absolute!important;
+    z-index: 99;
+    top: -100%;
+    left: 40%;
+    display: flex;
+    flex-flow: column;
+    justify-content:space-between;
+    align-items: stretch;
+    height: auto;
+    width:  500px;
+    transition:.7s;
+    color: rgb(20, 20, 20);
+    border: 4px solid  rgb(52, 52, 73);
+}
+.SumBlockShow{
+    top: 40%;
+    transition: .7s;
+}
+.BlurBlock{
+    position: absolute;
+    z-index: 98;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(216, 212, 212,.2);
+    /* filter: blur(4px); */
+    backdrop-filter: blur(10px);
+    transition:1.3s;
+
+}
 .SumBlockWraper{
     height:20vh;
     width: 100%;
+
     /* border: 4px solid  rgb(52, 52, 73); */
     /* border: 2px solid black; */
     transform: translateX(0) translateY(5px); 
@@ -145,15 +171,7 @@ background-size: auto 80%;
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; */
     /* box-shadow: rgba(218, 47, 47, 0.9) 0px 2px 2px 5px; */  
 }
-.SumBlockWraper:hover{
-    height:20vh;
-    width: 100%;
-    /* animation-iteration-count: 1; */
-    /* transform: translateX(0) translateY(0%); */
-    border-radius: 80px 0 0 0;
 
-    /* box-shadow: rgba(218, 47, 47, 0.9) 0px 2px 2px 5px; */
-}
 .Right{
     display: flex;
     flex-flow: column;
@@ -248,12 +266,9 @@ background-size: auto 80%;
     transform:rotate(90deg) translateX(-250px) translateY(-200px)!important;
         font-family: 'Source Sans Pro', sans-serif;
     font-weight: 900!important;
+    font-size: 800%;
     opacity: 0.5;
-}
-.BlockPriceTest{
-    /* height: 30px; */
-    font-size: 1000%;
-    transform: rotate(90deg);
+    transition:1s;
 }
 .ContentDivLink{
     position: absolute;
@@ -278,8 +293,14 @@ background-size: auto 80%;
 
 .OrderListwraper{
     position: absolute;
+    z-index: 100;
     left:48%;
-    transition:3s;
+    transform: translateY(-150px);
+    transition:.3s;
+}
+.OrderListwraperShow{
+    transform: translateY(50px);
+
 }
 .OrderListwraper a{
     width: 40px;
@@ -295,7 +316,6 @@ background-size: auto 80%;
 .ClickLinkWraper a
 {
     clip-path: polygon(31% 100%, 0 100%, 0 80%, 0 72%, 0 63%, 0 50%, 0 43%, 0 27%, 0 12%, 0 0, 26% 0, 30% 0, 71% 100%, 70% 0, 85% 0, 100% 0, 100% 19%, 100% 49%, 100% 68%, 100% 87%, 100% 100%, 95% 100%, 86% 100%, 71% 100%, 30% 0);
-
 }
 .CheckBasket a{
     animation: wave 3s infinite;  
@@ -307,71 +327,89 @@ background-size: auto 80%;
 } 
 
 .ContentDivLink .LinkWraper:focus a{
-
     clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);
     transition:.3s;
 } 
-
 .OrderBlockBackButtom{
     position: absolute;
-
     top:0;
 }
+
 .BlockCell{
 height: 400px;
 }
-.ContentDiv div{ display:block;width: 100%;}
-.SumBlock{
-    position: absolute!important;
-    top: 10%!important;
-    left:35%;
-    display: flex;
-    flex-flow: row;
-    justify-content:space-between;
-    align-items: stretch;
-    height: 500px;
-    width:  500px;
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
-    border-radius: 25px; */
-    color: rgb(20, 20, 20);
-    /* transform: rotate(-5deg); */
-        /* transform: skewX(170deg); */
+
+.ContentDiv div{ 
+    display:block;width: 100%;
 }
-.Pulse {
-    /* animation: pulse 2s infinite; */
-}
+/* .OrderHelp{
+    position: absolute;
+    font-size: 1000px;
+    bottom: -10%;
+    right: 10%;
+} */
+
 .SumBlockContentWrasper{
     overflow: scroll;
     display: flex;
     flex-flow: column;
     justify-content:center;
+    justify-content:space-between;
     height: 100%;
     width: 100%;
-
+    transition:1.3s;
 }
+
 .SumBlockContentWrasper::-webkit-scrollbar {
     display: none;
   }
-.SumBlockCellPay{
-/* background-color: blanchedalmond; */
-}
+
 .SumBlockCellHolder{
     margin: 20px 0;
+    animation: cellAdd 1s ;
 }
 .SumBlockCellName{
     width: 200px;
 }
-.SumBlockButton {
-    /* position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 20vh; */
+
+.SumBlockCellPay{
     display: flex;
-    /* margin: 40px 0 0 0; */
-    /* width: 20%; */
-    /* border-radius:0 0 25px 25px; */
+    flex-flow: row;
+    width: 600px;
+    font-size: 70px;
+    transform: translateX(200%);
+    opacity: 0;
+    transition:2s;
+
+}
+.SumBlockCellPayActive{
+    transform: translateX(0);
+    opacity: 1;
+    transition:2s;
+}
+.SumBlockButton {
+    width: 100px;
+    height: 100px;
+    margin:10px 0 0 0 ;
+    display: flex;
     text-align: center;
     justify-content: center;
+    background-color: black;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 100% 100%, 38% 100%, 0% 50%);
+    transition:.45s;
+}
+.SumBlockButton:hover {
+    clip-path: polygon(0 0, 61% 0, 100% 50%, 67% 100%, 0 100%, 0% 50%);
+}
+
+.SumBlockButton button{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border: none;
+}
+.SumBlockButton button:hover{
+    background-color: black;
 }
 .SumBlockContentWrasper>div{
     display: flex;
@@ -395,9 +433,142 @@ height: 400px;
     text-transform: uppercase;
     font-style: italic;
 }
-
-@media(max-width:850px){
+@media(max-width:1970px){
+    .SumBlockCellPay{
+        width: 500px;
+        font-size: 50px;   
+    }
     .SumBlock{
+        left: 35%;
+        background-color: rgba(253, 253, 253,0.8);
+    }
+}
+@media(max-width:1280px){
+    .SumBlockCellPay{
+        width: 400px;
+        font-size: 40px;   
+    }
+    .SumBlockButton {
+        width: 80px;
+        height: 80px;
+    }
+    .SumBlock{
+        left: 30%;
+    }
+    .BlockPriceTest{
+        transform:rotate(90deg) translateX(-200px) translateY(-150px)!important;
+        font-weight: 900!important;
+        font-size: 600%;
+    }
+    .Logo{
+        width: 150px;
+        height: 100px;
+    }
+}
+@media(max-width:1025px){
+    .SumBlockCellPay{
+        width: 400px;
+        font-size: 40px;   
+    }
+    .SumBlockButton {
+        width: 70px;
+        height: 70px;
+    }
+    .SumBlock{
+        left: 30%;
+    }
+    .BlockPriceTest{
+        transform:rotate(90deg) translateX(-150px) translateY(-120px)!important;
+        font-weight: 900!important;
+        font-size: 450%;
+    }
+
+    .Scene {
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+      height: 200px;
+      perspective: 800px;
+      }
+      
+      .Cube {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: translateZ(-50px);
+        transition: transform 1s; 
+      }
+      
+      .Cube__face {
+        position: absolute;
+      width: 200px;
+      height: 200px;
+      /* border: 2px solid black; */
+      line-height: 200px;
+      font-size: 40px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      }
+      .Cube__face img{
+          width: 100%;
+          height: 100%;
+      }
+    .Show_right  { transform: translateZ(-100px) rotateY(-20deg); }
+
+    
+    .Cube__face--front  { transform: rotateY(0deg) translateZ(100px); 
+        background: rgb(46, 47, 48) url("../../assets//images/steamCookEmptyWrapper.png") no-repeat center; 
+        background-size: auto 100%;
+        border-radius: 5px;
+    }
+    .Cube__face--right  { transform: rotateY(90deg) translateZ(100px) translateY(-6px);}
+    .Cube__face--back   { transform: rotateY(180deg) translateZ(100px);background-color: black;}
+    .Cube__face--left   { transform: rotateY(-90deg) translateZ(97.5px);background-color: black;border-radius: 15px;}
+    .Cube__face--top    { transform: rotateX(90deg) translateZ(97.5px);background-color: black;border-radius: 10px;}
+    .Cube__face--bottom { transform: rotateX(-90deg) translateZ(100px);background-color: grey;border-radius: 10px;}
+
+    .SumBlockWraper{
+        height:150px;
+    }
+
+    .Logo{
+        width: 150px;
+        height: 100px;
+    }
+    
+}
+@media(max-width:850px){
+    .SumBlockCellPay{
+        width: 300px;
+        font-size: 20px;   
+    }
+    .SumBlockButton {
+        width: 80px;
+        height: 50px;
+        font-size: 10px;
+    }
+    .SumBlock{
+        left: 20%;
+    }
+    .SumBlockWraper{
+        height:150px;
+    }
+    .BlockPriceTest{
+        transform:rotate(90deg) translateX(-10px) translateY(-100px)!important;
+        font-weight: 900!important;
+        font-size: 300%;
+    }
+    .ContentDiv{
+       width: 100%;
+       height: 60vh;
+    }
+    .Logo{
+        width: 150px;
+        height: 100px;
+    }
+    /* .SumBlock{
         width: 100vw;
         margin: 0 0 40px 0;
         display: flex;
@@ -427,7 +598,7 @@ height: 400px;
         font-size: 1.2em;
         width: auto;
         justify-content: center; 
-    }
+    } */
 }
 @keyframes imgEfects{
     0%{opacity: 0;};
@@ -467,4 +638,12 @@ height: 400px;
     }
     100% {
         clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%, 95% 100%, 95% 5%, 94% 5%, 5% 50%, 5% 100%);    }
+}
+
+@keyframes cellAdd{
+    0% {
+        opacity: 0;    }
+
+    100% {
+        opacity: 1;   }
 }

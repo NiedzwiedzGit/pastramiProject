@@ -89,6 +89,7 @@ transition: .45s;
         text-decoration: none;
         font: 900 10vh myFirstFont,italic;
         transform: rotate(0deg);
+        /* width: 100%; */
     }
 
     

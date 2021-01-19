@@ -72,7 +72,7 @@ const Coments = React.memo(props => {
                 textField: message,
                 date: date
             }
-            this.props.onAddComentContent(data);
+            props.onAddComentContent(data);
 
         }
         // this.props.onAddNewPost();
@@ -114,7 +114,7 @@ const Coments = React.memo(props => {
                         page="coment"
                         text={res.textField}
                         id={res.key}
-                        clicked={() => (this.deleteComent(res.id, res.key), setId([...id, res.key]))
+                        clicked={() => (deleteComent(res.id, res.key), setId([...id, res.key]))
                         }
                         clickedUpdate={() => (
                             setMessage(res.textField),
@@ -125,7 +125,7 @@ const Coments = React.memo(props => {
                             window.scrollTo(0, 0)
                         )
                         }
-                        clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))
+                        clickedOn={() => postSelectedHandler(res.key, res.url.split(","))
                         }
                     />
                 });

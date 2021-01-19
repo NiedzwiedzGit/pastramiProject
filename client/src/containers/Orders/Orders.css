@@ -3,7 +3,6 @@
     flex-flow: row;
     align-items: stretch;
     margin: auto;
-    /* padding-top: 5em; */
     width: 100%;
     height: 100vh;
     text-align: center;
@@ -11,6 +10,8 @@
     /* background: lightblue url("../../assets//images///elephant-monochrome-black-background-closeup-3504x2336-2957.jpg") no-repeat fixed center; */
     background-size: 100% 100%;
     background-color: #F2F3F5;
+    /* background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,0.32583472842261907) 0%, rgba(242,243,245,0.7740140001313025) 30%); */
 }
 .Logo{
     width: 300px;
@@ -248,7 +249,6 @@ transition: 1s;
     background-color: #F2F3F5;
    width: 100%;
    height: 70vh;
-   /* border: 1px solid black; */
    overflow: scroll;
    overflow-y:hidden;
    overflow-x: hidden; 
@@ -261,28 +261,30 @@ transition: 1s;
     justify-content: center;
     align-items: center;
     text-align: center;
+    /* border: 1px solid black; */
+
 }
 .BlockPriceTest{
     transform:rotate(90deg) translateX(-250px) translateY(-200px)!important;
         font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 900!important;
-    font-size: 800%;
+        width: 100%;
+    font-weight: 800!important;
+    font-size: 700%;
     opacity: 0.5;
     transition:1s;
 }
 .ContentDivLink{
     position: absolute;
-    height: 70vh;
+    height: 10vh;
+width: 100vw;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    top:10%;
-    left:48.5%;
-
-
+    flex-direction: row;
+    justify-content: center;
+    top:70%;
+    left:0;
 }
 
-.ContentDivLink a{
+ .LinkWraperMenu a{
     width: 40px;
     height: 40px;
     background-color: black;
@@ -302,17 +304,67 @@ transition: 1s;
     transform: translateY(50px);
 
 }
-.OrderListwraper a{
+
+.LinkWraperMenu {
+    border-radius: 10px;
+    box-shadow: 
+12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+-8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+/* text-shadow: 8px 2px 14px #000000; */
+}
+.ContentDivLink a{
+    width: 160px;
+    height: 80px;
+    border-radius: 10px;
+    box-shadow: 
+    6px 6px 8px 0 rgba(0, 0, 0, 0.25),
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.3);
+    text-align: center;
+    padding: 20px 0 0 0;
+    transition:.3s;
+}
+.LinkWraper{
+    border: 1px solid black;
+    box-shadow: 
+12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+-8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+}
+.ContentDivLink .Active{
+    border: 4px solid black;
+
+}
+/* .LinkWraper a{
+    width: 100%;
+    height: 100%;
+    margin: 0!important;
+} */
+.ContentDivLink a:hover,.ContentDivLink a:active{
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+/* .OrderListwraper a{
     width: 40px;
     height: 40px;
     background-color: black;
     cursor: pointer;
     clip-path: polygon(100% 5%, 5% 5%, 5% 30%, 0 30%, 0 0, 100% 0, 100% 3%, 100% 27%, 95% 27%, 95% 47%, 15% 47%, 0 47%, 0 72%, 5% 72%, 5% 52%, 100% 52%, 100% 70%, 95% 70%, 95% 95%, 44% 95%, 0 95%, 0 100%, 82% 100%, 100% 100%, 100% 65%);    transition:.3s;
+} */
+.LinkWraperMenu a{
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    cursor: pointer;
+    clip-path: polygon(100% 5%, 5% 5%, 5% 30%, 0 30%, 0 0, 100% 0, 100% 3%, 100% 27%, 95% 27%, 95% 47%, 15% 47%, 0 47%, 0 72%, 5% 72%, 5% 52%, 100% 52%, 100% 70%, 95% 70%, 95% 95%, 44% 95%, 0 95%, 0 100%, 82% 100%, 100% 100%, 100% 65%);    transition:.3s;
+
 }
-.OrderListwraper .LinkWraper:hover a{
+.OrderListwraper .LinkWraper:hover a,.ContentDivLink .LinkWraper:active a{
     clip-path: polygon(100% 26%, 5% 27%, 5% 47%, 0 47%, 0 22%, 100% 21%, 100% 35%, 100% 27%, 95% 27%, 95% 47%, 15% 47%, 0 47%, 0 72%, 5% 72%, 5% 52%, 100% 52%, 100% 52%, 95% 51%, 95% 70%, 44% 70%, 0 70%, 0 75%, 82% 75%, 100% 75%, 100% 41%);
 }
 .OrderListwraper .ClickLinkWraper:hover a,
+.OrderListwraper .ClickLinkWraper:active a,
 .ClickLinkWraper a
 {
     clip-path: polygon(31% 100%, 0 100%, 0 80%, 0 72%, 0 63%, 0 50%, 0 43%, 0 27%, 0 12%, 0 0, 26% 0, 30% 0, 71% 100%, 70% 0, 85% 0, 100% 0, 100% 19%, 100% 49%, 100% 68%, 100% 87%, 100% 100%, 95% 100%, 86% 100%, 71% 100%, 30% 0);
@@ -321,15 +373,17 @@ transition: 1s;
     animation: wave 3s infinite;  
     }
 
-.ContentDivLink .LinkWraper:hover a{
+/* .ContentDivLink .LinkWraper:hover a,
+.ContentDivLink .LinkWraper:active a{
     clip-path: polygon(50% 100%, 0% 0%, 100% 0, 50% 100%, 50% 100%, 95% 5%, 50% 100%, 5% 5%, 50% 100%);
     transition:.3s;
-} 
+}  */
 
-.ContentDivLink .LinkWraper:focus a{
+
+/* .ContentDivLink .LinkWraper:focus a{
     clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);
     transition:.3s;
-} 
+}  */
 .OrderBlockBackButtom{
     position: absolute;
     top:0;
@@ -340,7 +394,8 @@ height: 400px;
 }
 
 .ContentDiv div{ 
-    display:block;width: 100%;
+    display:block;
+    /* width: 100%; */
 }
 /* .OrderHelp{
     position: absolute;
@@ -375,11 +430,12 @@ height: 400px;
 .SumBlockCellPay{
     display: flex;
     flex-flow: row;
-    width: 600px;
+    width: 30vw;
     font-size: 70px;
-    transform: translateX(200%);
+    transform: translateX(400%);
     opacity: 0;
-    transition:2s;
+    /* transition-delay: 1s; */
+    transition-duration:2s;
 
 }
 .SumBlockCellPayActive{
@@ -568,6 +624,72 @@ height: 400px;
         width: 150px;
         height: 100px;
     }
+    @media(max-width:721px){
+        .Przepisy{
+            position: fixed;
+        }
+        .OrderBlock{
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            /* transform:translateY(40px); */
+        }
+        .BlockPriceTest{
+            transform:rotate(90deg) translateX(-160px) translateY(-50px)!important;
+            font-weight: 900!important;
+            font-size: 250%;
+        }
+        .SumBlock{
+            left: 0;
+            width: 100%;
+        }
+        .SumBlockCellName{
+            width:auto;
+        }
+        .ContentDiv{
+            height: 50%;
+            /* transform:translateY(40px); */
+            margin:100px 0 0 0 ;
+        }
+        .ImgOrderBlock{
+            display: none;
+        }
+   
+        .ContentDivLink{
+            position: absolute;
+            height: 10vh;
+            width: 100vw;
+            display: flex;
+            margin: 0;
+            flex-direction: row;
+            justify-content: center;
+            top:70%;
+            left:0;
+            z-index: 102;
+        }
+        /* .ContentDivLink .LinkWraper:active a{
+            clip-path: polygon(50% 100%, 0% 0%, 100% 0, 50% 100%, 50% 100%, 95% 5%, 50% 100%, 5% 5%, 50% 100%);
+            transition:.3s;
+        }  */
+        .Logo{
+            width: 100px;
+            height: 50px;
+        }
+        .OrderListwraper{
+            left:40%;
+            transform: translateY(-150px);
+        }
+        .OrderListwraperShow{
+            transform: translateY(10px);
+        
+        }
+        .GrowTopRight{
+            height: 20px;
+            margin: 50px 0 0 0;
+        }
+
+    }
     /* .SumBlock{
         width: 100vw;
         margin: 0 0 40px 0;
@@ -600,6 +722,12 @@ height: 400px;
         justify-content: center; 
     } */
 }
+/* @media (hover: hover) and (pointer: fine) {
+    .ContentDivLink .LinkWraper:hover a{
+        clip-path: polygon(50% 100%, 0% 0%, 100% 0, 50% 100%, 50% 100%, 95% 5%, 50% 100%, 5% 5%, 50% 100%);
+        transition:.3s;
+    } 
+  } */
 @keyframes imgEfects{
     0%{opacity: 0;};
     100%{opacity: 1;}

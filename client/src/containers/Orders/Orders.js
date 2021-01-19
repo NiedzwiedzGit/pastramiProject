@@ -14,6 +14,7 @@ import { css } from "@emotion/core";
 
 import NewPost from '../NewPost/NewPost';
 import Order from '../../components/Order/Order';
+import ScrollToOrder from '../../components/ScrollToOrder/ScrollToOrder';
 
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import { withRouter, NavLink } from 'react-router-dom';
@@ -98,6 +99,12 @@ class Przepisy extends Component {
         })
 
     }
+    classHandlerActive = (i) => {
+        console.log("classHandler ", i);
+
+        return i;
+
+    }
     onLoadContent = () => {
         let ImgBlock = <CircleLoader
             css={override}
@@ -106,6 +113,7 @@ class Przepisy extends Component {
             loading={true}
         />;
         let LinkBlock = [];
+        // let classHandler;
         if (this.props.textVar !== null) {
             if (this.props.textVar.length !== 0) {
                 // LinkBlock = this.props.textVar.map((res, index) => {
@@ -126,29 +134,40 @@ class Przepisy extends Component {
                 ImgBlock = this.props.textVar.map((res, index) => {
                     let disHandler;
                     let countHandler;
-                    let classHandler;
+                    let counter = 0;
+                    counter++
+
                     if (this.state.touched[res.textField]) {
                         if (this.state.touched[res.textField].visibility && this.state.touched[res.textField].count >= 0) {
                             disHandler = this.state.touched[res.textField].visibility
-                            countHandler = `x ${this.state.touched[res.textField].count}`
+                            countHandler = this.state.touched[res.textField].count
                         }
                     }
                     LinkBlock.push(
-                        <div
-                            className={this.props.active == index ? classes.Active : classes.LinkWraper}  > <Link /*classes.LinkWraper,*/
-                                activeClass="active"
-                                to={`orderBlock${index}`}
-                                spy={true}
-                                smooth={true}
-                                duration={250}
-                                containerId="containerElement"
-                                style={{ display: "inline-block", margin: "20px" }}
-                                onClick={() => this.setState({ active: index })}
-                            >
-                                -
-                                -
-                                -
-                        </Link></ div >)
+                        // <div
+                        //     className={this.props.active == index ? classes.Active : classes.LinkWraper}  >
+                        <ScrollToOrder
+                            index={index}
+                            textField={res.textField}
+                            count={countHandler}
+                        />
+                        // <Link /*classes.LinkWraper,*/
+                        //     activeClass="Active"
+                        //     // className={this.classHandlerActive() == index ? classes.Active : null}
+                        //     to={`orderBlock${index}`}
+                        //     spy={true}
+                        //     smooth={true}
+                        //     duration={250}
+                        //     containerId="containerElement"
+                        //     style={{ display: "inline-block", margin: "20px" }}
+                        //     // let classHandler;
+                        //     onClick={() => this.classHandlerActive(index)}
+                        // // onClick={() => this.setState({ active: index })}
+                        // >
+                        //     {res.textField}
+                        // </Link >
+                        // </ div >
+                    )
 
                     return <div
                         id="dsfsdf"
@@ -164,6 +183,7 @@ class Przepisy extends Component {
                             }
                             activeClass={this.state.classHandler}
                             count={countHandler}
+
                             clickedMinus={() => this.removeHandler(res.price, res.textField)
                             }
                             clickedPlus={() => this.addHandler(res.price, res.textField)
@@ -249,10 +269,8 @@ class Przepisy extends Component {
                 classes[this.state.sumVal ? "OrderListwraperShow" : null]].join(' ')}
                     onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}>
                     <div className={[
-                        classes.LinkWraper,
-                        // classes[this.state.sumVal ? "CheckBasket" : null],
+                        classes.LinkWraper, classes.LinkWraperMenu,
                         classes[this.state.clickLinkWraper ? "ClickLinkWraper" : null]].join(' ')}
-                    // onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}
                     >
                         <Link /*classes.LinkWraper,*/
                             activeClass="active"
@@ -265,9 +283,6 @@ class Przepisy extends Component {
                             // onClick={() => this.setState({ active: index })}
                             onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}
                         >
-                            -
-                            -
-                            -
                         </Link>
                     </div>
                 </div>
@@ -362,8 +377,6 @@ class Przepisy extends Component {
                             clicked={this.closeHandler} /> : null
                     }
                     {/* onWheel = {(e) => this.wheel(e)} */}
-
-
                     <Element className={classes.ContentDiv}
                         id="containerElement"
                     >

@@ -168,7 +168,7 @@ transition-delay: .30s;
         }
         .ContentBlock a{
             font: 900 10vh myFirstFont,italic;
-            left: -25%;
+            /* left: -25%; */
            
         }
         .ContentBlock a:hover{

@@ -56,7 +56,10 @@
     font-size: 600%!important;
     /* text-transform: uppercase; */
     font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    text-shadow: 8px 2px 14px #000000;
 }
+
 .OrderBlockBtn{
     display: flex!important;
     flex-direction: column!important;
@@ -72,6 +75,18 @@
     transform: rotate(-90deg);
     transition:1s;
 }
+.OrderBlockBtn .BlockBtnPlusWraper,.OrderBlockBtn .BlockBtnMinusWraper{
+    box-shadow: 0px 0px 0px 0 rgba(0, 0, 0, 0.25),
+    0px 0px 0px 0 rgba(255, 255, 255, 0.3);
+}
+.OrderBlockBtnRotate  .BlockBtnPlusWraper .BlockBtnPlus{
+    opacity: 1;
+    width: 50px;
+    height: 50px;
+    background: black;
+    clip-path: polygon(0 48%, 48% 48%, 48% 0, 52% 0, 52% 48%, 100% 48%, 100% 52%, 52% 52%, 52% 100%, 48% 100%, 48% 52%, 0 52%);   
+    transform: rotate(-90deg);
+}
 .OrderBlockCirkle{
     width: 20px!important;
     height: 20px!important;
@@ -83,28 +98,62 @@
 .BlockBtnMinusVisible{
     opacity: 1;
     width: 50px;
-    height: 70px;
+    height: 50px;
     background: black;
-    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 50%);
+    /* clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 50%); */
+    clip-path: polygon(0 48%, 100% 48%, 100% 52%, 0 52%);
+    transform: rotate(90deg);
     transition:1s;
 }
 .BlockBtnMinusUnVisible{
     /* opacity: 0!important; */
     width: 50px;
-    height: 70px;
+    height: 50px;
     background: black;
+    /* clip-path: polygon(0 48%, 100% 48%, 100% 52%, 0 52%); */
     clip-path: polygon(0 48%, 100% 48%, 100% 52%, 0 52%);
+/* transform: rotate(90deg); */
     transition:1s;
 }
 
 .BlockBtnPlus{
     opacity: 1;
     width: 50px;
-    height: 70px;
+    height: 50px;
     background: black;
-    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 50%);
+    /* clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 50%); */
+    clip-path: polygon(48% 48%, 48% 48%, 48% 0, 52% 0, 52% 48%, 52% 48%, 52% 52%, 52% 52%, 52% 100%, 48% 100%, 48% 52%, 48% 52%);
     transform: rotate(-90deg);
-
+transition:all 1s;
+}
+.BlockBtnPlusWraper,.BlockBtnMinusWraper{
+    /* width: 50px;
+    height: 50px; */
+    /* border:1px solid black; */
+cursor: pointer;
+border-radius: 20px;
+box-shadow: 
+12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+-8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+transition:all 1s;
+}
+.BtnMinusHide{
+    box-shadow: 0px 0px 0px 0 rgba(0, 0, 0, 0.25),
+0px 0px 0px 0 rgba(255, 255, 255, 0.3);
+transition:all 1s;
+}
+.BlockBtnPlusWraper:hover .BlockBtnPlus{
+    opacity: 1;
+    width: 50px;
+    height: 50px;
+    background: black;
+    clip-path: polygon(0 48%, 48% 48%, 48% 0, 52% 0, 52% 48%, 100% 48%, 100% 52%, 52% 52%, 52% 100%, 48% 100%, 48% 52%, 0 52%);   
+    transform: rotate(-90deg);
+}
+.BlockBtnPlusWraper:active {
+    /* animation: rotateAnimation 0s ; */
+    transform: rotate(-90deg);
+    transition: 0s;
 }
 
 .BlockBtnPlusHide{
@@ -178,8 +227,6 @@
         justify-content: center;
         width: 100vw;
         padding: 0 10px;
- 
-       
     }
     .OrderBlockBtn button{
         animation: preViewbtn .5s;
@@ -208,9 +255,39 @@
         height: 50px;
     }
 }
+@media(max-width:721px){
+    .Order{
+        width: 100vw;
+        height: 100vh;
+        flex-flow:column;
+        text-align: center;
+        justify-content: center;
+        margin: 0;
+        transform:translateX(120px) translateY(-110px); 
+    }
+    .NameBlock{
+        width: 200px;
+        
+    }
+    .OrderBlockBtn{
+        width: auto;
+    }
+    .UnderlineStyle{
+        font-size: 200%!important;
+        /* text-transform: uppercase; */
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+}
 
 @keyframes preViewbtn {
     0% {opacity: 0;}
     100%{opacity: 1;
      }
   }
+
+  @keyframes rotateAnimation {
+    0% {transform: rotate(0deg);}
+    50% {transform: rotate(30deg);}
+    100% {transform: rotate(0deg);}
+     }
+  

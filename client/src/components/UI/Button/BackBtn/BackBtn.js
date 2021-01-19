@@ -11,7 +11,7 @@ const buttonBack = (props) => (
             className={classes.BackBtn}
         // link="/o_nas"
         >
-            <ButtonBootstrap variant="dark"> </ButtonBootstrap>
+            <ButtonBootstrap variant="dark"></ButtonBootstrap>
         </NavLink>
     </div>
 );

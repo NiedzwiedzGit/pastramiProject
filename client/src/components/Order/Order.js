@@ -23,7 +23,7 @@ const order = (props) => {
                 </div > */}
 
                 < div className={!props.activeClass ? classes.OrderBlockBtn : classes.OrderBlockBtnRotate} >
-                    <div className={[classes.BlockBtnMinusWraper, classes[props.count == null ? 'BtnMinusHide' : null]].join(' ')} onClick={!props.disable ? props.clickedMinus : false} disabled={props.disable}>
+                    <div className={[classes.BlockBtnMinusWraper, classes[props.count == null ? 'BtnMinusHide' : 'BlockBtnMinusWraperActive']].join(' ')} onClick={!props.disable ? props.clickedMinus : false} disabled={props.disable}>
                         <button className={!props.disable ? classes.BlockBtnMinusVisible : classes.BlockBtnMinusUnVisible}></button>{/*disabled={props.disable}*/}
                     </div>
                     <button className={classes.OrderBlockCirkle} onClick={!props.disable ? props.clickedPlus : false}></button>
@@ -41,9 +41,9 @@ const order = (props) => {
             {/* <span className={[classes.OrderHelp, classes.OrderPlus].join(' ')}>+</span>
             <span className={[classes.OrderHelp, classes.OrderMinus].join(' ')}>-</span> */}
 
-            <div className={classes.Price}>
-                {/* <span className={classes.Price}>{props.price}_500g.</span> */}
-            </div>
+            {/* <div className={classes.Price}> */}
+            {/* <span className={classes.Price}>{props.price}_500g.</span> */}
+            {/* </div> */}
         </div >
     );
 

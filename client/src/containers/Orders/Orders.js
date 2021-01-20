@@ -264,7 +264,8 @@ class Przepisy extends Component {
             <div className={classes.Przepisy}>
                 {/* <span className={[classes.OrderHelp, classes.OrderPlus].join(' ')}>+</span>
                 <span className={[classes.OrderHelp, classes.OrderMinus].join(' ')}>-</span> */}
-                <div className={this.state.clickLinkWraper ? classes.BlurBlock : null}></div>
+                <div className={this.state.clickLinkWraper ? classes.BlurBlock : null}
+                    onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}></div>
                 <div className={[classes.OrderListwraper,
                 classes[this.state.sumVal ? "OrderListwraperShow" : null]].join(' ')}
                     onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}>

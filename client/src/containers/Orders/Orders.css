@@ -262,7 +262,6 @@ transition: 1s;
     align-items: center;
     text-align: center;
     /* border: 1px solid black; */
-
 }
 .BlockPriceTest{
     transform:rotate(90deg) translateX(-250px) translateY(-200px)!important;
@@ -270,18 +269,21 @@ transition: 1s;
         width: 100%;
     font-weight: 800!important;
     font-size: 700%;
+    text-shadow: -1px -1px 1px rgba(255,255,255,.1), 5px 5px 5px rgba(0,0,0,.5);
+
     opacity: 0.5;
     transition:1s;
 }
 .ContentDivLink{
     position: absolute;
     height: 10vh;
-width: 100vw;
+    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
     top:70%;
     left:0;
+    z-index: 102;
 }
 
  .LinkWraperMenu a{
@@ -324,7 +326,7 @@ width: 100vw;
     transition:.3s;
 }
 .LinkWraper{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     box-shadow: 
 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
 -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
@@ -512,33 +514,14 @@ height: 400px;
         left: 30%;
     }
     .BlockPriceTest{
-        transform:rotate(90deg) translateX(-200px) translateY(-150px)!important;
+        transform:rotate(90deg) translateX(-150px) translateY(-120px)!important;
         font-weight: 900!important;
-        font-size: 600%;
+        font-size: 450%;
     }
     .Logo{
         width: 150px;
         height: 100px;
     }
-}
-@media(max-width:1025px){
-    .SumBlockCellPay{
-        width: 400px;
-        font-size: 40px;   
-    }
-    .SumBlockButton {
-        width: 70px;
-        height: 70px;
-    }
-    .SumBlock{
-        left: 30%;
-    }
-    .BlockPriceTest{
-        transform:rotate(90deg) translateX(-150px) translateY(-120px)!important;
-        font-weight: 900!important;
-        font-size: 450%;
-    }
-
     .Scene {
         margin-left: auto;
         margin-right: auto;
@@ -585,6 +568,22 @@ height: 400px;
     .Cube__face--top    { transform: rotateX(90deg) translateZ(97.5px);background-color: black;border-radius: 10px;}
     .Cube__face--bottom { transform: rotateX(-90deg) translateZ(100px);background-color: grey;border-radius: 10px;}
 
+}
+@media(max-width:1025px){
+    .SumBlockCellPay{
+        width: 400px;
+        font-size: 40px;   
+    }
+    .SumBlockButton {
+        width: 70px;
+        height: 70px;
+    }
+    .SumBlock{
+        left: 30%;
+    }
+
+
+    
     .SumBlockWraper{
         height:150px;
     }
@@ -593,9 +592,13 @@ height: 400px;
         width: 150px;
         height: 100px;
     }
+   
     
 }
 @media(max-width:850px){
+    .ContentDiv>div{
+        flex-direction: column!important;
+    }
     .SumBlockCellPay{
         width: 300px;
         font-size: 20px;   
@@ -611,10 +614,11 @@ height: 400px;
     .SumBlockWraper{
         height:150px;
     }
+
     .BlockPriceTest{
-        transform:rotate(90deg) translateX(-10px) translateY(-100px)!important;
+        transform:rotate(0deg) translateX(0px) translateY(-120px)!important;
         font-weight: 900!important;
-        font-size: 300%;
+        font-size: 150%;
     }
     .ContentDiv{
        width: 100%;
@@ -624,6 +628,23 @@ height: 400px;
         width: 150px;
         height: 100px;
     }
+    .ContentDivLink a{
+        width: 140px;
+        height: 60px;
+        border-radius: 10px;
+        box-shadow: 
+        6px 6px 8px 0 rgba(0, 0, 0, 0.25),
+        -4px -4px 6px 0 rgba(255, 255, 255, 0.3);
+        text-align: center;
+        padding: 20px 0 0 0;
+        transition:.3s;
+    }
+    .LinkWraperMenu a{
+        width: 30px;
+        height: 30px;
+
+    }
+}
     @media(max-width:721px){
         .Przepisy{
             position: fixed;
@@ -636,7 +657,7 @@ height: 400px;
             /* transform:translateY(40px); */
         }
         .BlockPriceTest{
-            transform:rotate(90deg) translateX(-160px) translateY(-50px)!important;
+            transform:rotate(0deg) translateX(10px) translateY(-50px)!important;
             font-weight: 900!important;
             font-size: 250%;
         }
@@ -668,6 +689,11 @@ height: 400px;
             left:0;
             z-index: 102;
         }
+        .ContentDivLink a{
+            width: 140px;
+            height: 60px;
+
+        }
         /* .ContentDivLink .LinkWraper:active a{
             clip-path: polygon(50% 100%, 0% 0%, 100% 0, 50% 100%, 50% 100%, 95% 5%, 50% 100%, 5% 5%, 50% 100%);
             transition:.3s;
@@ -690,44 +716,42 @@ height: 400px;
         }
 
     }
-    /* .SumBlock{
-        width: 100vw;
-        margin: 0 0 40px 0;
-        display: flex;
-       
-    }
-    .SumBlock button{
-        display: flex;
-        margin: 40px 0 0 0;
-        width: 100vw;
-        border-radius:0 0 25px 25px;
-        text-align: center;
-        justify-content: center;
-    }
-    .SumBlock div{
-        flex-flow: column;
-        justify-content: center;
-        text-align: center;
-    }
-    .SumBlockCell{
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
-        border-radius: 25px;
-        width: auto;
+    @media(max-width:540px){
 
+        .ContentDiv{
+            margin-top: 5.2em;
+           height: 70vh;
+        }
+        .ContentDiv>div{
+            flex-direction: row!important;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            /* border: 1px solid black; */
+        }
+        .ContentDiv>div>div{
+            /* border: 1px solid black; */
+            transform:translateY(-100px);
+
+        }
+        .BlockPriceTest{
+            display: none!important;
+        }
+        .OrderListwraper{
+            left:45%;
+            border-style:none;
+        }
+        .ContentDivLink{
+            top:65%;
+        }
+        .ContentDivLink a{
+            width: 140px;
+            height: 80px;
+
+        }
     }
-    .SumBlock div p{
-        display: flex;
-        font-size: 1.2em;
-        width: auto;
-        justify-content: center; 
-    } */
-}
-/* @media (hover: hover) and (pointer: fine) {
-    .ContentDivLink .LinkWraper:hover a{
-        clip-path: polygon(50% 100%, 0% 0%, 100% 0, 50% 100%, 50% 100%, 95% 5%, 50% 100%, 5% 5%, 50% 100%);
-        transition:.3s;
-    } 
-  } */
+
 @keyframes imgEfects{
     0%{opacity: 0;};
     100%{opacity: 1;}

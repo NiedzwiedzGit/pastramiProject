@@ -15,26 +15,12 @@
     transform:translateX(0);
     transition: all 1s;
 }
-/* .Active::before{
-    position: absolute;
-    width: 50%;
-    height: 2px;
-    content: "";
-    background: black;
-    margin: 10% 0 0 0;
-    transform:translateX(150px);
-   animation: slide 1s inherit;
+
+.Active,.UnActive p{
+margin: 0;
+width: 100%;
+font-size: 100%;
 }
-.Active::after{
-    position: absolute;
-    width: 50%;
-    height: 2px;
-    content: "";
-   background: black;
-    margin: 10% 0 0 0;
-    transform:translateX(-250px);
-    transition:1s;
-} */
 
 @keyframes slide{
     0%{opacity: 0;}

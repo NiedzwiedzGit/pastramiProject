@@ -35,7 +35,7 @@ const scrollToOrder = React.memo(props => {
             onClick={() => classHandlerActive(props.index)}
         // onClick={() => this.setState({ active: index })}
         >
-            <p>{props.textField}</p><br />
+            <p>{props.textField}</p>
             <p className={classes.CounterSlide}>{props.count ? "x" + props.count : null}</p>
         </Link >
     );

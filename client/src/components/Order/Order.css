@@ -1,7 +1,7 @@
 .Order{
     display: flex!important;
     flex-direction: column!important;
-    width: 100vw!important;
+    width: 100%!important;
     height: 100vh;
     margin: 20px 0;
     justify-content: space-around;
@@ -61,6 +61,7 @@
 }
 
 .OrderBlockBtn{
+   
     display: flex!important;
     flex-direction: column!important;
     justify-content: center;
@@ -103,7 +104,7 @@
     /* clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 50%); */
     clip-path: polygon(0 48%, 100% 48%, 100% 52%, 0 52%);
     transform: rotate(90deg);
-    transition:1s;
+    transition:s;
 }
 .BlockBtnMinusUnVisible{
     /* opacity: 0!important; */
@@ -113,7 +114,7 @@
     /* clip-path: polygon(0 48%, 100% 48%, 100% 52%, 0 52%); */
     clip-path: polygon(0 48%, 100% 48%, 100% 52%, 0 52%);
 /* transform: rotate(90deg); */
-    transition:1s;
+    transition:.4s;
 }
 
 .BlockBtnPlus{
@@ -124,7 +125,7 @@
     /* clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 50%); */
     clip-path: polygon(48% 48%, 48% 48%, 48% 0, 52% 0, 52% 48%, 52% 48%, 52% 52%, 52% 52%, 52% 100%, 48% 100%, 48% 52%, 48% 52%);
     transform: rotate(-90deg);
-transition:all 1s;
+transition:all .4s;
 }
 .BlockBtnPlusWraper,.BlockBtnMinusWraper{
     /* width: 50px;
@@ -135,12 +136,12 @@ border-radius: 20px;
 box-shadow: 
 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
 -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
-transition:all 1s;
+transition:all .4s;
 }
 .BtnMinusHide{
     box-shadow: 0px 0px 0px 0 rgba(0, 0, 0, 0.25),
 0px 0px 0px 0 rgba(255, 255, 255, 0.3);
-transition:all 1s;
+transition:all .4s;
 }
 .BlockBtnPlusWraper:hover .BlockBtnPlus{
     opacity: 1;
@@ -152,8 +153,19 @@ transition:all 1s;
 }
 .BlockBtnPlusWraper:active {
     /* animation: rotateAnimation 0s ; */
-    transform: rotate(-90deg);
+    /* transform: rotate(-90deg); */
+    box-shadow: 
+    6px 6px 10px 0 rgba(0, 0, 0, 0.25),
+    -2px -2px 6px 0 rgba(187, 187, 187, 0.3);
     transition: 0s;
+}
+.BlockBtnMinusWraperActive:active {
+    /* animation: rotateAnimation 0s ; */
+    /* transform: rotate(-90deg); */
+    box-shadow: 
+    6px 6px 10px 0 rgba(0, 0, 0, 0.25),
+    -2px -2px 6px 0 rgba(187, 187, 187, 0.3);
+    /* transition: 0s; */
 }
 
 .BlockBtnPlusHide{
@@ -182,50 +194,49 @@ transition:all 1s;
     }
 
 }
-@media(max-width:1025px){
+@media(max-width:1024px){
     .BlockBtnMinusVisible{
         width: 30px;
-        height: 50px;
+        height: 30px;
     }
     .BlockBtnMinusUnVisible{
         width: 30px;
-        height: 50px;;
-    }
-    
-    .BlockBtnPlus{
-        width: 30px;
-        height: 50px;
+        height: 30px;
     }
     
     .BlockBtnPlusHide{
-        width: 30px;
-        height: 50px;
+        width: 30px!important;
+        height: 30px!important;
     }
+    .BlockBtnPlus{
+        width: 30px!important;
+        height: 30px!important;
+    }
+
 }
 @media(max-width:850px){
     .UnderlineStyle{
-        font-size: 300%!important;
+        font-size: 200%!important;
         /* text-transform: uppercase; */
         font-family: 'Source Sans Pro', sans-serif;
     }
     .Order{
         width: 100vw;
-        height: auto;
+        height: 350px;
         flex-flow:column;
         text-align: center;
         justify-content: center;
         margin: 0;
-        transform:translateX(150px);
+        transform:translateX(0);
     }
     .Order span{
         width: auto;
-
     }
     .OrderBlockBtn{
         display: flex;
         flex-flow: column;
         justify-content: center;
-        width: 100vw;
+        width: 100%;
         padding: 0 10px;
     }
     .OrderBlockBtn button{
@@ -238,21 +249,21 @@ transition:all 1s;
     }
     .BlockBtnMinusVisible{
         width: 30px;
-        height: 50px;
+        height: 30px;
     }
     .BlockBtnMinusUnVisible{
         width: 30px;
-        height: 50px;;
+        height: 30px;;
     }
     
     .BlockBtnPlus{
         width: 30px;
-        height: 50px;
+        height: 30px;
     }
     
     .BlockBtnPlusHide{
         width: 30px;
-        height: 50px;
+        height: 30px;
     }
 }
 @media(max-width:721px){
@@ -266,7 +277,7 @@ transition:all 1s;
         transform:translateX(120px) translateY(-110px); 
     }
     .NameBlock{
-        width: 200px;
+        /* width: 200px; */
         
     }
     .OrderBlockBtn{
@@ -278,6 +289,13 @@ transition:all 1s;
         font-family: 'Source Sans Pro', sans-serif;
     }
 }
+
+@media(max-width:540px){
+    .Order{
+        transform:translateX(0px);
+    }
+}
+
 
 @keyframes preViewbtn {
     0% {opacity: 0;}

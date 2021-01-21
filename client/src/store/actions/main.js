@@ -118,22 +118,28 @@ export const fetchPrzepisyContent = () => {
     }
 }
 export const fetchTextContent = (folderName) => {
+    let textVar = [];
     return dispatch => {
         dispatch(() => fetchMainContentStart());
-        axios.get(`/${folderName}.json`)
-            .then(response => {
-                // console.log('[reduser Przepisy!!!] ', Przepisy);
-                const textVar = [];
-                for (let key in response.data) {
-                    textVar.push({
-                        ...response.data[key],
-                        id: key
-                    });
-                }
-                dispatch(fetchTextSuccess(textVar));
-            }).catch(error => {
-                dispatch(fetchMainContentFail(error));
-            });
+
+        if (folderName == "clean") {
+            dispatch(fetchTextSuccess(textVar))
+        } else {
+            axios.get(`/${folderName}.json`)
+                .then(response => {
+                    // console.log('[reduser Przepisy!!!] ', Przepisy);
+
+                    for (let key in response.data) {
+                        textVar.push({
+                            ...response.data[key],
+                            id: key
+                        });
+                    }
+                    dispatch(fetchTextSuccess(textVar));
+                }).catch(error => {
+                    dispatch(fetchMainContentFail(error));
+                });
+        }
     }
 }
 export const fetchComentContent = (folderName) => {

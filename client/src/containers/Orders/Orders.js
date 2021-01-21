@@ -35,7 +35,7 @@ const override = css`
   margin: 20% auto;
   border-color: red;
 `;
-class Przepisy extends Component {
+class Orders extends Component {
     state = {
         id: [],
         folderName: 'orders',
@@ -114,7 +114,7 @@ class Przepisy extends Component {
 
     }
     onLoadContent = () => {
-        let ImgBlock = <CircleLoader
+        let Block = <CircleLoader
             css={override}
             size={150}
             color={"grey"}
@@ -139,7 +139,7 @@ class Przepisy extends Component {
 
                 // })
 
-                ImgBlock = this.props.textVar.map((res, index) => {
+                Block = this.props.textVar.map((res, index) => {
                     let disHandler;
                     let countHandler;
                     let counter = 0;
@@ -209,7 +209,7 @@ class Przepisy extends Component {
         } else { return null };
 
         console.log('map LinkBlock ', LinkBlock);
-        return [LinkBlock, ImgBlock];
+        return [LinkBlock, Block];
     }
     scrollTo = () => {
         scroller.scrollTo('2', {
@@ -454,4 +454,4 @@ const mapDispatchToProps = dispatch => {
 
     }
 };
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Przepisy));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Orders));

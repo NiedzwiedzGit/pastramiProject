@@ -36,6 +36,9 @@ class Main extends Component {
         folderName: 'newposts',
         active: null
     }
+    componentDidMount() {
+        this.props.onfetchTextContent('clean');
+    }
 
     deletePost = (id, imgName, key) => {
         this.setState({ id: [...this.state.id, key] });
@@ -158,6 +161,7 @@ const mapDispatchToProps = dispatch => {
         onAddNewPost: () => dispatch(actions.addNewPostContainer()),
         onUpdatePostData: (postData) => dispatch(actions.updatePostData(postData)),
         onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray)),
+        onfetchTextContent: (postData) => dispatch(actions.fetchTextContent(postData))
 
     };
 };

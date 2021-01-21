@@ -23,14 +23,15 @@ const override = css`
   margin: 20% auto;
   border-color: red;
 `;
-class Przepisy extends Component {
+class Info extends Component {
     state = {
         id: [],
         folderName: 'info'
     }
     componentDidMount() {
         // this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
-        this.props.onfetchTextContent('info')
+        this.props.onfetchTextContent('info');
+        console.log('this.localStorage.getItem(email) ', localStorage.getItem('email'))
     }
 
     closeHandler = () => {
@@ -60,13 +61,9 @@ class Przepisy extends Component {
         />;
         if (this.props.textVar !== null) {
             if (this.props.textVar.length !== 0) {
-
                 ImgBlock = this.props.textVar.map((res, index) => {
-                    // console.log('split ', res.url.split(","))
-                    // console.log('split res', res)
-
                     return <ImagesBlock
-                        auth={this.props.isAuthenticated && this.localStorage.getItem('email') == this.props.adminId}
+                        auth={this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
                         close={this.state.id.includes(res.key) ? 'Close' : null}
                         key={index}
                         url={res.url}
@@ -78,7 +75,6 @@ class Przepisy extends Component {
                         clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))}
                     />
                 });
-                // console.log(ImgBlock);
             }
         } else { return null };
 
@@ -87,12 +83,12 @@ class Przepisy extends Component {
     render() {
         return (
             <div className={classes.Przepisy}>
-                {this.props.isAuthenticated && this.localStorage.getItem('email') == this.props.adminId ?
+                {this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
                     <Button
                         btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                         clicked={this.props.onAddNewPost} /> : null}
                 <BackBtn />
-                {this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && this.localStorage.getItem('email') == this.props.adminId ? <NewPost
+                {this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ? <NewPost
                     Przepisy={true}
                     field={'textField'}
                     folderName={this.state.folderName}
@@ -115,7 +111,9 @@ const mapStateToProps = state => {
         addNewPostContainer: state.newpost.addNewPostContainer,
         updateHandler: state.newpost.updateHandler,
         // postContent: state.main.postContent,
-        textVar: state.main.textVar
+        textVar: state.main.textVar,
+        isAuthenticated: state.auth.token !== null,
+        adminId: state.main.adminId
     };
 };
 const mapDispatchToProps = dispatch => {
@@ -128,4 +126,4 @@ const mapDispatchToProps = dispatch => {
 
     }
 };
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Przepisy));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Info));

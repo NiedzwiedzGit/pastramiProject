@@ -263,6 +263,11 @@ transition: 1s;
     text-align: center;
     /* border: 1px solid black; */
 }
+.ContentDiv>div>div{
+    /* border: 1px solid black; */
+    transform:translateY(-150px) translateX(150px);
+
+}
 .BlockPriceTest{
     transform:rotate(90deg) translateX(-250px) translateY(-200px)!important;
         font-family: 'Source Sans Pro', sans-serif;
@@ -501,6 +506,13 @@ height: 400px;
         background-color: rgba(253, 253, 253,0.8);
     }
 }
+@media(max-width:1600px){
+    .BlockPriceTest{
+        transform:rotate(90deg) translateX(-150px) translateY(-120px)!important;
+        font-weight: 900!important;
+        font-size: 550%;
+    }
+}
 @media(max-width:1280px){
     .SumBlockCellPay{
         width: 400px;
@@ -599,6 +611,11 @@ height: 400px;
     .ContentDiv>div{
         flex-direction: column!important;
     }
+    .ContentDiv>div>div{
+        /* border: 1px solid black; */
+        transform:translateY(0px) translateX(0px);
+    
+    }
     .SumBlockCellPay{
         width: 300px;
         font-size: 20px;   
@@ -616,7 +633,7 @@ height: 400px;
     }
 
     .BlockPriceTest{
-        transform:rotate(0deg) translateX(0px) translateY(-120px)!important;
+        transform:rotate(0deg) translateX(0px) translateY(-50px)!important;
         font-weight: 900!important;
         font-size: 150%;
     }
@@ -657,9 +674,8 @@ height: 400px;
             /* transform:translateY(40px); */
         }
         .BlockPriceTest{
-            transform:rotate(0deg) translateX(10px) translateY(-50px)!important;
-            font-weight: 900!important;
-            font-size: 250%;
+            display: none!important;
+
         }
         .SumBlock{
             left: 0;
@@ -676,7 +692,11 @@ height: 400px;
         .ImgOrderBlock{
             display: none;
         }
-   
+        .ContentDiv>div>div{
+            /* border: 1px solid black; */
+            transform:translateY(-150px);
+
+        }
         .ContentDivLink{
             position: absolute;
             height: 10vh;
@@ -692,7 +712,6 @@ height: 400px;
         .ContentDivLink a{
             width: 140px;
             height: 60px;
-
         }
         /* .ContentDivLink .LinkWraper:active a{
             clip-path: polygon(50% 100%, 0% 0%, 100% 0, 50% 100%, 50% 100%, 95% 5%, 50% 100%, 5% 5%, 50% 100%);
@@ -701,9 +720,10 @@ height: 400px;
         .Logo{
             width: 100px;
             height: 50px;
+            z-index: 103;
         }
         .OrderListwraper{
-            left:40%;
+            left:47%;
             transform: translateY(-150px);
         }
         .OrderListwraperShow{
@@ -720,19 +740,20 @@ height: 400px;
 
         .ContentDiv{
             margin-top: 5.2em;
-           height: 70vh;
+            height: 50vh;
         }
         .ContentDiv>div{
             flex-direction: row!important;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
-            height: 100vh;
+            height: 90vh;
+            /* transform:translateY(-10px); */
             /* border: 1px solid black; */
         }
         .ContentDiv>div>div{
             /* border: 1px solid black; */
-            transform:translateY(-100px);
+            transform:translateY(-150px);
 
         }
         .BlockPriceTest{
@@ -743,12 +764,20 @@ height: 400px;
             border-style:none;
         }
         .ContentDivLink{
-            top:65%;
+            top:50%;
         }
         .ContentDivLink a{
             width: 140px;
             height: 80px;
 
+        }
+        .GrowRight{
+            padding: 0 0 0 0;
+            transform:translateY(-50px);
+        }
+        .GrowTopRight{
+            height: 0px;
+            margin: 20px 0 0 0;
         }
     }
 

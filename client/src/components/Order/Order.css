@@ -215,6 +215,7 @@ transition:all .4s;
 
 }
 @media(max-width:850px){
+
     .UnderlineStyle{
         font-size: 200%!important;
         /* text-transform: uppercase; */
@@ -228,6 +229,10 @@ transition:all .4s;
         justify-content: center;
         margin: 0;
         transform:translateX(0);
+    }
+    .Order{
+transition-delay: -1s;
+        /* transition:1s; */
     }
     .Order span{
         width: auto;

@@ -48,7 +48,15 @@ class Przepisy extends Component {
     }
     componentDidMount() {
         this.props.onfetchTextContent('orders');
+        let dubThis = this;
+        setTimeout(function () {
+            window.innerWidth <= 800 ? dubThis.setState({ classHandler: true }) : null;
+            // window.innerWidth <= 800 ? alert("got it") : null
+        }, 600);
+        // window.innerWidth <= 800 ? this.setState({ classHandler: true }) : null;
+        // window.innerWidth <= 800 ? alert("got it") : null
     }
+
 
     closeHandler = () => {
         this.props.onAddNewPost();
@@ -172,7 +180,7 @@ class Przepisy extends Component {
                     return <div
                         id="dsfsdf"
                         onMouseEnter={() => this.setState({ classHandler: true })}
-                        onMouseLeave={() => this.setState({ classHandler: false })}
+                        onMouseLeave={() => window.innerWidth >= 800 ? this.setState({ classHandler: false }) : null}
                     ><Order
                             auth={this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
                             name={res.textField}
@@ -259,7 +267,8 @@ class Przepisy extends Component {
                 : null
         )
         let content = this.onLoadContent();
-        console.log("this.state.clickLinkWraper ", this.state.clickLinkWraper)
+        console.log("this.state.clickLinkWraper ", this.state.clickLinkWraper);
+        console.log("window.innerWidth ", window.innerWidth)
         return (
             <div className={classes.Przepisy}>
                 {/* <span className={[classes.OrderHelp, classes.OrderPlus].join(' ')}>+</span>

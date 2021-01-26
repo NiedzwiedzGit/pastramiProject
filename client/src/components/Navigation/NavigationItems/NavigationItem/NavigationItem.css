@@ -1,5 +1,5 @@
 .NavigationItem{
-      background-size: auto 100% ;
+background-size: auto 105% ;
 background-repeat: no-repeat;
 color: aliceblue;
 text-decoration: none;
@@ -67,6 +67,7 @@ transition: .45s;
     text-decoration: none;
     animation: preViewImg 0.5s;
     font-size: 6vw;
+    background-size: auto 100% ;
     /* transform: translate3d(0px, 0px, 0px) scale(1.2); */
     /* text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black; */
 
@@ -76,7 +77,10 @@ transition: .45s;
     transition: .45s;
     transition-delay: .30s;
 }
-
+@media(max-width:1980px){
+    .NavigationItem{
+        background-size: auto 100% ;}
+}
 @media(max-width:540px){
     /* .NavigationItem{
         margin: 0;

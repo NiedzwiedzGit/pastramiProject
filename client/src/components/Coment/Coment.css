@@ -1,4 +1,5 @@
 .ComentsBlock{
+  
     display: flex;
     flex-direction: row;
     width: 40%;
@@ -16,6 +17,9 @@
     justify-content:space-around;
 
     border-radius: 25px;
+}
+.Column{
+overflow: scroll;
 }
 .ComentsBlockWraper{
     padding:80px 0 0 80px;
@@ -77,7 +81,7 @@ margin: 0 15px 0 0;
     padding: 0;
     width: 5%;
     right: 0;
-    height: 100%;
+    height: 50px;
     transition:  margin 0.5s,opacity 0.2s;
     transition-timing-function: liner;
     opacity: 1;
@@ -85,7 +89,10 @@ margin: 0 15px 0 0;
     justify-content: center;
     /* border: 1px solid black; */
     border-radius: 25px;
-    background-color: #F2F3F5;
+    /* background-color: #F2F3F5; */
+    background-color: white;
+    -webkit-box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.18); 
+    box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.18);
     /* box-shadow:inset  4px 4px 8px #646662,inset -4px -4px 2px white;   */
     }
 /* .ComentsBlockWraper:hover .ComentsBlockBtnSwipe{
@@ -105,7 +112,7 @@ margin: 0 15px 0 0;
     .ComentsBlock{
         display: flex;
         flex-direction: column;
-        width: 100vw;
+        width: 90vw;
         padding: 10px 0 5px 0;
         align-content: center;
         align-items: center;
@@ -113,7 +120,7 @@ margin: 0 15px 0 0;
     }
     .ComentsBlockWraper{
         width: 80vw;
-        margin:20px 20px 0 20px;
+        /* margin:20px 20px 0 20px; */
     }
     .ComentsBlock img{
         display: flex;

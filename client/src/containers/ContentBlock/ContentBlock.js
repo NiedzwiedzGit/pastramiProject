@@ -5,7 +5,7 @@ import classes from './ContentBlock.css';
 import backgroundImg0 from "../../assets/images/pastrami1.jpg";
 import backgroundImg1 from "../../assets/images/pastrami2.jpg";
 import backgroundImg2 from "../../assets/images/pastrami3.jpg";
-import backgroundImg3 from "../../assets/images/pastrami4.jpg";
+import backgroundImg3 from "../../assets/images/pastrami7.jpg";
 import backgroundImg4 from "../../assets/images/pastrami5.jpg";
 // import knifeRL from "../../assets/images/knifeRL.png";
 // import knifeLR from "../../assets/images/knifeLR.png";

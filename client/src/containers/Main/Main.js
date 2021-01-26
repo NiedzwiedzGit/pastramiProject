@@ -49,11 +49,11 @@ class Main extends Component {
         this.props.onUpdatePostData(postData);
         this.props.onAddNewPost();
     }
-    postSelectedHandler = (id, urlArray) => {
-        // this.props.history.push({ pathname: id });
-        // console.log("urlArray ", urlArray)
-        this.props.onUrlArray(urlArray);
-    }
+    // postSelectedHandler = (id, urlArray) => {
+    //     // this.props.history.push({ pathname: id });
+    //     // console.log("urlArray ", urlArray)
+    //     this.props.onUrlArray(urlArray);
+    // }
     onLoadContent = () => {
         let ImgBlock = <CircleLoader
             css={override}
@@ -133,9 +133,9 @@ class Main extends Component {
                 <Suspense fallback={<div>loading</div>}>
                     {this.onLoadContent()}
                 </Suspense>
-                <Switch>
+                {/* <Switch>
                     <Route path={'/:id'} component={postGalery} />
-                </Switch>
+                </Switch> */}
 
             </div >
         );
@@ -160,7 +160,7 @@ const mapDispatchToProps = dispatch => {
         onDeletePost: (id, imgName, key, folderName) => dispatch(actions.deletePost(id, imgName, key, folderName)),
         onAddNewPost: () => dispatch(actions.addNewPostContainer()),
         onUpdatePostData: (postData) => dispatch(actions.updatePostData(postData)),
-        onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray)),
+        // onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray)),
         onfetchTextContent: (postData) => dispatch(actions.fetchTextContent(postData))
 
     };

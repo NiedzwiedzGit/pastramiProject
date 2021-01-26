@@ -9,12 +9,17 @@ import CircleLoader from "react-spinners/CircleLoader";
 import { css } from "@emotion/core";
 import ButtonBootstrap from 'react-bootstrap/Button';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
+import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
+
 import Input from '../../components/UI/Input/Input'
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import * as swipe from "../../hoc/Swipe/Swipe";
+import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
+import Auth from '../Auth/Auth';
 
-
-
+// const Auth = asyncComponent(() => {
+//     return import('../Auth/Auth');
+// });
 const override = css`
   position:absolut;
   left:0;
@@ -32,7 +37,7 @@ const Coments = React.memo(props => {
     const [date, setDate] = useState(null);
     const [message, setMessage] = useState('');
     const [update, setUpdate] = useState(false);
-
+    const [auth, setAuth] = useState(false);
 
 
     useEffect(() => {
@@ -137,7 +142,8 @@ const Coments = React.memo(props => {
 
     return (
         <div className={classes.Coments}  {...swipe.handlers(props.history, '/')}>
-
+            <div className={classes.Logo}></div>
+            <BackBtn />
             {/* <Button
                     btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                     clicked={this.props.onAddNewPost} /> */}
@@ -185,13 +191,28 @@ const Coments = React.memo(props => {
                         onClick={comentsHandler}
                         disabled={!props.isAuthenticated ? true : false}
                     > Podtwirdz</ButtonBootstrap >
-                    : <ButtonBootstrap variant={!props.isAuthenticated ? "danger" : "success"}
+                    : <ButtonBootstrap variant={!props.isAuthenticated ? "light" : "light"}
                         className={!props.isAuthenticated ? classes.SendMessageBtnUn : classes.SendMessageBtn}
                         onClick={comentsHandler}
                         disabled={!props.isAuthenticated ? true : false}
                     >{!props.isAuthenticated ? "Zaloguj się" : "Zostaw Komentarz"}</ButtonBootstrap>
             }
+            {!props.isAuthenticated ?
+                // <NavLink to={"/auth"} className={classes.AuthBtn}>
+                <ButtonBootstrap variant="light" onClick={() => setAuth(true)}>Register/Sing In</ButtonBootstrap>
 
+                // </NavLink>
+                :
+                <NavLink to={"/logout"} className={classes.AuthBtn}>
+                    <ButtonBootstrap variant="light" >Logout</ButtonBootstrap>
+                </NavLink>
+            }
+
+
+            <div className={auth ? classes.AuthBackDrop : null} onClick={() => setAuth(false)}></div>
+            {!props.isAuthenticated ? <div className={[classes.Auth, classes[auth ? 'AuthActive' : null]].join(' ')} >
+                <Auth />
+            </div> : null}
             {
                 props.addNewPostContainer ? <Backdrop
                     show={props.addNewPostContainer}

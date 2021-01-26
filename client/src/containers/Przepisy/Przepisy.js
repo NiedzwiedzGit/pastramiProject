@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 import Button from '../../components/UI/Button/Button';
+import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
 import ButtonBootstrap from 'react-bootstrap/Button';
 
 import classes from './Przepisy.css';
@@ -14,13 +15,19 @@ import { css } from "@emotion/core";
 import NewPost from '../NewPost/NewPost';
 import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter, NavLink, Route, Switch } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
 import { ParallaxBanner } from 'react-scroll-parallax';
 import { Parallax } from 'react-parallax';
-import knifeRL from "../../assets/images/knifeRLup.png";
+import knifeRL from "../../assets/images/pastrami4.jpg";
 import * as swipe from "../../hoc/Swipe/Swipe";
+import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 
+
+const postGalery = asyncComponent(() => {
+    return import('../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent');
+
+});
 
 const override = css`
   position:absolut;
@@ -63,8 +70,8 @@ const Przepisy = React.memo(props => {
         props.onDeletePost(id, imgName, key, folderName);
     }
     let postSelectedHandler = (id, urlArray) => {
-        props.history.push({ pathname: "prasa/" + id });
-        // console.log("urlArray ", urlArray)
+        props.history.push({ pathname: `${props.history.location.pathname}/${id}` });
+        console.log("props.history ", props.history)
         props.onUrlArray(urlArray);
     }
     let paralaxBlock = (
@@ -101,6 +108,7 @@ const Przepisy = React.memo(props => {
                         key={index}
                         url={res.url}
                         num={res.url.split(",").length}
+                        clickable={true}
                         page="Przepisy"
                         showImg={true}
                         skladniki={res.skladniki}
@@ -123,11 +131,13 @@ const Przepisy = React.memo(props => {
     // render() {
 
     return (
-        <Parallax bgImage={knifeRL} strength={500} >
+        <Parallax
+            // bgImage={knifeRL} 
+            strength={500} >
             {/* <div style={{ height: 500 }}>
                 <div >HTML inside the parallax</div>
             </div> */}
-
+ <div className={classes.Logo}></div>
             < div className={classes.Przepisy} {...swipe.handlers(props.history, '/')} >
                 {/* <Parallax strength={500} >
             <Background className="custom-bg">
@@ -140,12 +150,12 @@ const Przepisy = React.memo(props => {
                     }}
                 />
             </Background> */}
-                < NavLink
+                {/* < NavLink
                     to={"/"}
-                // link="/o_nas"
                 >
                     <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
-                </NavLink >
+                </NavLink > */}
+                <BackBtn />
                 {props.isAuthenticated && localStorage.getItem('email') == props.adminId ?
                     < Button
                         btnType={!props.addNewPostContainer ? "Add" : "Close"}
@@ -176,7 +186,9 @@ const Przepisy = React.memo(props => {
 
                     </div>
                 </Suspense>
-
+                <Switch>
+                    <Route path={`/przepisy/:id`} component={postGalery} />
+                </Switch>
             </div >
         </Parallax >
     );

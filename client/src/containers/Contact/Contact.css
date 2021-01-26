@@ -11,6 +11,7 @@
     /* background: lightblue url("../../assets//images///elephant-monochrome-black-background-closeup-3504x2336-2957.jpg") no-repeat fixed center; */
     /* background-size: 100% 100%; */
 }
+
 .ContactLeft{
     display: flex;
     flex-flow: column;
@@ -22,7 +23,7 @@
     height: 100%;
     width: 50vw;
     /* border: 1px solid black; */
-    background: url(../../assets//images//leftBg.jpg)fixed left no-repeat;
+    background: url(../../assets//images//steamCookOfContact.png)fixed left no-repeat;
     background-size: auto 100%;
 }
 /* .ContactLeft button{
@@ -185,6 +186,7 @@ margin: 20% 0;
     }
     .Contact .ContactRight>form{
    width: 100vw;
+   margin: 20px 0 0 0;
    align-items: center;
    text-align: center;
     } 
@@ -202,13 +204,13 @@ margin: 20% 0;
         /* border: 1px solid black; */
         margin-left: 10%;
         }
-        .ContactRight>.BackArrow{
+        /* .ContactRight>.BackArrow{
             position: absolute;
             width: 80px;
             height: 80px;
             animation: backArrow 1.5s infinite;
 
-        }
+        } */
         .Contact .ContactRight>form .Submit {
             position: absolute!important;
             margin: -80vh;
@@ -219,7 +221,7 @@ margin: 20% 0;
         }
     
 }
-@keyframes backArrow {
+/* @keyframes backArrow {
     0% {    right: 80%;
         filter: blur(0px);
     }
@@ -231,4 +233,4 @@ margin: 20% 0;
         right: 0;
         filter: blur(0px);
     }
-  }
+  } */

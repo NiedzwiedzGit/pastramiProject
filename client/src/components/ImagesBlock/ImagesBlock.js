@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ButtonBootstrap from 'react-bootstrap/Button';
 import classes from './ImagesBlock.css';
-import { Parallax, } from 'react-parallax';
+import { Parallax } from 'react-parallax';
 
 
 
@@ -25,10 +25,10 @@ class ImagesBlock extends Component {
             <div className={classes.ImagesBlockPicture} >
                 <img
                     src={this.props.url}
-                    onClick={this.props.clickedOn}
+                    onClick={this.props.clickable ? this.props.clickedOn : null}
                     alt="MyBurger" />
                 {/* <span className={classes.PictureCounter}>{this.props.num}</span> */}
-                <ButtonBootstrap variant="dark">{this.props.num}</ButtonBootstrap>{' '}
+                {this.props.clickable ? <ButtonBootstrap variant="dark">{this.props.num}</ButtonBootstrap> : null}
 
             </div>
         );
@@ -74,12 +74,17 @@ class ImagesBlock extends Component {
                 break;
             case 'Info':
             case 'Clients':
-                imageVar = null;
+                // imageVar = null;
+                const y = this.props.moveY;
+                const styles = {
+                    // transform: `translateX(${y}px)`,
+                    // trasition: `1s`
+                };
                 this.props.webAddress == null ?
                     content = (
-                        <div className={classes.ImagesBlockText}>
+                        <div className={classes.ImagesBlockText} style={styles}>
                             <p className={classes.TextArea}>{this.props.text}</p>
-                        </div>) :
+                        </div >) :
                     content = (
                         <div className={classes.ImagesBlockText}>
                             <p className={classes.TextArea}>{this.props.text}</p>
@@ -101,11 +106,11 @@ class ImagesBlock extends Component {
                             // background: `rgba(255, 125, 0, ${percentage * 1})`,
                             // left: "50%",
                             // top: "50%",
-                            // borderRadius: "50%",
-                            // transform: "translate(-50%,-50%)",
-                            // width: percentage * 500,
-                            // height: percentage * 500
-                            opacity: `${percentage * 1.2}`,
+                            // borderRadius: `${percentage * 1.9}%`,
+                            // transform: `translateX(${percentage * 1000}px)`,
+                            // width: percentage * 700,
+                            // height: percentage * 700,
+                            opacity: `${percentage * 1.9}`
                             // transform: `${percentage * 100}px`,
                             // transform: `scale(${percentage * .5})`
                         }}
@@ -136,7 +141,7 @@ class ImagesBlock extends Component {
         );
         return (
 
-            <div className={[classes.ImagesBlock, classes[this.props.close]].join(' ')} >
+            <div className={[classes.ImagesBlock, classes[this.props.close, this.props.clickable ? "HoverNon" : null]].join(' ')} >
 
                 <div className={classes.ImagesBlockLine}></div>
                 {/* {imageVar} */}

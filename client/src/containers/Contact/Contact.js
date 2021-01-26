@@ -184,7 +184,7 @@ const Conact = React.memo(props => {
 
 
         <Form.Group controlId="formBasicEmail">
-            <Form.Label>Napisz wiadomosc</Form.Label>
+            {/* <Form.Label>Napisz wiadomosc</Form.Label> */}
             <Form.Control
                 as="textarea" rows={3}
                 placeholder={props.isAuthenticated ? "Napisz wiadomość" : "Zaloguj sie aby napisac wiadomość"}
@@ -230,7 +230,7 @@ const Conact = React.memo(props => {
 
             {!props.isAuthenticated ?
                 <NavLink to={"/auth"}>
-                    <ButtonBootstrap variant="light" ><span>Register</span></ButtonBootstrap>
+                    <ButtonBootstrap variant="light" ><span>Register/Sing In</span></ButtonBootstrap>
                 </NavLink>
                 :
                 <NavLink to={"/logout"}>
@@ -244,7 +244,7 @@ const Conact = React.memo(props => {
         </Form.Group> */}
         <ButtonBootstrap variant="dark" type="submit" className={classes.Submit}>
             {/* onClick={() => sentMail("test1", "test2")} */}
-            Submit
+            Wysłać
   </ButtonBootstrap>
     </Form >
     );
@@ -292,13 +292,13 @@ const Conact = React.memo(props => {
                 </div>
                 <div className={classes.ContactRight}>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={"bi bi-chevron-right",classes.BackArrow} viewBox="0 0 16 16">
+                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={"bi bi-chevron-right",classes.BackArrow} viewBox="0 0 16 16">
   <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />go back
-</svg>
-                <BackBtn />{form}</div>
+</svg> */}
+                    <BackBtn />{form}</div>
 
             </Suspense>
-            {/* <p>sdfsdfdsf2{responseToPost}</p> */ }
+            {/* <p>sdfsdfdsf2{responseToPost}</p> */}
         </div >
     );
     //}

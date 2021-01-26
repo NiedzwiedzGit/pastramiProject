@@ -27,7 +27,7 @@ const override = css`
 
 class ImagesBlockContent extends Component {
     componentDidMount() {
-        console.log(this.props.url);
+        // console.log('this.props.url inside ', this.props.url);
     }
     urlCounter = () => {
 
@@ -46,8 +46,6 @@ class ImagesBlockContent extends Component {
                     thumbnail: url,
                     thumbnailWidth: 320,
                     thumbnailHeight: 174,
-                    //isSelected: false,
-                    //                   caption: "After Rain (Jeshu John - designerspics.com)"
                 }
 
             )

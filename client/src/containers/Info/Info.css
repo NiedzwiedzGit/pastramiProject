@@ -1,15 +1,36 @@
+body{
+    background-color: #F2F3F5; 
+}
 .Przepisy{
     display: flex;
     flex-flow: column;
     align-items: center;
     margin: auto;
-    margin-top: 5em;
-    width: 100%;
-    height: 500px;
+    /* margin-top: 5em; */
+    width: 100vw;
+    height: 100vh;
     text-align: center;
+
     /* background: lightblue url("../../assets//images///elephant-monochrome-black-background-closeup-3504x2336-2957.jpg") no-repeat fixed center; */
     background-size: 100% 100%;
 }
+.Logo{
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    left: 6%;
+    top:1%;
+    background:  url("../../assets//images/logo.png")no-repeat  center;
+    background-size: 100% ;
+}
+.Przepisy>div>div>div>div{
+display: flex;
+flex-direction: row-reverse;
+
+}
+.Przepisy>div>div:nth-child(2n+1) div>div{
+    flex-direction: row;
+    }
 .Przepisy p{
     margin: auto;
 }
@@ -17,5 +38,16 @@
     top:0;
 }
 .ContentDiv{
+    display: flex;
+    flex-flow: column-reverse;
     margin-top: 10em;
+}
+@media(max-width:700px){
+    .Przepisy>div>div>div>div{
+        display: flex;
+        flex-direction: column;
+        }
+        .Przepisy>div>div:nth-child(2n+1) div>div{
+            flex-direction: column;
+            }
 }

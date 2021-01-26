@@ -23,16 +23,41 @@ const override = css`
   margin: 20% auto;
   border-color: red;
 `;
+var lastScrollTop = 0;
 class Info extends Component {
+    constructor(props) {
+        super(props);
+        this.handleScroll = this.handleScroll.bind(this);
+    }
     state = {
         id: [],
-        folderName: 'info'
+        folderName: 'info',
+        scrollWindowY: 0
     }
     componentDidMount() {
         // this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
         this.props.onfetchTextContent('info');
+        window.addEventListener('scroll', this.handleScroll);
         console.log('this.localStorage.getItem(email) ', localStorage.getItem('email'))
     }
+
+    handleScroll = (event) => {
+        // console.log('the scroll things', window.innerHeight++)
+        var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+        if (st > lastScrollTop) {
+            // downscroll code
+            // console.log('downscroll code', st);
+            this.setState({ scrollWindowY: st })
+
+        } else {
+            // upscroll code
+            // console.log('upscroll code', st)
+            this.setState({ scrollWindowY: st })
+        }
+        lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+
+        // console.log('upscroll code111', st)
+    };
 
     closeHandler = () => {
         this.props.onAddNewPost();
@@ -67,6 +92,9 @@ class Info extends Component {
                         close={this.state.id.includes(res.key) ? 'Close' : null}
                         key={index}
                         url={res.url}
+                        showImg={true}
+                        clickable={false}
+                        moveY={this.state.scrollWindowY}
                         page="Info"
                         text={res.textField}
                         id={res.key}
@@ -81,8 +109,11 @@ class Info extends Component {
         return ImgBlock;
     }
     render() {
+        // this.handleScroll();
+        console.log('window.pageYOffset ', window.pageYOffset);
         return (
             <div className={classes.Przepisy}>
+                <div className={classes.Logo}></div>
                 {this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
                     <Button
                         btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
@@ -96,12 +127,14 @@ class Info extends Component {
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
-                <div className={classes.ContentDiv}>
+                <div className={classes.ContentDiv} onscroll={(e) => console.lof('e ', e)}>
+                    {/* this.setState({ scrollWindowY: window.pageYOffset }) */}
                     <Suspense fallback={<div>loading</div>}>
                         {this.onLoadContent()}
                     </Suspense>
                 </div>
-            </div>
+            </div >
+
         );
     }
 

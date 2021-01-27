@@ -6,7 +6,12 @@ import * as actions from '../../store/actions/index';
 import Button from '../../components/UI/Button/Button';
 import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
 import ButtonBootstrap from 'react-bootstrap/Button';
+// import Form from 'react-bootstrap/Form';
+// import InputGroup from 'react-bootstrap/InputGroup';
+// import FormControl from 'react-bootstrap/FormControl';
 
+import ResiveForm from '../ResiveForm/ResiveForm';
+import Bakery from '../../components/UI/Bakery/Bakery';
 import classes from './Orders.css';
 
 import CircleLoader from "react-spinners/CircleLoader";
@@ -44,7 +49,8 @@ class Orders extends Component {
         },
         classHandler: false,
         active: null,
-        clickLinkWraper: false
+        clickLinkWraper: false,
+        goToResive: false
     }
     componentDidMount() {
         this.props.onfetchTextContent('orders');
@@ -226,14 +232,16 @@ class Orders extends Component {
         })
         let sumBlock = (
             this.state.sumVal ?
-                <div className={[classes.SumBlock, classes[this.state.clickLinkWraper ? 'SumBlockShow' : null]].join(' ')
+                <div className={[classes.SumBlock,
+                classes[this.state.clickLinkWraper ? 'SumBlockShow' : null],
+                classes[this.state.goToResive ? 'SumBlockHide' : null]].join(' ')
                 }>
                     <div className={classes.SumBlockContentWrasper}>
                         <div><strong>Zamówienie:</strong></div><br />
                         {Object.entries(this.state.touched).map((name, i) => {
 
                             return name[1].count != 0 ?
-                                < div className={classes.SumBlockCellHolder} key={i} >
+                                < div className={!this.state.goToResive ? classes.SumBlockCellHolder : classes.SumBlockCellHolderHide} key={i} >
                                     <div className={[classes.SumBlockCell, classes.SumBlockCellName].join(' ')}>
                                         <p><strong>Przedmiot: </strong></p>
                                         <p className={classes.UnderlineStyle}>{name[0]}</p>
@@ -252,6 +260,7 @@ class Orders extends Component {
                                     </div>
                                     <br />
                                 </div>
+
                                 : null
                         })
                         }
@@ -259,13 +268,40 @@ class Orders extends Component {
                             <p><strong>Do zapłaty: </strong></p>
                             <p> {this.state.sumVal} pln.</p>
                         </div> */}
+                        {this.state.goToResive ?
+                            <div className={classes.SumBlockButton}>
+                                <ButtonBootstrap variant="success" onClick={() => this.setState({ goToResive: false })}>Zamów</ButtonBootstrap>
+                            </div> :
+                            <div className={classes.SumBlockButton}>
+                                <ButtonBootstrap variant="success" onClick={() => this.setState({ goToResive: true })}>Dalej</ButtonBootstrap>
+                            </div>}
                     </div>
-                    {/* <div className={classes.SumBlockButton}>
-                        <ButtonBootstrap variant="success">Zamów</ButtonBootstrap>
-                    </div> */}
                 </div >
                 : null
         )
+        let reciveBlock = (
+            < div className={[classes.ResiveForm,
+            classes[this.state.goToResive ? 'ResiveFormActive' : null],
+            classes[!this.state.clickLinkWraper ? 'ResiveFormHide' : null]].join(' ')
+            } >
+                <ResiveForm
+                    auth={this.props.isAuthenticated}
+                    clickLinkWraper={this.state.clickLinkWraper}
+                />
+                {
+                    this.state.goToResive ?
+                        <div className={classes.ResiveFormButtonHolder}> <div className={classes.SumBlockButtonLeft}>
+                            <ButtonBootstrap variant="outline-secondary" onClick={() => this.setState({ goToResive: false })}>Cofnij</ButtonBootstrap>
+                        </div> <div className={classes.SumBlockButtonRight}>
+                                <ButtonBootstrap variant="outline-secondary" onClick={() => this.setState({ goToResive: true })}>Zamów</ButtonBootstrap>
+                            </div>
+                        </div> :
+                        <div className={classes.SumBlockButton}>
+                            {/* <ButtonBootstrap variant="success" onClick={() => this.setState({ goToResive: true })}>Zamów</ButtonBootstrap> */}
+                        </div>
+                }
+            </div >
+        );
         let content = this.onLoadContent();
         console.log("this.state.clickLinkWraper ", this.state.clickLinkWraper);
         console.log("window.innerWidth ", window.innerWidth)
@@ -300,31 +336,16 @@ class Orders extends Component {
                 <div className={classes.Logo}></div>
                 <div className={[classes.ImgOrderBlock].join(' ')} >
                     <div></div><br />
-                    <div className={classes.Scene}>
-                        <div className={[classes.Cube, classes[this.state.sumVal ? 'Show_right' : null]].join(' ')}>
-                            <div className={[classes.Cube__face, classes['Cube__face--front']].join(' ')}>
-                                <img className={[classes[this.state.sumVal ? 'SteamOff' : 'SteamOn']].join(' ')} src={imgUrlOn} alt="" />
-                            </div>{/*, classes[this.state.sumVal ? 'Show_front' : null]*/}
-                            <div className={[classes.Cube__face, classes['Cube__face--back']].join(' ')}>back</div>{/*, classes[this.state.sumVal ? 'Show_back' : null] */}
-                            <div className={[classes.Cube__face, classes['Cube__face--right']].join(' ')}>
-                                <img className={[classes[this.state.sumVal ? null : 'SteamOn']].join(' ')} src={imgUrlRight} alt="" />
-                            </div>
-                            <div className={[classes.Cube__face, classes['Cube__face--left']].join(' ')}>left</div>{/*, classes[this.state.sumVal ? 'Show_left' : null] */}
-                            <div className={[classes.Cube__face, classes['Cube__face--top']].join(' ')}> top</div >{/*, classes[this.state.sumVal ? 'Show_top' : null] */}
-                            <div className={[classes.Cube__face, classes['Cube__face--bottom']].join(' ')}>bottom</div>{/*, classes[this.state.sumVal ? 'Show_bottom' : null] */}
-                        </div >
-                    </div >
+                    <Bakery
+                        sumVal={this.state.sumVal}
+                    />
                     <div className={[classes.SumBlockWraper, classes['Left'], classes[this.state.sumVal ? "GrowLeft" : null]].join(' ')}>
                         <div className={[classes.SumBlockLineTopLeft, classes[this.state.sumVal ? "GrowTopLeft" : null]].join(' ')}></div>
                         <div className={[classes.SumBlockLineLeft].join(' ')}></div>
-                        {/* {sumBlock} */}
                     </div>
-                    {/* <img className={[classes[this.state.sumVal ? 'SteamOff' : 'SteamOn']].join(' ')} src={imgUrlOf} alt="" /> */}
                 </div >
                 <div className={classes.OrderBlock}>
-
                     <BackBtn />
-
                     {
                         this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
                             <Button
@@ -430,6 +451,8 @@ class Orders extends Component {
                 </div>
 
                 {sumBlock}
+                {reciveBlock}
+
             </div >
         );
     }

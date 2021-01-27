@@ -38,11 +38,14 @@ const Coments = React.memo(props => {
     const [message, setMessage] = useState('');
     const [update, setUpdate] = useState(false);
     const [auth, setAuth] = useState(false);
+    const [loader, setLoader] = useState(0);
 
 
     useEffect(() => {
-        props.onfetchComentContent('coment');
+        setLoader(1);
+        loader == 1 ? null : props.onfetchComentContent('coment');
     });
+
 
     let closeHandler = () => {
         props.onAddNewPost();

@@ -1,0 +1,113 @@
+.Scene {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+  height: 400px;
+  perspective: 800px;
+  transition:1s;
+  }
+  
+  .Cube {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: translateZ(-100px);
+    transition: transform 1s; 
+  }
+  
+  .Cube__face {
+    position: absolute;
+  width: 400px;
+  height: 400px;
+  /* border: 2px solid black; */
+  line-height: 400px;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  transition:1s;
+  }
+  .Cube__face img{
+      width: 100%;
+      height: 100%;
+  }
+.Show_right  { transform: translateZ(-100px) rotateY(-20deg); }
+  /* .Cube .Show_back   { transform: translateZ(-100px) rotateY(-180deg); }
+  .Cube .Show_left   { transform: translateZ(-100px) rotateY(90deg); }
+  .Cube .Show_top    { transform: translateZ(-100px) rotateX(-90deg); }
+  .Cube .Show_bottom { transform: translateZ(-100px) rotateX(90deg); } */
+
+.Cube__face--front  { transform: rotateY(0deg) translateZ(200px); 
+    background: rgb(46, 47, 48) url("../../../assets//images/steamCookEmptyWrapper.png") no-repeat center; 
+    background-size: auto 100%;
+    border-radius: 5px;
+}
+.Cube__face--right  { transform: rotateY(90deg) translateZ(200px) translateY(-5px);}
+.Cube__face--back   { transform: rotateY(180deg) translateZ(200px);background-color: black;}
+.Cube__face--left   { transform: rotateY(-90deg) translateZ(195px);background-color: black;border-radius: 20px;}
+.Cube__face--top    { transform: rotateX(90deg) translateZ(195px);background-color: black;border-radius: 15px;}
+.Cube__face--bottom { transform: rotateX(-90deg) translateZ(200px);background-color: grey;border-radius: 15px;}
+
+.Cube__face--front img{opacity: 0.1;}
+.Show_right .Cube__face--front img{opacity: 1;}
+.Show_right .Cube__face--left
+{background-color: white;transition: 2s;}
+
+.SteamOn{    
+opacity: 1;
+transition: 1s;
+}
+.SteamOff{    
+opacity: 0;
+transition: 1s;
+}
+
+@media(max-width:1280px){
+    .Scene {
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+      height: 200px;
+      perspective: 800px;
+      }
+      
+      .Cube {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: translateZ(-50px);
+        transition: transform 1s; 
+      }
+      
+      .Cube__face {
+        position: absolute;
+      width: 200px;
+      height: 200px;
+      /* border: 2px solid black; */
+      line-height: 200px;
+      font-size: 40px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      }
+      .Cube__face img{
+          width: 100%;
+          height: 100%;
+      }
+    .Show_right  { transform: translateZ(-100px) rotateY(-20deg); }
+
+    
+    .Cube__face--front  { transform: rotateY(0deg) translateZ(100px); 
+        background: rgb(46, 47, 48) url("../../../assets//images/steamCookEmptyWrapper.png") no-repeat center; 
+        background-size: auto 100%;
+        border-radius: 5px;
+    }
+    .Cube__face--right  { transform: rotateY(90deg) translateZ(100px) translateY(-6px);}
+    .Cube__face--back   { transform: rotateY(180deg) translateZ(100px);background-color: black;}
+    .Cube__face--left   { transform: rotateY(-90deg) translateZ(97.5px);background-color: black;border-radius: 15px;}
+    .Cube__face--top    { transform: rotateX(90deg) translateZ(97.5px);background-color: black;border-radius: 10px;}
+    .Cube__face--bottom { transform: rotateX(-90deg) translateZ(100px);background-color: grey;border-radius: 10px;}
+
+}

@@ -293,7 +293,7 @@ class Orders extends Component {
                         <div className={classes.ResiveFormButtonHolder}> <div className={classes.SumBlockButtonLeft}>
                             <ButtonBootstrap variant="outline-secondary" onClick={() => this.setState({ goToResive: false })}>Cofnij</ButtonBootstrap>
                         </div> <div className={classes.SumBlockButtonRight}>
-                                <ButtonBootstrap variant="outline-secondary" onClick={() => this.setState({ goToResive: true })}>Zamów</ButtonBootstrap>
+                                <ButtonBootstrap variant="outline-secondary" disabled={!this.props.formIsValid} onClick={() => this.setState({ goToResive: true })}>Zamów</ButtonBootstrap>
                             </div>
                         </div> :
                         <div className={classes.SumBlockButton}>
@@ -465,7 +465,8 @@ const mapStateToProps = state => {
         // postContent: state.main.postContent,
         textVar: state.main.textVar,
         isAuthenticated: state.auth.token !== null,
-        adminId: state.main.adminId
+        adminId: state.main.adminId,
+        formIsValid: state.main.formIsValid
     };
 };
 const mapDispatchToProps = dispatch => {

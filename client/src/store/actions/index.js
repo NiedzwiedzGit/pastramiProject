@@ -8,7 +8,8 @@ export {
     fetchComentContent,
     deletePost,
     deleteComent,
-    getUrlArray
+    getUrlArray,
+    checkFormIsValid
 
 } from './main';
 

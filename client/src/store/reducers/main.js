@@ -12,7 +12,8 @@ const initialState = {
     comentVar: [],
     refresh: false,
     urlArray: null,
-    adminId: 'shkliarskiyigor@gmail.com'
+    adminId: 'shkliarskiyigor@gmail.com',
+    formIsValid: false
 };
 
 const fetchMainContentStart = (state, action) => {
@@ -70,7 +71,9 @@ const fetchPostContentFail = (state, action) => {
 const fetchPostUrlList = (state, action) => {
     return updateObject(state, { urlArray: action.urlArray });
 };
-
+const fetchFormIsValid = (state, action) => {
+    return updateObject(state, { formIsValid: action.formIsValid });
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -84,6 +87,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_PRZEPISY_SUCCESS: return fetchPrzepisySuccess(state, action);
         case actionTypes.FETCH_TEXT_SUCCESS: return fetchTextSuccess(state, action);
         case actionTypes.FETCH_COMENT_SUCCESS: return fetchComentSuccess(state, action);
+        case actionTypes.CHECK_FORM_IS_VALID: return fetchFormIsValid(state, action);
 
         default: return state;
     }

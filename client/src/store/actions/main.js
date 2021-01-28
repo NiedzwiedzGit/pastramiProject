@@ -77,6 +77,13 @@ export const getUrlArray = (urlArray) => {
     }
 }
 
+export const checkFormIsValid = (formIsValid) => {
+    return {
+        type: actionTypes.CHECK_FORM_IS_VALID,
+        formIsValid: formIsValid
+    }
+}
+
 
 export const fetchPostContent = () => {
     return dispatch => {
@@ -197,3 +204,4 @@ export const deleteComent = (id, key) => {
 
     };
 }
+

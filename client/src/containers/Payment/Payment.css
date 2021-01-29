@@ -1,0 +1,59 @@
+.PayWraper{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 100%;
+    transition:1s;
+}
+
+.PayWraper>div{
+    width: 100%;
+    margin: 20px 0;
+}
+
+.PayWraper>div button{
+    min-width: 207px;
+    width: 240px;
+}
+.PayOrderNumberWraper{
+    position: absolute;
+    /* height: 1px; */
+    display: flex;
+    flex-flow: column;
+    opacity: 0;
+    transform: translateY(-300%);
+    transition:1s;
+}
+.ShowPayOrderNumberWraper{
+    position: absolute;
+    z-index: 102;
+    display: flex;
+    flex-flow: column;
+    opacity: 1;
+    margin: 0 0 20px 0;
+    transform: translateY(-20px);
+    /* animation: show 1s inherit; */
+    transition:1s;
+}
+.PayBtnWraper{
+    transition:1s;
+}
+ .PayBtnWraperShow{
+   height: 200px;
+   transform: translateY(80px);
+    transition:1s;
+}
+.ShowPayOrderNumberWraper span:nth-child(2){
+    font-size: large;
+font-weight: bold;
+color: black;
+}
+@keyframes show{
+    0%{transform: translateY(-100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

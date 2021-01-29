@@ -84,6 +84,12 @@ export const checkFormIsValid = (formIsValid) => {
     }
 }
 
+export const checkPay = (payActive) => {
+    return {
+        type: actionTypes.CHECK_PAY,
+        payActive: payActive
+    }
+}
 
 export const fetchPostContent = () => {
     return dispatch => {

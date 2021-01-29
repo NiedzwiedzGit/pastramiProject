@@ -13,7 +13,8 @@ const initialState = {
     refresh: false,
     urlArray: null,
     adminId: 'shkliarskiyigor@gmail.com',
-    formIsValid: false
+    formIsValid: false,
+    payActive: false
 };
 
 const fetchMainContentStart = (state, action) => {
@@ -74,6 +75,10 @@ const fetchPostUrlList = (state, action) => {
 const fetchFormIsValid = (state, action) => {
     return updateObject(state, { formIsValid: action.formIsValid });
 };
+const fetchPay = (state, action) => {
+    return updateObject(state, { payActive: action.payActive });
+
+}
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -88,7 +93,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_TEXT_SUCCESS: return fetchTextSuccess(state, action);
         case actionTypes.FETCH_COMENT_SUCCESS: return fetchComentSuccess(state, action);
         case actionTypes.CHECK_FORM_IS_VALID: return fetchFormIsValid(state, action);
-
+        case actionTypes.CHECK_PAY: return fetchPay(state, action);
         default: return state;
     }
 };

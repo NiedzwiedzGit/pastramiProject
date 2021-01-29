@@ -11,6 +11,7 @@ import ButtonBootstrap from 'react-bootstrap/Button';
 // import FormControl from 'react-bootstrap/FormControl';
 
 import ResiveForm from '../ResiveForm/ResiveForm';
+import Payment from '../Payment/Payment';
 import Bakery from '../../components/UI/Bakery/Bakery';
 import classes from './Orders.css';
 
@@ -50,7 +51,9 @@ class Orders extends Component {
         classHandler: false,
         active: null,
         clickLinkWraper: false,
-        goToResive: false
+        goToResive: false,
+        goToPay: false,
+        payEnd: false
     }
     componentDidMount() {
         this.props.onfetchTextContent('orders');
@@ -282,7 +285,7 @@ class Orders extends Component {
         let reciveBlock = (
             < div className={[classes.ResiveForm,
             classes[this.state.goToResive ? 'ResiveFormActive' : null],
-            classes[!this.state.clickLinkWraper ? 'ResiveFormHide' : null]].join(' ')
+            classes[!this.state.clickLinkWraper || this.state.goToPay ? 'ResiveFormHide' : null]].join(' ')
             } >
                 <ResiveForm
                     auth={this.props.isAuthenticated}
@@ -291,9 +294,13 @@ class Orders extends Component {
                 {
                     this.state.goToResive ?
                         <div className={classes.ResiveFormButtonHolder}> <div className={classes.SumBlockButtonLeft}>
-                            <ButtonBootstrap variant="outline-secondary" onClick={() => this.setState({ goToResive: false })}>Cofnij</ButtonBootstrap>
-                        </div> <div className={classes.SumBlockButtonRight}>
-                                <ButtonBootstrap variant="outline-secondary" disabled={!this.props.formIsValid} onClick={() => this.setState({ goToResive: true })}>Zamów</ButtonBootstrap>
+                            <ButtonBootstrap variant="outline-secondary" onClick={() => this.setState({ goToResive: false })}></ButtonBootstrap>
+                        </div> <div className={[classes.SumBlockButtonRight
+                            , classes[!this.props.formIsValid ? "SumBlockButtonRightUnActive" : null]
+                        ].join(' ')}>
+                                <ButtonBootstrap variant="outline-secondary"
+                                    disabled={!this.props.formIsValid}
+                                    onClick={() => this.setState({ goToPay: true })}></ButtonBootstrap>
                             </div>
                         </div> :
                         <div className={classes.SumBlockButton}>
@@ -302,9 +309,35 @@ class Orders extends Component {
                 }
             </div >
         );
+
+        let paymentBlock = (
+            < div className={[classes.PaymentForm,
+            classes[this.state.goToPay ? 'PaymentFormActive' : null],
+            classes[!this.state.clickLinkWraper ? 'PaymentFormHide' : null]].join(' ')
+            } >
+                <Payment
+                    auth={this.props.isAuthenticated}
+                    clickLinkWraper={this.state.clickLinkWraper}
+                    payEnd={this.state.payEnd}
+                />
+                {
+                    this.state.goToPay ?
+                        !this.state.payEnd ?
+                            <div className={classes.ResiveFormButtonHolder}> <div className={classes.SumBlockButtonLeft}>
+                                <ButtonBootstrap variant="outline-secondary" onClick={() => this.setState({ goToPay: false })}></ButtonBootstrap>
+                            </div> <div className={[classes.SumBlockButtonRight, classes[this.props.payActive ? "SumBlockButtonRightUnActive" : null]].join(' ')}>
+                                    <ButtonBootstrap variant="outline-secondary"
+                                        disabled={this.props.payActive}
+                                        onClick={() => this.setState({ payEnd: true })}></ButtonBootstrap>
+                                </div>
+                            </div> : null :
+                        <div className={classes.SumBlockButton}>
+                            {/* <ButtonBootstrap variant="success" onClick={() => this.setState({ goToResive: true })}>Zamów</ButtonBootstrap> */}
+                        </div>
+                }
+            </div >
+        );
         let content = this.onLoadContent();
-        console.log("this.state.clickLinkWraper ", this.state.clickLinkWraper);
-        console.log("window.innerWidth ", window.innerWidth)
         return (
             <div className={classes.Przepisy}>
                 {/* <span className={[classes.OrderHelp, classes.OrderPlus].join(' ')}>+</span>
@@ -360,49 +393,6 @@ class Orders extends Component {
                         /> : null
                     }
 
-                    {/* {<GooglePayButton
-                    environment="TEST"
-                    paymentRequest={{
-                        apiVersion: 2,
-                        apiVersionMinor: 0,
-                        allowedPaymentMethods: [
-                            {
-                                type: 'CARD',
-                                parameters: {
-                                    allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-                                    allowedCardNetworks: ['MASTERCARD', 'VISA'],
-                                    billingAddressRequired: true,
-                                    billingAddressParameters: {
-                                        format: "FULL",
-                                        phoneNumberRequired: true
-                                    }
-                                },
-                                tokenizationSpecification: {
-                                    type: "PAYMENT_GATEWAY",
-                                    parameters: {
-                                        gateway: "stripe",
-                                        "stripe:version": "v3",
-                                        "stripe:publishableKey": "pk_test_51Hq6DcE938nb3fCN0fUcN4zkmAiSfZyPlEUy0Qh7ZCCNuhKKCg0jZPaSif0JMNJCnpHGRlrBc8Vw1FtUimbJil6K00zQ4BwIE3"
-                                    },
-                                },
-                            },
-                        ],
-                        merchantInfo: {
-                            // merchantId: 'BCR2DN6TWPJ2L4CP',
-                            merchantName: 'igor shkliarskbbiy',
-                        },
-                        transactionInfo: {
-                            totalPriceStatus: 'FINAL',
-                            totalPriceLabel: 'Total',
-                            totalPrice: '1.00',
-                            currencyCode: 'UAH',
-                            countryCode: 'UA'
-                        },
-                    }}
-                    onLoadPaymentData={paymentRequest => {
-                        console.log('Success', paymentRequest);
-                    }}
-                />} */}
                     {
                         this.props.addNewPostContainer ? <Backdrop
                             show={this.props.addNewPostContainer}
@@ -440,9 +430,9 @@ class Orders extends Component {
                                 classes.SumBlockCellPay, classes[this.state.sumVal ? "SumBlockCellPayActive" : null]].join(' ')}>
                                 <p><strong>SUMA: </strong></p>
                                 <p> {this.state.sumVal} pln.</p>
-                                <div className={classes.SumBlockButton}>
+                                {/* <div className={classes.SumBlockButton}>
                                     <ButtonBootstrap variant="dark">Zamów</ButtonBootstrap>
-                                </div>
+                                </div> */}
                             </div>
 
                         </div>
@@ -452,6 +442,7 @@ class Orders extends Component {
 
                 {sumBlock}
                 {reciveBlock}
+                {paymentBlock}
 
             </div >
         );
@@ -466,7 +457,8 @@ const mapStateToProps = state => {
         textVar: state.main.textVar,
         isAuthenticated: state.auth.token !== null,
         adminId: state.main.adminId,
-        formIsValid: state.main.formIsValid
+        formIsValid: state.main.formIsValid,
+        payActive: state.main.payActive
     };
 };
 const mapDispatchToProps = dispatch => {

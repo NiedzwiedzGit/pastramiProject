@@ -9,8 +9,8 @@ export {
     deletePost,
     deleteComent,
     getUrlArray,
-    checkFormIsValid
-
+    checkFormIsValid,
+    checkPay
 } from './main';
 
 

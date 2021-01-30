@@ -1,5 +1,5 @@
 .ComentsBlock{
-  
+
     display: flex;
     flex-direction: row;
     width: 40%;
@@ -22,7 +22,7 @@
 overflow: scroll;
 }
 .ComentsBlockWraper{
-    padding:80px 0 0 80px;
+    padding:80px 0 0 0;
     display: flex;
     flex-direction: column;
     width: 100vw;
@@ -32,6 +32,7 @@ overflow: scroll;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
 }
+
 
 .Wraper img{
     display: flex;
@@ -108,19 +109,39 @@ margin: 0 15px 0 0;
 .Close{
     display: none;
 }
+@media(max-width:1600px){
+    .ComentsBlock{
+        width: 60%;
+    }
+}
+@media(max-width:1024px){
+        
+    .ComentsBlockWraper{
+        padding: 0 ; 
+    }
+    .ComentsBlock{
+        width: 80%;
+    }
+}
 @media(max-width:768px){
     .ComentsBlock{
         display: flex;
         flex-direction: column;
-        width: 90vw;
+        /* width: 90vw; */
         padding: 10px 0 5px 0;
         align-content: center;
         align-items: center;
         justify-content: center;
     }
+    
     .ComentsBlockWraper{
-        width: 80vw;
-        /* margin:20px 20px 0 20px; */
+        width: 100vw;
+        padding: 0 ; 
+        flex-direction: column;
+    }
+    .Wraper{
+        display: flex;
+        flex-direction: column;
     }
     .ComentsBlock img{
         display: flex;
@@ -134,7 +155,7 @@ margin: 0 15px 0 0;
     border-radius: 50px;
     }
     .PWraper{
-        width: 90vw;
+        width: 100%;
         font-size: 1.2em;
     }
     .ComentsBlockWraper .ComentsBlockBtnSwipe{

@@ -1,6 +1,6 @@
 import React, { Suspense, Component, useState, useEffect } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import GooglePayButton from '@google-pay/button-react';
+// import GooglePayButton from '@google-pay/button-react';
 import ButtonBootstrap from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -40,7 +40,7 @@ const Payment = React.memo(props => {
                         <PayPalButtons style={{ layout: "horizontal" }} />
                     </PayPalScriptProvider>
                 </div>
-                <div>
+                {/* <div>
                     <GooglePayButton
                         environment="TEST"
                         paymentRequest={{
@@ -84,7 +84,7 @@ const Payment = React.memo(props => {
                             console.log('Success', paymentRequest);
                         }}
                     />
-                </div>
+                </div> */}
             </div>
         </div >);
 

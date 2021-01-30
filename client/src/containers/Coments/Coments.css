@@ -3,9 +3,9 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    margin: auto;
+    margin: 0;
     /* padding-top: 5em; */
-    padding: 5em 0 0 0;
+    /* padding: 5em 0 0 0; */
     width: 100vw;
     height: 100vh;
     text-align: center;
@@ -13,6 +13,28 @@
     background-size: 100% 100%;
     background-color: #F2F3F5;
 }
+.ContentEditWraper{
+    position: absolute;
+    display: flex;
+    /* top: 80%; */
+    bottom: 0;
+    flex-flow: column;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    /* background-color: #F2F3F5; */
+    /* -webkit-box-shadow: inset 0px 11px 20px 0px rgba(0,0,0,0.42); 
+    box-shadow: inset 0px 11px 20px 0px rgba(0,0,0,0.42); */
+    border-radius: 10px!important;  
+}
+.ContentEditWraper>div{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+}
+
 .Logo{
     width: 300px;
     height: 200px;
@@ -22,6 +44,7 @@
     background:  url("../../assets//images/logo.png")no-repeat  center;
     background-size: 100% ;
 }
+
 .Coments p{
     margin: auto;
 
@@ -30,12 +53,14 @@
     display: flex;
     flex-flow: column-reverse;
     width: 100vw;
+    height: 100vh;
     overflow: scroll;
     -webkit-box-shadow: inset 0px 11px 20px 0px rgba(0,0,0,0.42); 
     box-shadow: inset 0px 11px 20px 0px rgba(0,0,0,0.42);
     background-color: #F2F3F5;
 }
-.Coments>button,.AuthBtn>button{
+.Coments .ContentEditWraper>div>button,
+.AuthBtn>button{
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; */
     display: flex;
     flex-flow: row;
@@ -86,6 +111,22 @@
    justify-content: center; 
 
 }
+.SendArrow{
+    width: 40px!important;
+    height: 40px!important;
+    background: black!important;
+    clip-path: polygon(9% 46%, 0 0, 100% 57%, 0 100%, 9% 55%, 52% 54%, 52% 54%);
+}
+.LogoutBtn{
+    width: 40px!important;
+    /* height: 40px!important; */
+    /* background: black!important;
+    clip-path: polygon(9% 46%, 0 0, 100% 57%, 0 100%, 9% 55%, 52% 54%, 52% 54%); */
+}
+.CancleMessageBtn{
+    width: auto!important;
+    background: black!important;
+}
 .SendMessageBtnUn{
     justify-content: center; 
     background: rgb(121, 121, 121)!important;
@@ -133,28 +174,41 @@
       /* align-content: center;
       justify-content: center; */
       z-index: 103;
-      transform: translateY(-100%);
+      transform: translateY(-120vh);
 
       transition:1s;
   }
   .AuthBackDrop{
     position: absolute;
     z-index: 98;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     top:0;
     background-color: rgb(216, 212, 212,.2);
     backdrop-filter: blur(10px);
     transition: 1s;
   }
   .AuthActive{
-    transform: translateY(20%);
+    transform: translateY(10vh);
+  }
+  @media(max-width:1600px){
+    .Logo{
+        width: 150px;
+        height: 100px;
+    }
+    .BackBtnBlock{
+        position: absolute;
+        left: 90%;
+        top:0;
+    }
   }
   @media(max-width:768px){
+    .ContentEditWraper>div{
+        display: flex;
+        flex-flow: column;
+    }
     .Coments textarea{
 width: 90vw;
-
-/* height: 50vh; */
-
   }
+
 }

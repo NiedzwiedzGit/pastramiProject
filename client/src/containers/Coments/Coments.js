@@ -145,98 +145,100 @@ const Coments = React.memo(props => {
 
     return (
         <div className={classes.Coments}  {...swipe.handlers(props.history, '/')}>
+
             <div className={classes.Logo}></div>
-            <BackBtn />
-            {/* <Button
-                    btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
-                    clicked={this.props.onAddNewPost} /> */}
-            {/* {this.props.addNewPostContainer && !this.props.loading ? <NewPost
-                    classType={'OnPage'}
-                    Przepisy={true}
-                    field={'textField photographs'}
-                    folderName={this.state.folderName}
-                /> : null}
-                <NewPost
-                    classType={'OnPage'}
-                    Przepisy={true}
-                    field={'textField photographs'}
-                    folderName={this.state.folderName}
-                /> */}
-            {/* <Form action={console.log("work")}>
-                    <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Example textarea</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
-                    </Form.Group>
-                    <ButtonBootstrap variant="danger"
-                        type="submit"
-                    // onClick={this.comentsHandler}
-                    >Zostaw Komentarz</ButtonBootstrap>
-                </Form> */}
-            <Input
-                anableHideBtn="false"
-                classAdd={!props.isAuthenticated ? "ContactHide" : "Contact"}
-                disabled={!props.isAuthenticated ? 'true' : null}
-                // onClick={() => console.log('work')}
-                elementType='textarea'
-                value={message}
-                changed={(event) => setMessage(event.target.value)}
-            />
-            {update ? <ButtonBootstrap variant="danger"
-                className={classes.SendMessageBtn}
-                onClick={() => (setUpdate(false), setMessage(''))}
-                disabled={!props.isAuthenticated ? true : false}
-            >Rezygnacja</ButtonBootstrap> : null
-            }
-            {
-                update ?
-                    <ButtonBootstrap variant="primary"
-                        className={classes.SendMessageBtn}
-                        onClick={comentsHandler}
-                        disabled={!props.isAuthenticated ? true : false}
-                    > Podtwirdz</ButtonBootstrap >
-                    : <ButtonBootstrap variant={!props.isAuthenticated ? "light" : "light"}
-                        className={!props.isAuthenticated ? classes.SendMessageBtnUn : classes.SendMessageBtn}
-                        onClick={comentsHandler}
-                        disabled={!props.isAuthenticated ? true : false}
-                    >{!props.isAuthenticated ? "Zaloguj się" : "Zostaw Komentarz"}</ButtonBootstrap>
-            }
-            {!props.isAuthenticated ?
-                // <NavLink to={"/auth"} className={classes.AuthBtn}>
-                <ButtonBootstrap variant="light" onClick={() => setAuth(true)}>Register/Sing In</ButtonBootstrap>
-
-                // </NavLink>
-                :
-                <NavLink to={"/logout"} className={classes.AuthBtn}>
-                    <ButtonBootstrap variant="light" >Logout</ButtonBootstrap>
-                </NavLink>
-            }
-
-
+            <div className={classes.BackBtnBlock}><BackBtn /></div>
             <div className={auth ? classes.AuthBackDrop : null} onClick={() => setAuth(false)}></div>
             {!props.isAuthenticated ? <div className={[classes.Auth, classes[auth ? 'AuthActive' : null]].join(' ')} >
                 <Auth />
             </div> : null}
-            {
-                props.addNewPostContainer ? <Backdrop
-                    show={props.addNewPostContainer}
-                    clicked={closeHandler} /> : null
-            }
-            {
-                !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
-                    <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null
-            }
-
-            {
-                !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                    <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null
-            }
             <Suspense fallback={<div>loading</div>}>
-                <br />
-                <br />
+
                 <div className={classes.Column}>
                     {onLoadComent()}
                 </div>
             </Suspense>
+            <div className={classes.ContentEditWraper}>
+                <div>
+                    {props.isAuthenticated ? <NavLink to={"/logout"} className={classes.LogoutBtn}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                            <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                        </svg>
+                    </NavLink> : null}
+                    <Input
+                        anableHideBtn="false"
+                        classAdd={!props.isAuthenticated ? "ContactHide" : "Contact"}
+                        disabled={!props.isAuthenticated ? 'true' : null}
+                        // onClick={() => console.log('work')}
+                        elementType='textarea'
+
+                        value={props.isAuthenticated ? message : 'Zaloguj się'}
+                        changed={(event) => setMessage(event.target.value)}
+                    />
+                    {props.isAuthenticated ?
+                        <ButtonBootstrap variant={"light"}
+                            className={!props.isAuthenticated ? classes.SendMessageBtnUn : classes.SendArrow}
+                            onClick={comentsHandler}
+                            disabled={!props.isAuthenticated ? true : false}
+                        ></ButtonBootstrap> : null}
+                </div>
+                <div>
+                    {update ? <ButtonBootstrap variant="danger"
+                        className={classes.SendMessageBtn,classes.CancleMessageBtn}
+                        onClick={() => (setUpdate(false), setMessage(''))}
+                    disabled={!props.isAuthenticated ? true : false}
+                    ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                    </ButtonBootstrap> : null
+                }
+                    {/* {
+                        update ?
+                            <ButtonBootstrap variant="primary"
+                                className={classes.SendMessageBtn}
+                                onClick={comentsHandler}
+                                disabled={!props.isAuthenticated ? true : false}
+                            > Podtwirdz</ButtonBootstrap >
+                            : <ButtonBootstrap variant={!props.isAuthenticated ? "light" : "light"}
+                                className={!props.isAuthenticated ? classes.SendMessageBtnUn : classes.SendMessageBtn}
+                                onClick={comentsHandler}
+                                disabled={!props.isAuthenticated ? true : false}
+                            >{!props.isAuthenticated ? "Zaloguj się" : "Zostaw Komentarz"}</ButtonBootstrap>
+                    } */}
+                {!props.isAuthenticated ?
+                    // <NavLink to={"/auth"} className={classes.AuthBtn}>
+                    <ButtonBootstrap variant="light" onClick={() => setAuth(true)}>Register/Sing In</ButtonBootstrap>
+
+                    // </NavLink>
+                    : null
+                    // <NavLink to={"/logout"} className={classes.AuthBtn}>
+                    //     <ButtonBootstrap variant="light" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                    //         <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                    //         <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                    //     </svg></ButtonBootstrap>
+                    // </NavLink>
+                }
+
+
+
+                {
+                    props.addNewPostContainer ? <Backdrop
+                        show={props.addNewPostContainer}
+                        clicked={closeHandler} /> : null
+                }
+                {
+                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
+                        <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null
+                }
+
+                {
+                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                        <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null
+                }
+            </div>
+        </div>
         </div >
     );
 

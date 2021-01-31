@@ -236,6 +236,7 @@ animation: shakeBtn .3s;
     width: auto;
     top: -100%;
     opacity: 0;
+    overflow: scroll;
     color: rgb(20, 20, 20);
     border: 4px solid  rgb(52, 52, 73);
     transition:1s;
@@ -709,6 +710,69 @@ height: 400px;
         height: 30px;
 
     }
+    .ResiveForm{
+        width:100vw;
+        left: 0;
+        right: 0;
+    }
+    .ResiveFormActive{
+        top:15%;
+        height: 90vh;
+        overflow: scroll;
+    }
+    .ResiveFormHide{
+        position: absolute!important;
+        z-index: 104;
+        top: -100%;
+        left: 0;
+        right: 0;
+        width: auto;
+        color: rgb(20, 20, 20);
+        border: 4px solid  rgb(52, 52, 73);
+        opacity: 0;
+        transition:1s;
+    }
+    .PaymentForm{
+        position: absolute!important;
+        z-index: 104;
+        left: 0;
+        right: 0;
+        width: auto;
+        top: -100%;
+        opacity: 0;
+        color: rgb(20, 20, 20);
+        border: 4px solid  rgb(52, 52, 73);
+        transition:1s;
+    }
+    .PaymentFormActive{
+        position: absolute!important;
+        z-index: 104;
+        top: 15%;
+        left: 0;
+        right: 0;
+        width: auto;
+        height: 85vh;
+        overflow: scroll;
+        color: rgb(20, 20, 20);
+        border: 4px solid  rgb(52, 52, 73);
+        opacity: 1;
+        transition:1s;
+    }
+    .PaymentFormHide{
+        position: absolute!important;
+        z-index: 104;
+        top: -100%;
+        left: 0;
+        right: 0;
+        width: auto;
+        color: rgb(20, 20, 20);
+        border: 4px solid  rgb(52, 52, 73);
+        opacity: 0;
+        transition:1s;
+    }
+}
+@media(max-width:850px){
+
 }
     @media(max-width:721px){
         .Przepisy{
@@ -761,6 +825,7 @@ height: 400px;
             width: 140px;
             height: 60px;
         }
+  
         /* .ContentDivLink .LinkWraper:active a{
             clip-path: polygon(50% 100%, 0% 0%, 100% 0, 50% 100%, 50% 100%, 95% 5%, 50% 100%, 5% 5%, 50% 100%);
             transition:.3s;

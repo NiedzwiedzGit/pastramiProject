@@ -242,15 +242,20 @@ const Conact = React.memo(props => {
         {/* <Form.Group controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />
         </Form.Group> */}
-        <ButtonBootstrap variant="dark" type="submit" className={classes.Submit}>
-            {/* onClick={() => sentMail("test1", "test2")} */}
+         {props.isAuthenticated ?<NavLink to={"/kontakt"}>
+            <ButtonBootstrap variant="success" type="submit" >
+                Wysłać
+            </ButtonBootstrap>
+        </NavLink>:null}
+        {/* <ButtonBootstrap variant="dark" type="submit" className={classes.Submit}>
             Wysłać
-  </ButtonBootstrap>
+  </ButtonBootstrap> */}
     </Form >
     );
     // props.isAuthenticated ? console.log("logineed") : console.log("not logineed")
     return (
         <div className={classes.Contact} {...handlers}>
+            <div className={classes.BackBtnBlock}><BackBtn /></div>
 
 
             {/* <Button
@@ -295,7 +300,8 @@ const Conact = React.memo(props => {
                     {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={"bi bi-chevron-right",classes.BackArrow} viewBox="0 0 16 16">
   <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />go back
 </svg> */}
-                    <BackBtn />{form}</div>
+                    {/* <BackBtn /> */}
+                    {form}</div>
 
             </Suspense>
             {/* <p>sdfsdfdsf2{responseToPost}</p> */}

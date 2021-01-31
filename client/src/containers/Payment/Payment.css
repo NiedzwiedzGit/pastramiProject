@@ -48,6 +48,11 @@
 font-weight: bold;
 color: black;
 }
+/* @media(max-width:850px){
+    .PayWraper{
+   overflow: scroll;
+    }
+} */
 @keyframes show{
     0%{transform: translateY(-100%);
         opacity: 0;

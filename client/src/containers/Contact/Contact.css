@@ -1,4 +1,5 @@
 .Contact{
+    position: fixed;
     display: flex;
     flex-flow: row;
     align-items: center;
@@ -25,6 +26,11 @@
     /* border: 1px solid black; */
     background: url(../../assets//images//steamCookOfContact.png)fixed left no-repeat;
     background-size: auto 100%;
+}
+.BackBtnBlock{
+    position: absolute;
+    left: 90%;
+    top:0;
 }
 /* .ContactLeft button{
     position: absolute!important;
@@ -166,6 +172,11 @@ margin: 20% 0;
     font-family: "Roboto";
     text-transform: uppercase;
  }
+ @media(max-width:900px){
+    .ContactRight{
+        width: auto;
+    }
+ }
 @media(max-width:700px){
     .Contact{
         position: relative;
@@ -173,6 +184,7 @@ margin: 20% 0;
         flex-flow: column;
         flex-direction:column;
     }
+
     .ContactRight>a{
         position: absolute;
         left:25vw;
@@ -181,6 +193,7 @@ margin: 20% 0;
     .ContactLeft{
         width: 100vw;
     }
+    
     .ContactRight{
         width: 100vw;
     }
@@ -211,11 +224,11 @@ margin: 20% 0;
             animation: backArrow 1.5s infinite;
 
         } */
-        .Contact .ContactRight>form .Submit {
+        /* .Contact .ContactRight>form .Submit {
             position: absolute!important;
             margin: -80vh;
             bottom: 0;
-        } 
+        }  */
         .Contact .ContactRight>form button:not(.Submit) {
             margin: 20px 40px;
         }

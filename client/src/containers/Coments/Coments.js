@@ -39,6 +39,7 @@ const Coments = React.memo(props => {
     const [update, setUpdate] = useState(false);
     const [auth, setAuth] = useState(false);
     const [loader, setLoader] = useState(0);
+    const [showContentEditWraper, setShowContentEditWraper] = useState(false);
 
 
     useEffect(() => {
@@ -158,8 +159,16 @@ const Coments = React.memo(props => {
                     {onLoadComent()}
                 </div>
             </Suspense>
-            <div className={classes.ContentEditWraper}>
-                <div>
+            <div className={[classes.ContentEditWraper, classes[showContentEditWraper ? 'ContentEditWraperActive' : null]].join(' ')}>
+                <div className={[classes.ContentEditWraperShow, classes[showContentEditWraper ? 'ContentEditWraperShowRotate' : null]].join(' ')}
+                    onClick={() => setShowContentEditWraper(!showContentEditWraper)}
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                        <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                    </svg>
+                </div>
+                <div className={classes.ContentEditInputLine}>
                     {props.isAuthenticated ? <NavLink to={"/logout"} className={classes.LogoutBtn}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
@@ -184,16 +193,16 @@ const Coments = React.memo(props => {
                         ></ButtonBootstrap> : null}
                 </div>
                 <div>
-                    {update ? <ButtonBootstrap variant="danger"
-                        className={classes.SendMessageBtn,classes.CancleMessageBtn}
+                    {update && props.isAuthenticated ? <ButtonBootstrap variant="danger"
+                        className={[classes.SendMessageBtn, classes.CancleMessageBtn].join(' ')}
                         onClick={() => (setUpdate(false), setMessage(''))}
-                    disabled={!props.isAuthenticated ? true : false}
+                        disabled={!props.isAuthenticated ? true : false}
                     ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
-                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                    </svg>
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
                     </ButtonBootstrap> : null
-                }
+                    }
                     {/* {
                         update ?
                             <ButtonBootstrap variant="primary"
@@ -207,38 +216,38 @@ const Coments = React.memo(props => {
                                 disabled={!props.isAuthenticated ? true : false}
                             >{!props.isAuthenticated ? "Zaloguj się" : "Zostaw Komentarz"}</ButtonBootstrap>
                     } */}
-                {!props.isAuthenticated ?
-                    // <NavLink to={"/auth"} className={classes.AuthBtn}>
-                    <ButtonBootstrap variant="light" onClick={() => setAuth(true)}>Register/Sing In</ButtonBootstrap>
+                    {!props.isAuthenticated ?
+                        // <NavLink to={"/auth"} className={classes.AuthBtn}>
+                        <ButtonBootstrap variant="light" onClick={() => setAuth(true)}>Register/Sing In</ButtonBootstrap>
 
-                    // </NavLink>
-                    : null
-                    // <NavLink to={"/logout"} className={classes.AuthBtn}>
-                    //     <ButtonBootstrap variant="light" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                    //         <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
-                    //         <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
-                    //     </svg></ButtonBootstrap>
-                    // </NavLink>
-                }
+                        // </NavLink>
+                        : null
+                        // <NavLink to={"/logout"} className={classes.AuthBtn}>
+                        //     <ButtonBootstrap variant="light" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        //         <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                        //         <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                        //     </svg></ButtonBootstrap>
+                        // </NavLink>
+                    }
 
 
 
-                {
-                    props.addNewPostContainer ? <Backdrop
-                        show={props.addNewPostContainer}
-                        clicked={closeHandler} /> : null
-                }
-                {
-                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
-                        <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null
-                }
+                    {
+                        props.addNewPostContainer ? <Backdrop
+                            show={props.addNewPostContainer}
+                            clicked={closeHandler} /> : null
+                    }
+                    {
+                        !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
+                            <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null
+                    }
 
-                {
-                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                        <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null
-                }
-            </div>
-        </div>
+                    {
+                        !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                            <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null
+                    }
+                </div>
+            </div >
         </div >
     );
 

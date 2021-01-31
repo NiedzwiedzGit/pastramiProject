@@ -137,7 +137,7 @@ const Przepisy = React.memo(props => {
             {/* <div style={{ height: 500 }}>
                 <div >HTML inside the parallax</div>
             </div> */}
- <div className={classes.Logo}></div>
+            <div className={classes.Logo}></div>
             < div className={classes.Przepisy} {...swipe.handlers(props.history, '/')} >
                 {/* <Parallax strength={500} >
             <Background className="custom-bg">
@@ -155,7 +155,8 @@ const Przepisy = React.memo(props => {
                 >
                     <ButtonBootstrap variant="dark"> Back</ButtonBootstrap>
                 </NavLink > */}
-                <BackBtn />
+                {/* <BackBtn /> */}
+                <div className={classes.BackBtnBlock}><BackBtn /></div>
                 {props.isAuthenticated && localStorage.getItem('email') == props.adminId ?
                     < Button
                         btnType={!props.addNewPostContainer ? "Add" : "Close"}

@@ -23,6 +23,11 @@ body{
     background:  url("../../assets//images/logo.png")no-repeat  center;
     background-size: 100% ;
 }
+.BackBtnBlock{
+    position: absolute;
+    left: 90%;
+    top:0;
+}
 .Przepisy>div>div>div>div{
     display: flex;
     flex-direction: row-reverse;

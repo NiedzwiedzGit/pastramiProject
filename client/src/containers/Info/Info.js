@@ -118,7 +118,7 @@ class Info extends Component {
                     <Button
                         btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                         clicked={this.props.onAddNewPost} /> : null}
-                <BackBtn />
+                <div className={classes.BackBtnBlock}><BackBtn /></div>
                 {this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ? <NewPost
                     Przepisy={true}
                     field={'textField'}

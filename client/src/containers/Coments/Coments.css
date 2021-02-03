@@ -196,7 +196,20 @@
 opacity: 0;
 }
 
-
+.Draggable{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 2%;
+    bottom: 0;
+    transition:1s;
+}
+.DraggableActive{
+    position: absolute;
+    bottom: 80%;
+    right: 40%;
+    transition:1s;
+}
   @media(max-width:1600px){
     .Logo{
         width: 150px;
@@ -210,14 +223,15 @@ opacity: 0;
   }
   @media(max-width:1024px){
     .ContentEditWraperShow{
-        width: 50px;
-        height: 50px;
+        /* width: 50px;
+        height: 50px; */
         background: #F2F3F5;
         border-radius: 25px;
         box-shadow: 
         8px 8px 12px 0 rgba(0, 0, 0, 0.25),
         -4px -4px 8px 0 rgba(255, 255, 255, 0.3)!important;
         opacity: 1;
+        cursor:pointer;
       transform: translateY(-60px);
     }
     .ContentEditWraperShow svg{
@@ -233,6 +247,7 @@ opacity: 0;
         transform: translateY(0);
 
     }
+
  .ContentEditWraperShowRotate svg{
 transform: rotate(180deg);
 transition:1s;
@@ -253,5 +268,8 @@ transition:1s;
     .Coments textarea{
 width: 60vw;
   }
+  .BackBtnBlock{
+    left: 80%;
+}
 
 }

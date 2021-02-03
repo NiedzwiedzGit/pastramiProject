@@ -127,7 +127,7 @@ margin: 0 15px 0 0;
     .ComentsBlock{
         display: flex;
         flex-direction: column;
-        /* width: 90vw; */
+        width: 90vw;
         padding: 10px 0 5px 0;
         align-content: center;
         align-items: center;
@@ -154,9 +154,17 @@ margin: 0 15px 0 0;
     height: 100px!important;
     border-radius: 50px;
     }
+    .Wraper .Img img{
+        margin-left: 40%;
+    }
     .PWraper{
+    /* flex-direction: column; */
         width: 100%;
         font-size: 1.2em;
+        padding: 0;
+    }
+    .PWraper p{
+        margin: 10px 0 0 0;
     }
     .ComentsBlockWraper .ComentsBlockBtnSwipe{
         width: 80%;
@@ -175,5 +183,10 @@ box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px
 width: 20px;
 height: 20px;
 /* border-radius:50px; */
+    }
+}
+@media(max-width:480px){
+    .Wraper .Img img{
+        margin-left: 35%;
     }
 }

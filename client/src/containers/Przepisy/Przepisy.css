@@ -76,7 +76,7 @@ body{
         flex-flow: column;
         /* align-items: center; */
         margin: auto;
-        margin-top: 5em;
+        /* margin-top: 5em; */
         width: 100%;
         /* text-align: center; */
         /* background: lightblue url("../../assets//images/modern-przygotowanie-contemporary-purple-building-clear-sky-3872x2592-2531.jpg") no-repeat fixed center; */
@@ -89,7 +89,18 @@ body{
         .Przepisy>div>div:nth-child(2n+1) div>div{
             flex-direction: column;
             }
-    .Column{
-/* width: 100vw; */
-    }
+            .Logo{
+                width: 150px;
+                height: 100px;
+                position: fixed;
+                left: 6%;
+                top:0; 
+                z-index: 103;
+            }
+            .BackBtnBlock{
+                position: fixed;
+                left: 80%;
+                top:0;
+                z-index: 103;
+            }
   }

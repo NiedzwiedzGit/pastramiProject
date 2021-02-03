@@ -50,4 +50,18 @@ flex-direction: row-reverse;
         .Przepisy>div>div:nth-child(2n+1) div>div{
             flex-direction: column;
             }
+            .Logo{
+                width: 150px;
+                height: 100px;
+                position: fixed;
+                left: 6%;
+                top:0; 
+                z-index: 103;
+            }
+            .BackBtnBlock{
+                position: fixed;
+                left: 80%;
+                top:0;
+                z-index: 103;
+            }
 }

@@ -16,6 +16,7 @@ class Coment extends Component {
                     </div>
                     <div className={classes.PWraper}>
                         <p><a href="">{this.props.name}</a> {this.props.date}</p>
+                        {/* <p>{this.props.date}</p> */}
                         <p>{this.props.text}</p>
                     </div>
                 </div>

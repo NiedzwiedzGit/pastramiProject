@@ -14,8 +14,10 @@ import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
 import Input from '../../components/UI/Input/Input'
 import { withRouter, NavLink } from 'react-router-dom';
 import * as swipe from "../../hoc/Swipe/Swipe";
+import Draggable from 'react-draggable';
 import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 import Auth from '../Auth/Auth';
+
 
 // const Auth = asyncComponent(() => {
 //     return import('../Auth/Auth');
@@ -40,6 +42,7 @@ const Coments = React.memo(props => {
     const [auth, setAuth] = useState(false);
     const [loader, setLoader] = useState(0);
     const [showContentEditWraper, setShowContentEditWraper] = useState(false);
+    const [activeDrags, setActiveDrags] = useState(0);
 
 
     useEffect(() => {
@@ -144,11 +147,45 @@ const Coments = React.memo(props => {
         return ImgBlock;
     }
 
+    let onStart = () => {
+        let i = activeDrags;
+        setActiveDrags(++i);
+    };
+
+    let onStop = () => {
+        let i = activeDrags;
+        setActiveDrags(--i);
+    };
+    const dragHandlers = { onStart: onStart, onStop: onStop };
     return (
         <div className={classes.Coments}  {...swipe.handlers(props.history, '/')}>
-
             <div className={classes.Logo}></div>
             <div className={classes.BackBtnBlock}><BackBtn /></div>
+            <div className={[classes.Draggable, classes[showContentEditWraper ? 'DraggableActive' : null]].join(' ')}>
+                {/* <Draggable
+                // bounds="body"
+                // {...dragHandlers}
+                // className={[classes.ContentEditWraperShow, classes[showContentEditWraper ? 'ContentEditWraperShowRotate' : null]].join(' ')}
+                // onClick={() => console.log('work')}
+                // positionOffset={{ x: '-10%', y: showContentEditWraper ? '-400px' : '0' }}
+                > */}
+
+                <div
+                    className={[classes.ContentEditWraperShow, classes[showContentEditWraper ? 'ContentEditWraperShowRotate' : null]].join(' ')}
+                    onClick={() => setShowContentEditWraper(!showContentEditWraper)}
+                // onTouchStart={() => setShowContentEditWraper(!showContentEditWraper)}
+                // onTouchMove={() => showContentEditWraper == false ? null : setShowContentEditWraper(!showContentEditWraper)}
+                >
+                    {showContentEditWraper ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                        <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                    </svg> :
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16">
+                            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
+                        </svg>}
+                </div>
+                {/* </Draggable> */}
+            </div>
             <div className={auth ? classes.AuthBackDrop : null} onClick={() => setAuth(false)}></div>
             {!props.isAuthenticated ? <div className={[classes.Auth, classes[auth ? 'AuthActive' : null]].join(' ')} >
                 <Auth />
@@ -159,15 +196,24 @@ const Coments = React.memo(props => {
                     {onLoadComent()}
                 </div>
             </Suspense>
+
             <div className={[classes.ContentEditWraper, classes[showContentEditWraper ? 'ContentEditWraperActive' : null]].join(' ')}>
-                <div className={[classes.ContentEditWraperShow, classes[showContentEditWraper ? 'ContentEditWraperShowRotate' : null]].join(' ')}
-                    onClick={() => setShowContentEditWraper(!showContentEditWraper)}
+                {/* <Draggable
+                    // bounds="body"
+                    // {...dragHandlers}
+                    className={[classes.ContentEditWraperShow, classes[showContentEditWraper ? 'ContentEditWraperShowRotate' : null]].join(' ')}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
-                        <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                    </svg>
-                </div>
+                    <div
+                        className={[classes.ContentEditWraperShow, classes[showContentEditWraper ? 'ContentEditWraperShowRotate' : null]].join(' ')}
+                        onClick={() => setShowContentEditWraper(!showContentEditWraper)}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                            <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                        </svg>
+                    </div>
+                </Draggable> */}
+
                 <div className={classes.ContentEditInputLine}>
                     {props.isAuthenticated ? <NavLink to={"/logout"} className={classes.LogoutBtn}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">

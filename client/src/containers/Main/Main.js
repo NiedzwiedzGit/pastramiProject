@@ -12,6 +12,7 @@ import * as actions from '../../store/actions/index';
 
 import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 // import asyncAuth from '../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent';
 
 const override = css`

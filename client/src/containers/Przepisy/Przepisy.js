@@ -24,6 +24,7 @@ import * as swipe from "../../hoc/Swipe/Swipe";
 import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 
 
+
 const postGalery = asyncComponent(() => {
     return import('../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent');
 
@@ -138,6 +139,8 @@ const Przepisy = React.memo(props => {
                 <div >HTML inside the parallax</div>
             </div> */}
             <div className={classes.Logo}></div>
+
+
             < div className={classes.Przepisy} {...swipe.handlers(props.history, '/')} >
                 {/* <Parallax strength={500} >
             <Background className="custom-bg">

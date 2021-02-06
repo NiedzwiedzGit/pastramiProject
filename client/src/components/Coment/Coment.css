@@ -1,21 +1,16 @@
 .ComentsBlock{
-
     display: flex;
     flex-direction: row;
     width: 40%;
     margin: 0;
     padding: 10px 0;
     left: 0;
-    /* border: 2px solid grey; */
     text-align: left;
-    /* box-shadow: 0 5px 15px 10px #88888879;    */
     box-shadow: 
     12px 12px 16px 0 rgba(0, 0, 0, 0.25),
     -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
     background-color: rgb(255, 255, 255);
-    
     justify-content:space-around;
-
     border-radius: 25px;
 }
 .Column{
@@ -26,31 +21,26 @@ overflow: scroll;
     display: flex;
     flex-direction: column;
     width: 100vw;
-    /* border: 1px solid grey; */
     align-content: center;
     align-items: center;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
 }
 
-
 .Wraper img{
     display: flex;
-    float: left;
+    /* float: left; */
     clear: both;
 left: 0;
-margin: 0 15px 0 0;
 padding-bottom: 5px;
 width:100px!important;
 height: 100px!important;
 border-radius: 50px;
 }
+.Wraper .Img{
+    margin: 0 15px 0 0;
+}
 
-/* .ComentsBlock ::content{
-    position: relative;
-    float: left;
-    text-align: left;
-} */
 .Wraper{
     width: 80%;
     height: 100%;
@@ -58,7 +48,6 @@ border-radius: 50px;
     float: left;
     clear: both;
 left: 0;
-/* margin: 10px 0 5px 0; */
 }
 .PWraper{
 background-color:white;
@@ -74,13 +63,17 @@ margin: 0 15px 0 0;
     -ms-hyphens: auto;
     hyphens: auto;
  }
+ .BtnEdit{
+    width: 100%;
+    display: flex;
+flex-direction: row;
+}
 .ComentsBlockBtnSwipe {
     display: flex;
-    /* flex-direction: row; */
     opacity: 0;
     margin: 0;
     padding: 0;
-    width: 5%;
+    width: 50%;
     right: 0;
     height: 50px;
     transition:  margin 0.5s,opacity 0.2s;
@@ -88,18 +81,8 @@ margin: 0 15px 0 0;
     opacity: 1;
     align-items: center;
     justify-content: center;
-    /* border: 1px solid black; */
-    border-radius: 25px;
-    /* background-color: #F2F3F5; */
-    background-color: white;
-    -webkit-box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.18); 
-    box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.18);
-    /* box-shadow:inset  4px 4px 8px #646662,inset -4px -4px 2px white;   */
     }
-/* .ComentsBlockWraper:hover .ComentsBlockBtnSwipe{
-    opacity: 1;
-    margin-top:0;
-} */
+
 .ComentsBlockBtnSwipe svg{
     transition: all .1s ease-in-out;
 }
@@ -158,7 +141,6 @@ margin: 0 15px 0 0;
         margin-left: 40%;
     }
     .PWraper{
-    /* flex-direction: column; */
         width: 100%;
         font-size: 1.2em;
         padding: 0;
@@ -167,22 +149,21 @@ margin: 0 15px 0 0;
         margin: 10px 0 0 0;
     }
     .ComentsBlockWraper .ComentsBlockBtnSwipe{
-        width: 80%;
+        width: 20%;
         display: flex;
         flex-direction: row;
         margin: 0 35px;
         opacity: 1;
-        /* margin-top:0; */
-        justify-content: space-between;
     }
     .ComentsBlockWraper .ComentsBlockBtnSwipe svg{
-/* margin:2vh 20vw; */
-/* background: rgb(240,248,255);
-box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; */
-
 width: 20px;
 height: 20px;
-/* border-radius:50px; */
+    }
+    .BtnEdit{
+        justify-content: space-between;
+    }
+    .Wraper .Img{
+        margin: 0;
     }
 }
 @media(max-width:480px){

@@ -67,7 +67,7 @@
     outline: none;
 }
 .Close{
-    top:200px;
+    /* top:200px; */
     position: absolute;
     display:inline-block;
     width:50px;

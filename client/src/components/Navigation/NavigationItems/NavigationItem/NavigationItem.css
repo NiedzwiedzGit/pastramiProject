@@ -66,7 +66,7 @@ transition: .45s;
     width: 100%;
     text-decoration: none;
     animation: preViewImg 0.5s;
-    font-size: 6vw;
+    /* font-size: 6vw; */
     background-size: auto 100% ;
     /* transform: translate3d(0px, 0px, 0px) scale(1.2); */
     /* text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black; */
@@ -79,16 +79,10 @@ transition: .45s;
 }
 @media(max-width:1980px){
     .NavigationItem{
-        background-size: auto 100% ;}
+        background-size: auto 100% ;
+    }
 }
 @media(max-width:540px){
-    /* .NavigationItem{
-        margin: 0;
-        display: flex;
-        height: 100%;
-         width: auto; 
-        align-items: center;
-    } */
     .NavigationItem a{
         text-decoration: none;
         font: 900 10vh myFirstFont,italic;
@@ -102,7 +96,7 @@ transition: .45s;
     .NavigationItem a.active{
         text-decoration: none;
         color: antiquewhite;
-        /* background-size: auto 100% ; */
+        font-size:18vw;
         animation: preViewImg 0.5s;
         transform: translate3d(0px, 0px, 0px) scale(1);
         text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;

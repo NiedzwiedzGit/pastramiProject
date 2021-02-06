@@ -150,32 +150,15 @@ transition-delay: .30s;
     z-index: 100;
 }
 @media(max-width:700px){
-    /* .ContentBlock {
-        display: block;
-        position: relative;
-        flex-flow: column;
-        align-items: center;
-        clear: both;
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 20vh;
-        overflow: none;
-        text-align: center;
-        border: 2px solid black;
-        } */
         .ContentBlock p{
             padding: 0;
         }
         .ContentBlock a{
             font: 900 10vh myFirstFont,italic;
-            /* left: -25%; */
-           
         }
         .ContentBlock a:hover{
             text-decoration: none;
             color: antiquewhite;
-            /* background-size: auto 100% ; */
             animation: preViewImg 0.5s;
             transform: translate3d(0px, 0px, 0px) scale(1);
             text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;

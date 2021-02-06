@@ -1,8 +1,8 @@
 .NewPost {
     position: fixed;
-    z-index:101;
-    width: 80vw;
-    margin: 20px 10vw;
+    z-index:103;
+    width: 1000px;
+    margin: 10vh 10vw;
     background-color:white;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
@@ -159,3 +159,26 @@
         from {left: -100%;}
         to {left: 0;}
       }
+
+      @media(max-width:1600px){
+        .NewPost {
+            width: 800px;
+        }
+    }
+    @media(max-width:1024px){
+        .NewPost {
+            width: 700px;
+        }
+    }
+    @media(max-width:768px){
+        .NewPost {
+            width: 500px;
+            margin: 20vh 10vw;
+        }
+    }
+    @media(max-width:560px){
+        .NewPost {
+            width: 100vw;
+            margin: 20vh 10vw;
+        }
+    }

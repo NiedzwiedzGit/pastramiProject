@@ -82,6 +82,20 @@ background-size: auto 60%;
     transition:1.3s;
 
 }
+.FormAddWrapper{
+    position: absolute;
+    display:flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    align-content: center;
+    z-index: 103; 
+}
+.BtnAddWrapper{
+    position: absolute;
+    z-index: 103;
+    margin: 0 50%;
+}
 .SumBlockWraper{
     height:20vh;
     width: 100%;

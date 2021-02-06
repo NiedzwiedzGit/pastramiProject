@@ -340,8 +340,25 @@ class Orders extends Component {
         let content = this.onLoadContent();
         return (
             <div className={classes.Przepisy}>
-                {/* <span className={[classes.OrderHelp, classes.OrderPlus].join(' ')}>+</span>
-                <span className={[classes.OrderHelp, classes.OrderMinus].join(' ')}>-</span> */}
+                {
+
+                    this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
+                        <div className={classes.FormAddWrapper}>
+                            <NewPost
+                                Przepisy={true}
+                                field={'textField price'}
+                                folderName={this.state.folderName}
+                            />
+                        </div> : null
+                }
+                {
+                    this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
+                        <div className={classes.BtnAddWrapper}>
+                            <Button
+                                btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
+                                clicked={this.props.onAddNewPost} />
+                        </div> : null
+                }
                 <div className={this.state.clickLinkWraper ? classes.BlurBlock : null}
                     onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}>
                 </div>
@@ -354,13 +371,10 @@ class Orders extends Component {
                     >
                         <Link /*classes.LinkWraper,*/
                             activeClass="active"
-                            // to={`orderBlock${index}`}
                             spy={true}
                             smooth={true}
                             duration={250}
-                            // containerId="containerElement"
                             style={{ display: "inline-block", margin: "20px" }}
-                            // onClick={() => this.setState({ active: index })}
                             onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}
                         >
                         </Link>
@@ -379,20 +393,6 @@ class Orders extends Component {
                 </div >
                 <div className={classes.OrderBlock}>
                     <BackBtn />
-                    {
-                        this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
-                            <Button
-                                btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
-                                clicked={this.props.onAddNewPost} /> : null
-                    }
-                    {
-                        this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ? <NewPost
-                            Przepisy={true}
-                            field={'textField price'}
-                            folderName={this.state.folderName}
-                        /> : null
-                    }
-
                     {
                         this.props.addNewPostContainer ? <Backdrop
                             show={this.props.addNewPostContainer}

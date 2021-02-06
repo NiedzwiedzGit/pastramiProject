@@ -79,11 +79,11 @@ const input = (props) => {
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
             {/* <input type="checkbox" onClick={props.clicked} /> */}
-            {!props.anableHideBtn ? <ButtonBootstrap style={{ display: `${props.hide}` }}
+            {/* {!props.anableHideBtn ? <ButtonBootstrap style={{ display: `${props.hide}` }}
                 variant={props.hide !== false ? "outline-danger" : "outline-primary"}
                 onClick={props.clicked}>
                 {props.hide !== false ? "-" : "+"}
-            </ButtonBootstrap> : null}
+            </ButtonBootstrap> : null} */}
             {validationError}
         </div >
     );

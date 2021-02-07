@@ -10,7 +10,8 @@ export {
     deleteComent,
     getUrlArray,
     checkFormIsValid,
-    checkPay
+    checkPay,
+    setShowContentEditWraper
 } from './main';
 
 

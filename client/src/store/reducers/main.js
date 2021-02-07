@@ -14,7 +14,8 @@ const initialState = {
     urlArray: null,
     adminId: 'shkliarskiyigor@gmail.com',
     formIsValid: false,
-    payActive: false
+    payActive: false,
+    showContentEditWraper: false
 };
 
 const fetchMainContentStart = (state, action) => {
@@ -79,6 +80,10 @@ const fetchPay = (state, action) => {
     return updateObject(state, { payActive: action.payActive });
 
 }
+const fetchSetShowContentEditWraper = (state, action) => {
+    return updateObject(state, { showContentEditWraper: action.showContentEditWraper });
+
+}
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -94,6 +99,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_COMENT_SUCCESS: return fetchComentSuccess(state, action);
         case actionTypes.CHECK_FORM_IS_VALID: return fetchFormIsValid(state, action);
         case actionTypes.CHECK_PAY: return fetchPay(state, action);
+        case actionTypes.SET_SHOW_CONTENT_EDIT_WRAPER: return fetchSetShowContentEditWraper(state, action);
         default: return state;
     }
 };

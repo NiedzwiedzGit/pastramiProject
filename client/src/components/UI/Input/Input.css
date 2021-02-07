@@ -149,3 +149,7 @@ transition:1s;
 .slideThree input[type=checkbox]:checked + label {
 	left: 43px;
 }
+    .FormAddWrapper{
+        transform: translateY(-50px)
+	}
+	

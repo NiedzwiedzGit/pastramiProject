@@ -90,6 +90,12 @@ export const checkPay = (payActive) => {
         payActive: payActive
     }
 }
+export const setShowContentEditWraper = (showContentEditWraper) => {
+    return {
+        type: actionTypes.SET_SHOW_CONTENT_EDIT_WRAPER,
+        showContentEditWraper: showContentEditWraper
+    }
+}
 
 export const fetchPostContent = () => {
     return dispatch => {

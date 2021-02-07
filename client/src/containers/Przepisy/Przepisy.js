@@ -166,11 +166,14 @@ const Przepisy = React.memo(props => {
                         clicked={props.onAddNewPost} /> : null
                 }
                 {
-                    props.addNewPostContainer && !props.loading && props.isAuthenticated && localStorage.getItem('email') == props.adminId ? <NewPost
-                        Przepisy={true}
-                        field={'skladniki przygotowanie webAddress'}
-                        folderName={folderName}
-                    /> : null
+                    props.addNewPostContainer && !props.loading && props.isAuthenticated && localStorage.getItem('email') == props.adminId ?
+                        <div className={classes.FormAddWrapper}><NewPost
+                            Przepisy={true}
+                            field={'skladniki przygotowanie webAddress'}
+                            folderName={folderName}
+                        />
+                        </div>
+                        : null
                 }
                 {
                     props.addNewPostContainer ? <Backdrop

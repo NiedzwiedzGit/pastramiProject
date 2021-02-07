@@ -171,12 +171,6 @@ class NewPost extends Component {
             },
         },
         formIsValid: false,
-        // content: '',
-        // country: '',
-        // region: '',
-        // author: '',
-        // year: '',
-
         imgNeme: '',
         updateForm: {},
         btnMessage: "Success",
@@ -191,12 +185,9 @@ class NewPost extends Component {
         this.props.updateHandler ? this.setState({ updateForm: this.props.updateData }) : null;
         //this.props.updateHandler ? console.log('[didMount] ', this.state.updateForm) : null;
     }
-
     handleImageAsFile = (imageList) => {
         this.setState({ imageFile: imageList })
     };
-
-
     handleChangeChk = (event, index) => {
         this.setState(previousState => ({
             checked: {
@@ -205,7 +196,6 @@ class NewPost extends Component {
             }
         }));
     }
-
     submitPost = (event) => {
         if (!this.props.loading && !this.props.animate) {
             event.preventDefault();
@@ -230,13 +220,10 @@ class NewPost extends Component {
                 formData = this.state.updateForm;
                 formData['imageFile'] = this.state.imageFile;
             }
-            // console.log("formData test ", formData);
-            // console.log("this.props.folderName test ", this.props.folderName);
             this.props.onFetchNewPost(formData, this.props.updateHandler, this.props.folderName)
         } else this.resetForm();
         this.props.onAnimateSuccesErrorButton();
     }
-
     resetForm = () => {
         const oldState = {
             przygotowanie: {
@@ -449,20 +436,13 @@ class NewPost extends Component {
                 this.props.updateHandler ? updateList[inputIdentifier] = updatedOrderForm[inputIdentifier].value : null;
             })
         }
-        // console.log('[from  updatedOrderForm] ', updatedOrderForm);
-        // console.log('[from  formIsValid] ', formIsValid);
-        // console.log('[hide prop NewPost] ', event.target.value);
-        //<Input hide={event.target.value} />
         this.setState({
-            // hide: event.target.value,
             orderForm: updatedOrderForm,
             formIsValid: formIsValid,
             updateForm: updateList
         });
     }
     inputChanged = (inputIdentifier) => {
-        // console.log("[formElement.config.elementConfig.disabled222] ", inputIdentifier);
-        // console.log("[formElement.config.elementConfig.disabled111] ", this.state.orderForm[inputIdentifier].hide);
         const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
             hide: !this.state.orderForm[inputIdentifier].hide,
             valid: !this.state.orderForm[inputIdentifier].valid
@@ -476,8 +456,6 @@ class NewPost extends Component {
             for (let inputIdentifier in updatedOrderForm) {
                 if (this.state.orderForm[inputIdentifier].startView && this.state.orderForm[inputIdentifier].touched) {
                     count++;
-                    // console.log("[count test] ", this.state.orderForm[inputIdentifier].touched)
-
                     formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
                 }
             }
@@ -486,16 +464,12 @@ class NewPost extends Component {
                 formIsValid = updatedOrderForm[res].valid && formIsValid;
             })
         }
-        //console.log("[formIsValid test]!!!!!!!!!!!!!!!! ", formIsValid);
-
         return this.setState({
             orderForm: updatedOrderForm,
             formIsValid: formIsValid
         })
     }
-
     render() {
-        //console.log('updateForm ', this.state.updateForm);
         const formElementsArray = [];
         if (this.props.Przepisy !== true) {
             for (let key in this.state.orderForm) {
@@ -517,13 +491,11 @@ class NewPost extends Component {
         let animationButton = null;
         let hidePostForm = "Show";
         if (!this.props.loading && !this.props.animate) {
-
             animationButton = <ButtonBootstrap
                 variant="outline-dark"
                 onClick={this.submitPost}
                 disabled={!this.state.formIsValid}>
                 {this.state.formIsValid ? "Add Post" : "Fill all field!"}</ButtonBootstrap>
-
             if (this.state.btnMessage === "Do it again?") {
                 this.setState({ btnMessage: "Success" });
             }
@@ -537,16 +509,12 @@ class NewPost extends Component {
                 onClick={this.submitPost}>{this.state.btnMessage}</ButtonBootstrap> ,
                 <Button
                     btnType="Success" />
-
         } else { animationButton = <label className={classes.Loading}><PropagateLoader /></label> }
         let lengthInput = formElementsArray.length;
-        // console.log("test fielt input ", lengthInput)
         let form = (
             <form onSubmit={this.submitPost} >
                 <div className={classes[hidePostForm]}>
                     {formElementsArray.map(formElement => (
-                        // console.log("[formElement.config.elementConfig.disabled333] ", formElement.config.hide),
-
                         < div >
                             <Input
                                 key={formElement.id}
@@ -561,19 +529,9 @@ class NewPost extends Component {
                                 changed={(event) => this.inputChangedHandler(event, formElement.id)}
                                 clicked={() => this.inputChanged(formElement.id)}
                             />
-                            {/* <Form.Check
-                                //type="switch"
-                                id="custom-switch"
-                                label="."
-                                disabled={this.state.orderForm.disabled}
-                            //onClick={() => this.setState({ orderForm: { disabled: !disabled } })}
-                            /> */}
                         </div>
                     ))}
                 </div>
-
-
-                {/* <Button btnType="Success" disabled={!this.state.formIsValid}></Button> */}
                 <Button
                     btnState={hidePostForm + 'PostForm'}
                     btnType="Success"
@@ -638,7 +596,6 @@ class NewPost extends Component {
             </form>
         );
 
-        /////////////
         const { checked } = this.state;
         const checkedCount = Object.keys(checked).filter(key => checked[key]).length;
         const disabled = checkedCount > 0;
@@ -646,53 +603,14 @@ class NewPost extends Component {
         for (let i = 1960; i <= 2060; i++) {
             year.push(<option key={i} value={i}>{i}</option>);
         }
-
-
-
-
-        //console.log('[this.props.animate] -> ' + this.props.animate);
-
-
-
         return (
 
             <div className={[classes.NewPost, classes[this.props.classType]].join(' ')}>
-
-
-                <div className={classes[hidePostForm]}>
-                    {/* <h1>Add a Post</h1>
-                    <label>Architects</label>
-                    <select value={this.state.author} onChange={(event) => this.setState({ author: event.target.value })}>
-                        <option key='1' value="0" >Select Author</option>
-                        <option key='2' value="Cichocka">Cichocka</option>
-                        <option key='3' value="Manu">Manu</option>
-                    </select>
-                    <label>Location</label>
-                    {/* <input type="text" value={this.state.title} onChange={(event) => this.setState({ title: event.target.value })} /> */}
-                    {/* <CountryDropdown
-                        value={this.state.country}
-                        onChange={(val) => this.setState({ country: val })} />
-                    <br />
-                    <RegionDropdown
-                        country={this.state.country}
-                        value={this.state.region}
-                        onChange={(val) => this.setState({ region: val })} /> */}
-                    {/* 
-                    <label>Year</label>
-                    <select value={this.state.year} onChange={(event) => this.setState({ year: event.target.value })}>
-                        {year}
-                    </select>
-                    <label>Content</label>
-                    <textarea rows="4" value={this.state.content} onChange={(event) => this.setState({ content: event.target.value })} />
-                    <br />  */}
-                </div>
                 {form}
-
             </div >
         );
     }
 }
-
 const mapStateToProps = state => {
     return {
         loading: state.newpost.loading,
@@ -701,7 +619,6 @@ const mapStateToProps = state => {
         updateHandler: state.newpost.updateHandler
     };
 }
-
 
 const mapDispatchToProps = dispatch => {
     return {

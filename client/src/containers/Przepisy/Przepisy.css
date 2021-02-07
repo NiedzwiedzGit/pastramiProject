@@ -23,6 +23,15 @@ body{
     background:  url("../../assets//images/logo.png")no-repeat  center;
     background-size: 100% ;
 }
+.FormAddWrapper{
+    position: absolute;
+    display:flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    align-content: center;
+    z-index: 103; 
+}
 .BackBtnBlock{
     position: absolute;
     left: 90%;
@@ -70,7 +79,11 @@ body{
     position: absolute;
   } */
 
-  @media(max-width:700px){
+  @media(max-width:720px){
+    .FormAddWrapper{
+        position: relative;
+        transform: translateY(-150px)
+    }
     .Przepisy{
         display: flex;
         flex-flow: column;
@@ -95,7 +108,7 @@ body{
                 position: fixed;
                 left: 6%;
                 top:0; 
-                z-index: 103;
+                z-index: 101;
             }
             .BackBtnBlock{
                 position: fixed;
@@ -103,4 +116,10 @@ body{
                 top:0;
                 z-index: 103;
             }
+  }
+  
+  @media(max-width:380px){
+    .FormAddWrapper{
+        transform: translateY(-100px)
+    }
   }

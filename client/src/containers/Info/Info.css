@@ -42,6 +42,15 @@ flex-direction: row-reverse;
     flex-flow: column-reverse;
     margin-top: 10em;
 }
+.FormAddWrapper{
+    position: absolute;
+    display:flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    align-content: center;
+    z-index: 103; 
+}
 @media(max-width:700px){
     .Przepisy>div>div>div>div{
         display: flex;
@@ -56,12 +65,16 @@ flex-direction: row-reverse;
                 position: fixed;
                 left: 6%;
                 top:0; 
-                z-index: 103;
+                z-index: 101;
             }
             .BackBtnBlock{
                 position: fixed;
                 left: 80%;
                 top:0;
                 z-index: 103;
+            }
+            .FormAddWrapper{
+                position: relative;
+                transform: translateY(100px)
             }
 }

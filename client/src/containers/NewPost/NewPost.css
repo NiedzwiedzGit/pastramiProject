@@ -182,3 +182,8 @@
             margin: 20vh 10vw;
         }
     }
+    @media(max-width:400px){
+        input {
+            max-height: 300px;
+        }
+        }

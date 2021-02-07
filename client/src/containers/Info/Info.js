@@ -119,11 +119,15 @@ class Info extends Component {
                         btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
                         clicked={this.props.onAddNewPost} /> : null}
                 <div className={classes.BackBtnBlock}><BackBtn /></div>
-                {this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ? <NewPost
-                    Przepisy={true}
-                    field={'textField'}
-                    folderName={this.state.folderName}
-                /> : null}
+                {this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
+                    <div className={classes.FormAddWrapper}>
+                        <NewPost
+                            Przepisy={true}
+                            field={'textField'}
+                            folderName={this.state.folderName}
+                        />
+                    </div>
+                    : null}
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}

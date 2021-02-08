@@ -4,13 +4,8 @@
     flex-flow: row;
     align-items: center;
     text-align: center;
-
-    /* margin: auto;
-    margin-top: 5em; */
     width: 100vw;
     height: 100vh;
-    /* background: lightblue url("../../assets//images///elephant-monochrome-black-background-closeup-3504x2336-2957.jpg") no-repeat fixed center; */
-    /* background-size: 100% 100%; */
 }
 
 .ContactLeft{
@@ -32,11 +27,6 @@
     left: 90%;
     top:0;
 }
-/* .ContactLeft button{
-    position: absolute!important;
-    z-index: 106;
-    top:0;
-} */
 .ContactLeft .ContactLeftBlock{
    width: 60%;
    align-items: left;
@@ -44,19 +34,56 @@
     margin: 40px 0; 
     font-size: 1.2em;
 }
-/* .ContactLeft .ContactLeftBlockContent{
-    width: 90%;
-    align-items: ri;
-    text-align:right; 
-/* margin: 0 60px; */
- */
+
 .ContactLeftBlock svg{
     margin: 0 20px;
 }
 .ContactRight{
+    position: relative;
+    display: flex;
+    justify-content: center;
     height: 100%;
-        width: 50vw;
-        /* border: 1px solid black; */
+    width: 50vw;
+    }
+
+    .ContentEditInputLine{
+        position: absolute;
+        display: flex!important;
+        flex-flow: row!important;
+        bottom: 0;
+        width: 100%;
+        justify-content: space-between!important;
+        border: 5px solid black;
+    }
+    .SendArrow{
+        width: 40px!important;
+        height: 40px!important;
+        background: black!important;
+        clip-path: polygon(9% 46%, 0 0, 100% 57%, 0 100%, 9% 55%, 52% 54%, 52% 54%);
+    }
+    .SendMessageBtnUn{
+        justify-content: center; 
+        background: rgb(121, 121, 121)!important;
+        border: none;
+        box-shadow: 
+        4px 4px 8px 0 rgba(0, 0, 0, 0.5),
+        -2px -2px 4px 0 rgba(255, 255, 255, 0.4)!important;
+        transition: .45s;
+    }
+    .ChatMessage{
+        display: flex;
+        flex-flow: column;
+        align-items:flex-end;
+        width: 80%;
+        height: 500px;
+        border:1px solid black;
+    }
+    .ChatMessage>p{
+        display:inline-block;
+        margin: 0;
+        padding: 20px;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 100% 100%, 100% 100%, 79% 86%, 0 86%);
+       background: rgb(189, 189, 189);
     }
 .Contact .ContactRight p{
     margin: auto;

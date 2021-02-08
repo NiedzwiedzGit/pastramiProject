@@ -15,6 +15,7 @@ import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import { withRouter, NavLink } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
+import Input from '../../components/UI/Input/Input'
 
 // import FacebookLogin from 'react-facebook-login';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
@@ -39,47 +40,31 @@ const withCols = css`
 const Conact = React.memo(props => {
     const [id, setId] = useState([]);
     const [folderName, setFolderName] = useState('przepisy');
-
-    // state = {
-    //     id: [],
-    //     folderName: 'przepisy'
-    // }
-    // componentDidMount() {
-    //     this.props.Przepisy ? console.log("Przepisy test", this.props.Przepisy) : console.log("Przepisy test nooo", this.props.Przepisy)
-    // }
     const [response, setResponse] = useState('');
     const [post, setPost] = useState('');
     const [responseToPost, setResponseToPost] = useState('');
     const [auth, setAuth] = useState('');
+    const [message, setMessage] = useState('');
+    const [arrMessage, setArrMessage] = useState([]);
+
 
     useEffect(() => {
-        // console.log("test useState ", post);
-        // console.log("test props.isAuthenticated ", props.isAuthenticated);
         callApi()
             .then(res => setResponse(res.express))
             .catch(err => console.log(err));
-        // if (props.isAuthenticated) {
-        //     <Redirect to="/" />;
-        // }
-
     });
 
 
     const responseFacebook = (response) => {
-        // console.log("faceebook ", response);
-        // e.preventDefault();
         props.onAuth(response.email, response.id, true);
     }
     const responseGoogle = (response) => {
-        //console.log(response);
     }
 
     let callApi = async () => {
         const response = await fetch('/api');
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
-        // console.log("test body ", body);
-
         return body;
     };
 
@@ -92,26 +77,18 @@ const Conact = React.memo(props => {
             },
             body: JSON.stringify({ post: post }),
         });
-        // console.log("worck handleSubmit ", response);
-
         const body = await response.text();
-        // console.log("test333333333 handleSubmit ", JSON.stringify({ post: post }));
-
         setResponseToPost(body);
     };
 
-
     const handlers = useSwipeable({
-        // onSwiped: () => console.log("User Swiped!")
         onSwipedRight: () => props.history.push({ pathname: "/" })
-
     });
     let closeHandler = () => {
         props.onAddNewPost();
         props.updateHandler ? props.onUpdatePostData() : null;
     }
     let updatePostData = (postData) => {
-        //console.log("Przepisy update test ", postData)
         props.onUpdatePostData(postData);
         props.onAddNewPost();
     }
@@ -159,120 +136,99 @@ const Conact = React.memo(props => {
         return ImgBlock;
     }
     var provider = new firebase.auth.GoogleAuthProvider();
-
     const googleSignin = () => {
         firebase.auth()
-
             .signInWithPopup(provider).then(result => {
                 var token = result.credential.accessToken;
                 var user = result.user;
-                // props.onAuth(result.user.email, result.additionalUserInfo.profile.id, true,true);
-
-                // console.log(token)
-                // console.log(user)
-                // console.log("inside ggogle reg ", result);
             }).catch(error => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-
-                // console.log(error.code)
-                // console.log(error.message)
             });
     }
-    // render() {
-    let form = (< Form onSubmit={handleSubmit}>
-
-
-        <Form.Group controlId="formBasicEmail">
-            {/* <Form.Label>Napisz wiadomosc</Form.Label> */}
-            <Form.Control
-                as="textarea" rows={3}
-                placeholder={props.isAuthenticated ? "Napisz wiadomość" : "Zaloguj sie aby napisac wiadomość"}
-                value={post}
-                onChange={e => setPost(e.target.value)}
-                disabled={props.isAuthenticated ? false : true}
-            />
-            <Form.Text className="text-muted">
-                Do wysyłania wiadomości należy być zalogowanym
+    let form = (
+        < Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formBasicEmail">
+                <Form.Control
+                    as="textarea" rows={3}
+                    placeholder={props.isAuthenticated ? "Napisz wiadomość" : "Zaloguj sie aby napisac wiadomość"}
+                    value={post}
+                    onChange={e => setPost(e.target.value)}
+                    disabled={props.isAuthenticated ? false : true}
+                />
+                <Form.Text className="text-muted">
+                    Do wysyłania wiadomości należy być zalogowanym
     </Form.Text>
+                {!props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
+                    <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null}
 
-            {/* <FacebookLogin
-                appId="728547514687231"
-                autoLoad={false}
-                fields="name,email,picture"
-                scope="public_profile,user_friends,email"
-                callback={responseFacebook}
-                //cssClass={[classes.LoginBtn]} //its work
-                //cssClass="kep-login-facebook kep-login-facebook-[small]"
-                size="small"
-                icon="fa-facebook"
-            // textButton="Facebook"
-            //onClick={() => responseFacebook}
-            /> */}
-            {!props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
-                <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null}
+                {!props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                    <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null}
 
-            {!props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null}
-
-            {/* <GoogleLogin
-                clientId="1075959317019-k2m2tjfnio620nr30tb56qsj5dan4el6.apps.googleusercontent.com"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                // cookiePolicy={'single_host_origin'}
-                buttonText="Login with Google"
-            /> */}
-            {/* <GoogleLogout
-                clientId="1075959317019-k2m2tjfnio620nr30tb56qsj5dan4el6.apps.googleusercontent.com"
-                buttonText="Logout"
-                onLogoutSuccess={responseGoogle}
-            /> */}
-
-            {!props.isAuthenticated ?
-                <NavLink to={"/auth"}>
-                    <ButtonBootstrap variant="light" ><span>Register/Sing In</span></ButtonBootstrap>
-                </NavLink>
-                :
-                <NavLink to={"/logout"}>
-                    <ButtonBootstrap variant="light" ><span>Logout</span></ButtonBootstrap>
-                </NavLink>
-            }
-        </Form.Group>
-
-        {/* <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group> */}
-         {props.isAuthenticated ?<NavLink to={"/kontakt"}>
-            <ButtonBootstrap variant="success" type="submit" >
-                Wysłać
+                {!props.isAuthenticated ?
+                    <NavLink to={"/auth"}>
+                        <ButtonBootstrap variant="light" ><span>Register/Sing In</span></ButtonBootstrap>
+                    </NavLink>
+                    :
+                    <NavLink to={"/logout"}>
+                        <ButtonBootstrap variant="light" ><span>Logout</span></ButtonBootstrap>
+                    </NavLink>
+                }
+            </Form.Group>
+            {props.isAuthenticated ? <NavLink to={"/kontakt"}>
+                <ButtonBootstrap variant="success" type="submit" >
+                    Wysłać
             </ButtonBootstrap>
-        </NavLink>:null}
-        {/* <ButtonBootstrap variant="dark" type="submit" className={classes.Submit}>
-            Wysłać
-  </ButtonBootstrap> */}
-    </Form >
+            </NavLink> : null}
+        </Form >
     );
-    // props.isAuthenticated ? console.log("logineed") : console.log("not logineed")
+
+    let chatTextHandler = () => {
+        setArrMessage([...arrMessage, message]);
+        setMessage('');
+        console.log("arrMessage ", arrMessage)
+    }
+    let chatText = () => {
+        return (
+            arrMessage.map(res => {
+                console.log("res ", res)
+                return <p>{res}</p>
+            }))
+    };
+    let chat = (
+        <div className={classes.ContentEditInputLine}>
+            {props.isAuthenticated ? <NavLink to={"/logout"} className={classes.LogoutBtn}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                    <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                </svg>
+            </NavLink> : null}
+            <Input
+                anableHideBtn="false"
+                classAdd={!props.isAuthenticated ? "ContactChatHide" : "ContactChat"}
+                disabled={!props.isAuthenticated ? 'true' : null}
+                elementType='textarea'
+
+                value={props.isAuthenticated ? message : 'Zaloguj się'}
+                changed={(event) => setMessage(event.target.value)}
+            />
+            {props.isAuthenticated ?
+                <ButtonBootstrap variant={"light"}
+                    className={!props.isAuthenticated ? classes.SendMessageBtnUn : classes.SendArrow}
+                    onClick={() => chatTextHandler()}
+                    disabled={!props.isAuthenticated ? true : false}
+                ></ButtonBootstrap> : null}
+        </div>
+    );
     return (
         <div className={classes.Contact} {...handlers}>
             <div className={classes.BackBtnBlock}><BackBtn /></div>
-
-
-            {/* <Button
-                btnType={!props.addNewPostContainer ? "Add" : "Close"}
-                clicked={props.onAddNewPost} />
-            {props.addNewPostContainer && !props.loading ? <NewPost
-                Przepisy={true}
-                field={'skladniki przygotowanie webAddress'}
-                folderName={folderName}
-            /> : null} */}
             {props.addNewPostContainer ? <Backdrop
                 show={props.addNewPostContainer}
                 clicked={closeHandler} /> : null}
             <Suspense fallback={<div>loading</div>}>
                 {/* {onLoadContent()} */}
                 <div className={classes.ContactLeft}>
-
                     <div className={classes.ContactLeftBlock}>
                         <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-geo-alt-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -296,18 +252,15 @@ const Conact = React.memo(props => {
                     </div>
                 </div>
                 <div className={classes.ContactRight}>
-
-                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={"bi bi-chevron-right",classes.BackArrow} viewBox="0 0 16 16">
-  <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />go back
-</svg> */}
-                    {/* <BackBtn /> */}
-                    {form}</div>
-
+                    {/* {form} */}
+                    <div className={classes.ChatMessage}>
+                        {chatText()}
+                    </div>
+                    {chat}
+                </div>
             </Suspense>
-            {/* <p>sdfsdfdsf2{responseToPost}</p> */}
         </div >
     );
-    //}
 
 }
 )

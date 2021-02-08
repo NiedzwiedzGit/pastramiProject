@@ -48,7 +48,10 @@ const Coments = React.memo(props => {
     useEffect(() => {
         setLoader(1);
         loader == 1 ? null : props.onfetchComentContent('coment');
+        // props.onfetchComentContent('coment');
     });
+
+    setTimeout(() => props.onfetchComentContent('coment'), 5000);
 
 
     let closeHandler = () => {

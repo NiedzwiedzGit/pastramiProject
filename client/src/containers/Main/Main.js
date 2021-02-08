@@ -27,7 +27,6 @@ const postGalery = asyncComponent(() => {
     return import('../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent');
 
 });
-
 class Main extends Component {
     state = {
         url: [],
@@ -40,7 +39,6 @@ class Main extends Component {
     componentDidMount() {
         this.props.onfetchTextContent('clean');
     }
-
     deletePost = (id, imgName, key) => {
         this.setState({ id: [...this.state.id, key] });
 
@@ -62,50 +60,14 @@ class Main extends Component {
             color={"grey"}
             loading={this.state.waitLoader}
         />;
-        // if (this.props.postContent == null) {
-        //ImgBlock = <StartBlock />
         let testArray = [0, 1, 2, 3, 5];
-
-        //if (this.props.postContent.length == 0) {
-        // ImgBlock = this.props.postContent.map((res, index) => {
         ImgBlock = testArray.map((res, index) => {
-            // console.log('split ', res.url.split(","))
-            // return <ContentBlock key={index} num={index} />
-            //<div className={[classes[this.state.active]].join(' ')}
-            // onMouseEnter={() => this.setState({ active: "Active" })}
-            // onMouseLeave={() => this.setState({ active: "ContentBlock" })}>
-
-
-            // </div>
-
             return <div className={[classes[this.state.active]].join(' ')}
                 onMouseEnter={() => this.setState({ active: "Active" })}
                 onMouseLeave={() => this.setState({ active: "ContentBlock" })}>
-
                 <ContentBlock key={index} num={index} class={index % 2 ? "ContentBlockPaire" : null} />
-
             </div>
-
-            // <ImagesBlock
-            //     auth={true}
-            //     close={this.state.id.includes(res.key) ? 'Close' : null}
-            //     key={index}
-            //     url={res.url}
-            //     page="Main"
-            //     przygotowanie={res.przygotowanie}
-            //     photographs={res.photographs}
-            //     locationCountry={res.location}
-            //     year={res.year}
-            //     id={res.key}
-            //     imageName={res.imgName}
-            //     clicked={() => this.deletePost(res.id, res.imgName, res.key)}
-            //     clickedUpdate={() => this.updatePostData(res)}
-            //     clickedOn={() => this.postSelectedHandler(res.key, res.url.split(","))}
-            // />
         });
-        //console.log(ImgBlock);
-        // }
-        //} else { return null };
 
         return ImgBlock;
     }
@@ -114,30 +76,15 @@ class Main extends Component {
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
     }
     render() {
-        console.log(this.state.active)
-
-
-
         return (
 
             <div className={classes.Main} >
-
-                {/* <Button
-                    btnType={!this.props.addNewPostContainer ? "Add" : "Close"}
-                    clicked={this.props.onAddNewPost} />
-                {this.props.addNewPostContainer && !this.props.loading ? <NewPost
-                    folderName={this.state.folderName}
-                /> : null} */}
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
                 <Suspense fallback={<div>loading</div>}>
                     {this.onLoadContent()}
                 </Suspense>
-                {/* <Switch>
-                    <Route path={'/:id'} component={postGalery} />
-                </Switch> */}
-
             </div >
         );
     };

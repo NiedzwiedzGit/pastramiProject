@@ -35,28 +35,20 @@ class Info extends Component {
         scrollWindowY: 0
     }
     componentDidMount() {
-        // this.props.textVar ? console.log("textVar test", this.props.textVar) : console.log("textVar test nooo", this.props.textVar);
         this.props.onfetchTextContent('info');
         window.addEventListener('scroll', this.handleScroll);
         console.log('this.localStorage.getItem(email) ', localStorage.getItem('email'))
     }
 
     handleScroll = (event) => {
-        // console.log('the scroll things', window.innerHeight++)
         var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
         if (st > lastScrollTop) {
-            // downscroll code
-            // console.log('downscroll code', st);
             this.setState({ scrollWindowY: st })
 
         } else {
-            // upscroll code
-            // console.log('upscroll code', st)
             this.setState({ scrollWindowY: st })
         }
         lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-
-        // console.log('upscroll code111', st)
     };
 
     closeHandler = () => {
@@ -64,7 +56,6 @@ class Info extends Component {
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
     }
     updatePostData = (postData) => {
-        // console.log("Przepisy update test ", postData)
         this.props.onUpdatePostData(postData);
         this.props.onAddNewPost();
     }
@@ -74,7 +65,6 @@ class Info extends Component {
     }
     postSelectedHandler = (id, urlArray) => {
         this.props.history.push({ pathname: "info/" + id });
-        // console.log("urlArray ", urlArray)
         this.props.onUrlArray(urlArray);
     }
     onLoadContent = () => {
@@ -109,7 +99,6 @@ class Info extends Component {
         return ImgBlock;
     }
     render() {
-        // this.handleScroll();
         console.log('window.pageYOffset ', window.pageYOffset);
         return (
             <div className={classes.Przepisy}>
@@ -132,7 +121,6 @@ class Info extends Component {
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
                 <div className={classes.ContentDiv} onscroll={(e) => console.lof('e ', e)}>
-                    {/* this.setState({ scrollWindowY: window.pageYOffset }) */}
                     <Suspense fallback={<div>loading</div>}>
                         {this.onLoadContent()}
                     </Suspense>

@@ -1,6 +1,8 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-orders';
-import { storage } from '../../shared/firebase';
+import { storage, firebase } from '../../shared/firebase';
+
+const db = firebase.firestore();
 
 export const fetchMainContentSuccess = (path, fullPath) => {
     // console.log('path of img ', path);
@@ -96,6 +98,22 @@ export const setShowContentEditWraper = (showContentEditWraper) => {
         showContentEditWraper: showContentEditWraper
     }
 }
+
+export const chatSuccess = (messageBox) => {
+    console.log('sendMessage: false');
+    return {
+        type: actionTypes.CHAT_SUCCESS,
+        messageBox: messageBox
+    }
+}
+export const chatStart = () => {
+    console.log('sendMessage: true');
+    return {
+        type: actionTypes.CHAT_START,
+        sendMessage: true
+    }
+}
+
 
 export const fetchPostContent = () => {
     return dispatch => {
@@ -215,5 +233,36 @@ export const deleteComent = (id, key) => {
         });
 
     };
+}
+
+
+export const fetchChat = (message) => {
+    console.log('-----update----', message);
+    return dispatch => {
+        dispatch(chatStart());
+        // db.collection("users").get().then((querySnapshot) => {
+        //     let messageBox = [];
+        //     querySnapshot.forEach((doc) => {
+        //         console.log(`work+${doc.data().text}`);
+        //         messageBox.push(doc.data().text);
+        //         // messageBox.length == arrMessage.length ? console.log("good") : check((doc.data().text));
+        //     });
+        //     dispatch(chatSuccess(messageBox));
+        // }).catch(error => {
+        //     dispatch(fetchPostContentFail(error));
+        // });
+        let data = { text: message }
+        axios.post(`/chat.json`, data)
+            .then(response => {
+                dispatch(chatSuccess(message));
+                // console.log('-----update----', formData);
+            })
+            .catch(err => {
+                dispatch(fetchPostContentFail(err));
+            }
+            );
+    }
+
+
 }
 

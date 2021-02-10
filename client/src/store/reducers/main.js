@@ -15,7 +15,9 @@ const initialState = {
     adminId: 'shkliarskiyigor@gmail.com',
     formIsValid: false,
     payActive: false,
-    showContentEditWraper: false
+    showContentEditWraper: false,
+    messageBox: [],
+    sendMessage: false
 };
 
 const fetchMainContentStart = (state, action) => {
@@ -84,6 +86,17 @@ const fetchSetShowContentEditWraper = (state, action) => {
     return updateObject(state, { showContentEditWraper: action.showContentEditWraper });
 
 }
+const fetchChatSuccess = (state, action) => {
+    return updateObject(state, {
+        messageBox: action.messageBox,
+        sendMessage: false
+    });
+
+}
+const fetchChatStart = (state, action) => {
+    return updateObject(state, { sendMessage: action.sendMessage });
+
+}
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -100,6 +113,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.CHECK_FORM_IS_VALID: return fetchFormIsValid(state, action);
         case actionTypes.CHECK_PAY: return fetchPay(state, action);
         case actionTypes.SET_SHOW_CONTENT_EDIT_WRAPER: return fetchSetShowContentEditWraper(state, action);
+        case actionTypes.CHAT_SUCCESS: return fetchChatSuccess(state, action);
+        case actionTypes.CHAT_START: return fetchChatStart(state, action);
         default: return state;
     }
 };

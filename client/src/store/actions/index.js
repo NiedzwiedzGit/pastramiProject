@@ -11,7 +11,8 @@ export {
     getUrlArray,
     checkFormIsValid,
     checkPay,
-    setShowContentEditWraper
+    setShowContentEditWraper,
+    fetchChat
 } from './main';
 
 

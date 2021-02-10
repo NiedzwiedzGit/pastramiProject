@@ -22,7 +22,7 @@ import Input from '../../components/UI/Input/Input'
 // import Logout from '../Auth/Logout/Logout';
 import firebase from '@firebase/app';
 
-
+import { dbF, db } from "../../shared/firebase";
 
 
 
@@ -48,12 +48,34 @@ const Conact = React.memo(props => {
     const [arrMessage, setArrMessage] = useState([]);
 
 
+    // useEffect(() => {
+    //     // props.onChatListener();
+    //     // callApi()
+    //     //     .then(res => setResponse(res.express))
+    //     //     .catch(err => console.log(err));
+    //     if (props.sendMessage) {
+    //         // chatActualization()
+    //     }
+    //     // console.log("props.sendMessage ", props.sendMessage)
+    // });
     useEffect(() => {
-        callApi()
-            .then(res => setResponse(res.express))
-            .catch(err => console.log(err));
-    });
+        // Create an scoped async function in the hook
+        async function anyNameFunction() {
+            // await chatActualization();
+            dbF.ref("chat").on("value", snapshot => {
+                console.log("snap.val() ", snapshot.val())
 
+                let chats = [];
+                snapshot.forEach((snap) => {
+                    console.log("snap.val() ", snap.val().text)
+                    chats.push(snap.val().text);
+                });
+                setArrMessage(chats)
+            });
+        }
+        // Execute the created function directly
+        anyNameFunction();
+    }, []);
 
     const responseFacebook = (response) => {
         props.onAuth(response.email, response.id, true);
@@ -182,17 +204,81 @@ const Conact = React.memo(props => {
             </NavLink> : null}
         </Form >
     );
+    var db = firebase.firestore();
+    // db.collection("users").add({
+    //     first: "Ada",
+    //     last: "Lovelace",
+    //     born: 1815
+    // })
+    //     .then((docRef) => {
+    //         console.log("Document written with ID: ", docRef);
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error adding document: ", error);
+    //     });
 
+    // db.collection("cities").doc("LA").set({
+    //     name: "Los Angeles",
+    //     state: "CA",
+    //     country: "USA",
+    //     text: "message"
+    // })
+    //     .then(() => {
+    //         console.log("Document successfully written!");
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error writing document: ", error);
+    //     });
+
+    // let messageBox = [];
+    // db.collection("users").get().then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //         console.log(`${doc.data().text}`);
+    //         messageBox.push(doc.data().text);
+    //         messageBox.length == arrMessage.length ? console.log("good") : check((doc.data().text));
+    //         console.log('messageBox ', messageBox.length);
+    //     });
+    // });
+    let check = (m) => {
+        // setArrMessage([...arrMessage, m]);
+
+    }
+
+
+    // db.collection("cities").doc("LA")
+    //     .onSnapshot((doc) => {            // doc.fE.kt.proto.mapValue.fields.text.stringValue
+    //         console.log("Current data: ", doc.data().text);
+    //         console.log("Current data: ", doc.fE.kt.proto.mapValue.fields.text.stringValue);
+    //     });
+
+    let chatActualization = () => {
+        props.onChatListener();
+        setArrMessage([...arrMessage, props.messageBox]);
+    }
     let chatTextHandler = () => {
+        props.onChatListener(message);
         setArrMessage([...arrMessage, message]);
-        setMessage('');
-        console.log("arrMessage ", arrMessage)
+        setMessage('')
+        // db.collection("users").add({
+        //     text: message
+        // }).then(setMessage(''))
+
+
     }
     let chatText = () => {
+        // props.onChatListener();
+        // let messageBox = [];
+        // db.collection("users").get().then((querySnapshot) => {
+        //     querySnapshot.forEach((doc) => {
+        //         console.log(`${doc.data().text}`);
+        //         messageBox.push(doc.data().text);
+        //     });
+        // });
         return (
             arrMessage.map(res => {
-                console.log("res ", res)
-                return <p>{res}</p>
+                // props.messageBox.map(res => {
+                // console.log("res ", res)
+                return <div className={classes.MessageHolder}><div>{res}</div></div>
             }))
     };
     let chat = (
@@ -220,6 +306,7 @@ const Conact = React.memo(props => {
                 ></ButtonBootstrap> : null}
         </div>
     );
+    // setTimeout(() => chatActualization(), 10000)
     return (
         <div className={classes.Contact} {...handlers}>
             <div className={classes.BackBtnBlock}><BackBtn /></div>
@@ -273,7 +360,9 @@ const mapStateToProps = state => {
         loading: state.auth.loading,
         error: state.auth.error,
         isAuthenticated: state.auth.token !== null,
-        authRedirectPath: state.auth.authRedirectPath
+        authRedirectPath: state.auth.authRedirectPath,
+        messageBox: state.main.messageBox,
+        sendMessage: state.main.sendMessage
     };
 };
 const mapDispatchToProps = dispatch => {
@@ -282,7 +371,7 @@ const mapDispatchToProps = dispatch => {
         onDeletePost: (id, imgName, key, folderName) => dispatch(actions.deletePost(id, imgName, key, folderName)),
         onUpdatePostData: (postData) => dispatch(actions.updatePostData(postData)),
         onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray)),
-
+        onChatListener: (message) => dispatch(actions.fetchChat(message)),
         onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
         onAuthSn: (sNlogin) => dispatch(actions.authSn(sNlogin)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))

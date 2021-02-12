@@ -1,4 +1,4 @@
-import React, { Suspense, Component, useState, useEffect } from 'react';
+import React, { Suspense, Component, useState, useEffect, useRef } from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -16,6 +16,7 @@ import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import { withRouter, NavLink } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
 import Input from '../../components/UI/Input/Input'
+import noImg from '../../assets/images/noimage.png';
 
 // import FacebookLogin from 'react-facebook-login';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
@@ -58,25 +59,35 @@ const Conact = React.memo(props => {
     //     }
     //     // console.log("props.sendMessage ", props.sendMessage)
     // });
+    let userId;
+    if (localStorage.getItem('email')) {
+        let email = localStorage.getItem('email').split("@");
+        userId = email[0].replace(/\./g, '');
+    }
+
     useEffect(() => {
-        // Create an scoped async function in the hook
+        // Create an scoped async function in the hook 
         async function anyNameFunction() {
             // await chatActualization();
-            dbF.ref("chat").on("value", snapshot => {
+            localStorage.getItem('email') ? dbF.ref(`chat/${userId}`).on("value", snapshot => {
                 console.log("snap.val() ", snapshot.val())
 
                 let chats = [];
                 snapshot.forEach((snap) => {
                     console.log("snap.val() ", snap.val().text)
-                    chats.push(snap.val().text);
+                    chats.push({
+                        text: snap.val().text,
+                        email: snap.val().email,
+                        name: snap.val().name,
+                        url: snap.val().url
+                    });
                 });
-                setArrMessage(chats)
-            });
+                setArrMessage(chats.reverse())
+            }) : null;
         }
         // Execute the created function directly
         anyNameFunction();
     }, []);
-
     const responseFacebook = (response) => {
         props.onAuth(response.email, response.id, true);
     }
@@ -204,108 +215,89 @@ const Conact = React.memo(props => {
             </NavLink> : null}
         </Form >
     );
-    var db = firebase.firestore();
-    // db.collection("users").add({
-    //     first: "Ada",
-    //     last: "Lovelace",
-    //     born: 1815
-    // })
-    //     .then((docRef) => {
-    //         console.log("Document written with ID: ", docRef);
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error adding document: ", error);
-    //     });
-
-    // db.collection("cities").doc("LA").set({
-    //     name: "Los Angeles",
-    //     state: "CA",
-    //     country: "USA",
-    //     text: "message"
-    // })
-    //     .then(() => {
-    //         console.log("Document successfully written!");
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error writing document: ", error);
-    //     });
-
-    // let messageBox = [];
-    // db.collection("users").get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(`${doc.data().text}`);
-    //         messageBox.push(doc.data().text);
-    //         messageBox.length == arrMessage.length ? console.log("good") : check((doc.data().text));
-    //         console.log('messageBox ', messageBox.length);
-    //     });
-    // });
-    let check = (m) => {
-        // setArrMessage([...arrMessage, m]);
-
-    }
-
-
-    // db.collection("cities").doc("LA")
-    //     .onSnapshot((doc) => {            // doc.fE.kt.proto.mapValue.fields.text.stringValue
-    //         console.log("Current data: ", doc.data().text);
-    //         console.log("Current data: ", doc.fE.kt.proto.mapValue.fields.text.stringValue);
-    //     });
 
     let chatActualization = () => {
         props.onChatListener();
         setArrMessage([...arrMessage, props.messageBox]);
     }
     let chatTextHandler = () => {
-        props.onChatListener(message);
+        props.onChatListener(
+            message,
+            userId,
+            localStorage.getItem('email'),
+            localStorage.getItem('name'),
+            localStorage.getItem('url')
+        );
         setArrMessage([...arrMessage, message]);
-        setMessage('')
-        // db.collection("users").add({
-        //     text: message
-        // }).then(setMessage(''))
-
-
+        setMessage('');
     }
     let chatText = () => {
-        // props.onChatListener();
-        // let messageBox = [];
-        // db.collection("users").get().then((querySnapshot) => {
-        //     querySnapshot.forEach((doc) => {
-        //         console.log(`${doc.data().text}`);
-        //         messageBox.push(doc.data().text);
-        //     });
-        // });
         return (
             arrMessage.map(res => {
                 // props.messageBox.map(res => {
-                // console.log("res ", res)
-                return <div className={classes.MessageHolder}><div>{res}</div></div>
+                console.log("res ", res)
+                return (
+                    <div className={res.email == localStorage.getItem('email') ?
+                        classes.MessageHolder : classes.MessageHolderGuest}>
+                        <img src={!res.url ? noImg : res.url} alt="Girl in a jacket" height="60" />
+                        <div>
+                            {res.text}
+                        </div>
+                        <div>
+                            {res.name}
+                        </div>
+                    </div>
+                )
             }))
     };
     let chat = (
-        <div className={classes.ContentEditInputLine}>
-            {props.isAuthenticated ? <NavLink to={"/logout"} className={classes.LogoutBtn}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
-                    <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
-                </svg>
-            </NavLink> : null}
-            <Input
-                anableHideBtn="false"
-                classAdd={!props.isAuthenticated ? "ContactChatHide" : "ContactChat"}
-                disabled={!props.isAuthenticated ? 'true' : null}
-                elementType='textarea'
+        <div className={classes.ContentEditInputLineWraper}>
+            <div className={classes.ContentEditInputLine}>
+                {props.isAuthenticated ? <NavLink to={"/logout"} className={classes.LogoutBtn}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                    </svg>
+                </NavLink> : null}
+                <Input
+                    anableHideBtn="false"
+                    classAdd={!props.isAuthenticated ? "ContactChatHide" : "ContactChat"}
+                    disabled={!props.isAuthenticated ? 'true' : null}
+                    elementType='textarea'
 
-                value={props.isAuthenticated ? message : 'Zaloguj się'}
-                changed={(event) => setMessage(event.target.value)}
-            />
-            {props.isAuthenticated ?
-                <ButtonBootstrap variant={"light"}
-                    className={!props.isAuthenticated ? classes.SendMessageBtnUn : classes.SendArrow}
-                    onClick={() => chatTextHandler()}
-                    disabled={!props.isAuthenticated ? true : false}
-                ></ButtonBootstrap> : null}
+                    value={props.isAuthenticated ? message : 'Zaloguj się'}
+                    changed={(event) => setMessage(event.target.value)}
+                />
+                {props.isAuthenticated ?
+                    <ButtonBootstrap variant={"light"}
+                        className={!props.isAuthenticated ? classes.SendMessageBtnUn : classes.SendArrow}
+                        onClick={() => chatTextHandler()}
+                        disabled={!props.isAuthenticated ? true : false}
+                    ></ButtonBootstrap> : null}
+            </div>
+            <div>
+                {!props.isAuthenticated ?
+                    <ButtonBootstrap variant="light" onClick={() => setAuth(true)}>Register/Sing In</ButtonBootstrap>
+                    : null
+                }
+                {
+                    props.addNewPostContainer ? <Backdrop
+                        show={props.addNewPostContainer}
+                        clicked={closeHandler} /> : null
+                }
+                {
+                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
+                        <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null
+                }
+
+                {
+                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                        <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null
+                }
+            </div>
         </div>
     );
+
     // setTimeout(() => chatActualization(), 10000)
     return (
         <div className={classes.Contact} {...handlers}>
@@ -340,8 +332,10 @@ const Conact = React.memo(props => {
                 </div>
                 <div className={classes.ContactRight}>
                     {/* {form} */}
-                    <div className={classes.ChatMessage}>
+                    <div className={classes.ChatMessage} >
+                        {/* <div className={classes.ChatMessageScroll} > */}
                         {chatText()}
+                        {/* </div> */}
                     </div>
                     {chat}
                 </div>
@@ -371,7 +365,7 @@ const mapDispatchToProps = dispatch => {
         onDeletePost: (id, imgName, key, folderName) => dispatch(actions.deletePost(id, imgName, key, folderName)),
         onUpdatePostData: (postData) => dispatch(actions.updatePostData(postData)),
         onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray)),
-        onChatListener: (message) => dispatch(actions.fetchChat(message)),
+        onChatListener: (message, id, email, name, url) => dispatch(actions.fetchChat(message, id, email, name, url)),
         onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
         onAuthSn: (sNlogin) => dispatch(actions.authSn(sNlogin)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))

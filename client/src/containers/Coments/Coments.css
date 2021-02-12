@@ -4,12 +4,9 @@
     flex-flow: column;
     align-items: center;
     margin: 0;
-    /* padding-top: 5em; */
-    /* padding: 5em 0 0 0; */
     width: 100vw;
     height: 100vh;
     text-align: center;
-    /* background: lightblue url("../../assets//images///elephant-monochrome-black-background-closeup-3504x2336-2957.jpg") no-repeat fixed center; */
     background-size: 100% 100%;
     background-color: #F2F3F5;
 }
@@ -62,17 +59,13 @@
 }
 .Coments .ContentEditWraper>div>button,
 .AuthBtn>button{
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px; */
     display: flex;
     flex-flow: row;
     text-align: center;
     align-content: center;
     border-radius: 10px!important;
     margin: 15px;
-    /* height: 50px; */
     width: 300px;
-    /* background-color: #F2F3F5; */
-    /* box-shadow:  4px 4px 8px #646662,inset 2px 2px 4px white;  //#72ca38 */
     background-color: #F2F3F5;
     box-shadow: 
 12px 12px 16px 0 rgba(0, 0, 0, 0.25),

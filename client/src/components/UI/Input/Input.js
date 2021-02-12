@@ -76,7 +76,7 @@ const input = (props) => {
     // console.log("[hide props ]", props.hide ? "work!!! " + props.hide : null);
     return (
         <div className={classes.Input}>
-            <label className={classes.Label}>{props.label}</label>
+            {/* <label className={classes.Label}>{props.label}</label> */}
             {inputElement}
             {/* <input type="checkbox" onClick={props.clicked} /> */}
             {/* {!props.anableHideBtn ? <ButtonBootstrap style={{ display: `${props.hide}` }}

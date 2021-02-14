@@ -103,10 +103,11 @@
         -2px -2px 4px 0 rgba(255, 255, 255, 0.4)!important;
         transition: .45s;
     }
+
+
     .ChatMessage{
         display: flex;
         flex-direction: column-reverse;
-        /* justify-content: flex-end; */
         position: relative;
         overflow-y: scroll;
         width: 100%;
@@ -118,30 +119,63 @@
         width: 100%;
         margin: 20px 0;
         display: flex;
-        
-        flex-direction: row;
-        justify-content: flex-end;
+        flex-direction: column;
+        justify-content: flex-start;
+        color: #F2F3F5;
     }
+    .ChatMessage .MessageHolder>div{
+        margin: 20px 0;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+        color: #F2F3F5;
+    }
+
     .ChatMessage .MessageHolderGuest{
+        width: 100%;
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        color: black!important;
+    }
+    .ChatMessage .MessageHolderGuest>div{
         width: 100%;
         margin: 20px 0;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
+        color: black!important;
     }
-    .MessageHolder>div{
+    .MessageHolder>div>div{
         display: flex;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .MessageHolderGuest>div>div{
+        display: flex;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .MessageText{
         background: rgb(0, 132, 255);
-        color: #F2F3F5;
-        padding: 10px;
-        border-radius: 10px;
     }
-    .MessageHolderGuest>div{
-        display: flex;
+    .MessageHolderGuest .MessageText{
         background: rgb(214, 215, 216);
-        padding: 10px;
-        border-radius: 10px;
     }
+    .MessageHolder img{
+        height:60px;
+        width: 60px;
+        border-radius: 50%!important;
+    }
+    .MessageTime>div{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        color: black;
+    }
+
 .Contact .ContactRight p{
     margin: auto;
 }
@@ -194,9 +228,10 @@ left:20vw;
     .Contact .ContactRight>form button div{
     align-items: center;
     text-align: center;
-    /* border: 1px solid black; */
+justify-content: center;
     margin-left: 0%;
     font-size: 100%;
+    
     text-transform: uppercase!important;
     }
     .Contact .ContactRight>form div textarea{
@@ -229,9 +264,6 @@ margin: 20% 0;
     align-content: center;
 }
 .ContactRight .GoogleIcon {
-    position: absolute;
-    /* margin-top: 11px;
-    margin-left: 11px; */
     margin: auto 12px;
     width: 18px;
     height: 18px;
@@ -253,6 +285,19 @@ margin: 20% 0;
     letter-spacing: 0.2px;
     font-family: "Roboto";
     text-transform: uppercase;
+ }
+ .LoginBtnWraper button{
+    color: rgb(131, 122, 122);
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    font-family: "Roboto";
+    text-transform: uppercase;
+ }
+ @media(max-width:1200px){
+    .LoginBtnWraper {
+        display: flex;
+        flex-flow: column!important;
+    }
  }
  @media(max-width:900px){
     .ContactRight{

@@ -236,7 +236,7 @@ export const deleteComent = (id, key) => {
 }
 
 
-export const fetchChat = (message, id, email, name, url) => {
+export const fetchChat = (message, id, email, name, url, date) => {
     console.log('-----update----', message);
     return dispatch => {
         dispatch(chatStart());
@@ -255,7 +255,8 @@ export const fetchChat = (message, id, email, name, url) => {
             text: message,
             email: email,
             name: name,
-            url: url
+            url: url,
+            date: date
         }
         axios.post(`/chat/${id}.json`, data)
             .then(response => {

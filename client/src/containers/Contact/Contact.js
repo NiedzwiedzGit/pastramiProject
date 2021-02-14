@@ -79,7 +79,8 @@ const Conact = React.memo(props => {
                         text: snap.val().text,
                         email: snap.val().email,
                         name: snap.val().name,
-                        url: snap.val().url
+                        url: snap.val().url,
+                        date: snap.val().date
                     });
                 });
                 setArrMessage(chats.reverse())
@@ -221,31 +222,56 @@ const Conact = React.memo(props => {
         setArrMessage([...arrMessage, props.messageBox]);
     }
     let chatTextHandler = () => {
+        let time = new Date();
+        let date = {
+            seconds: time.getSeconds(),
+            minutes: time.getMinutes(),
+            hours: time.getHours(),
+            day: time.getDay(),
+            month: time.getMonth(),
+            year: time.getFullYear()
+        };
         props.onChatListener(
             message,
             userId,
             localStorage.getItem('email'),
             localStorage.getItem('name'),
-            localStorage.getItem('url')
+            localStorage.getItem('url'),
+            date
         );
-        setArrMessage([...arrMessage, message]);
+        // setArrMessage([...arrMessage, message]);
         setMessage('');
     }
+    var d = new Date()
     let chatText = () => {
         return (
             arrMessage.map(res => {
                 // props.messageBox.map(res => {
-                console.log("res ", res)
+                console.log('res ', res);
+                let time;
+                if (res.date.day != d.getDay()) {
+                    time = `${res.date.day < 9 ? '0' + res.date.day : res.date.day}/${res.date.month < 9 ? '0' + res.date.month : res.date.month}/${res.date.year} ${res.date.hours}:${res.date.minutes < 9 ? '0' + res.date.minutes : res.date.minutes}`
+                }
+                else {
+                    time = `${res.date.hours}:${res.date.minutes < 9 ? '0' + res.date.minutes : res.date.minutes}`
+                }
+
                 return (
-                    <div className={res.email == localStorage.getItem('email') ?
-                        classes.MessageHolder : classes.MessageHolderGuest}>
-                        <img src={!res.url ? noImg : res.url} alt="Girl in a jacket" height="60" />
-                        <div>
-                            {res.text}
+                    <div className={[classes.MessageHolder, classes[res.email == localStorage.getItem('email') ?
+                        null :
+                        'MessageHolderGuest']].join(' ')}>
+                        <div className={classes.MessageTime}>
+                            <div>
+                                {time}
+                            </div>
                         </div>
                         <div>
-                            {res.name}
+                            <img src={!res.url ? noImg : res.url} alt="Girl in a jacket" />
+                            <div className={classes.MessageText}>
+                                {res.text}
+                            </div>
                         </div>
+
                     </div>
                 )
             }))
@@ -275,9 +301,9 @@ const Conact = React.memo(props => {
                         disabled={!props.isAuthenticated ? true : false}
                     ></ButtonBootstrap> : null}
             </div>
-            <div>
+            <div className={classes.LoginBtnWraper}>
                 {!props.isAuthenticated ?
-                    <ButtonBootstrap variant="light" onClick={() => setAuth(true)}>Register/Sing In</ButtonBootstrap>
+                    <ButtonBootstrap variant="light" onClick={() => setAuth(true)}><p>Register/Sing In</p></ButtonBootstrap>
                     : null
                 }
                 {
@@ -331,7 +357,7 @@ const Conact = React.memo(props => {
                     </div>
                 </div>
                 <div className={classes.ContactRight}>
-                    {/* {form} */}
+
                     <div className={classes.ChatMessage} >
                         {/* <div className={classes.ChatMessageScroll} > */}
                         {chatText()}
@@ -365,7 +391,7 @@ const mapDispatchToProps = dispatch => {
         onDeletePost: (id, imgName, key, folderName) => dispatch(actions.deletePost(id, imgName, key, folderName)),
         onUpdatePostData: (postData) => dispatch(actions.updatePostData(postData)),
         onUrlArray: (urlArray) => dispatch(actions.getUrlArray(urlArray)),
-        onChatListener: (message, id, email, name, url) => dispatch(actions.fetchChat(message, id, email, name, url)),
+        onChatListener: (message, id, email, name, url, date) => dispatch(actions.fetchChat(message, id, email, name, url, date)),
         onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
         onAuthSn: (sNlogin) => dispatch(actions.authSn(sNlogin)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))

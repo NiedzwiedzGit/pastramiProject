@@ -47,34 +47,45 @@ const Conact = React.memo(props => {
     const [auth, setAuth] = useState('');
     const [message, setMessage] = useState('');
     const [arrMessage, setArrMessage] = useState([]);
+    const [arrUsers, setArrUsers] = useState([]);
+    const [userLoad, setUserLoad] = useState('');
+    const [lastMessage, setLastMessage] = useState('');
 
-
-    // useEffect(() => {
-    //     // props.onChatListener();
-    //     // callApi()
-    //     //     .then(res => setResponse(res.express))
-    //     //     .catch(err => console.log(err));
-    //     if (props.sendMessage) {
-    //         // chatActualization()
-    //     }
-    //     // console.log("props.sendMessage ", props.sendMessage)
-    // });
     let userId;
-    if (localStorage.getItem('email')) {
+    let count = 0;
+    if (localStorage.getItem('email') && count == 0) {
         let email = localStorage.getItem('email').split("@");
         userId = email[0].replace(/\./g, '');
+        userLoad == '' ? setUserLoad(userId) : null;
     }
 
     useEffect(() => {
         // Create an scoped async function in the hook 
         async function anyNameFunction() {
             // await chatActualization();
-            localStorage.getItem('email') ? dbF.ref(`chat/${userId}`).on("value", snapshot => {
-                console.log("snap.val() ", snapshot.val())
+            dbF.ref(`clients`).on("value", snapshot => {
+                let users = [];
+                let clientObj = snapshot.val();
+                for (let key in clientObj) {
+                    Object.keys(clientObj[key]).map(r => {
+                        console.log('r ', clientObj[key][r])
+                        users.push(clientObj[key][r]);
+                    })
+                }
+                setArrUsers(users);
 
+            })
+
+            // let result;
+            // let revErr = arrMessage.reverse()
+            // revErr.filter(obj => {
+            //     console.log('obj ', obj.text)
+            //     return result = obj.text
+            // })
+
+            localStorage.getItem('email') ? dbF.ref(`chat/${userLoad}`).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach((snap) => {
-                    console.log("snap.val() ", snap.val().text)
                     chats.push({
                         text: snap.val().text,
                         email: snap.val().email,
@@ -84,6 +95,7 @@ const Conact = React.memo(props => {
                     });
                 });
                 setArrMessage(chats.reverse())
+
             }) : null;
         }
         // Execute the created function directly
@@ -222,6 +234,8 @@ const Conact = React.memo(props => {
         setArrMessage([...arrMessage, props.messageBox]);
     }
     let chatTextHandler = () => {
+
+        console.log("userLoad ", userLoad)
         let time = new Date();
         let date = {
             seconds: time.getSeconds(),
@@ -233,21 +247,21 @@ const Conact = React.memo(props => {
         };
         props.onChatListener(
             message,
-            userId,
+            userLoad,
             localStorage.getItem('email'),
             localStorage.getItem('name'),
             localStorage.getItem('url'),
             date
         );
-        // setArrMessage([...arrMessage, message]);
         setMessage('');
     }
     var d = new Date()
     let chatText = () => {
+
         return (
             arrMessage.map(res => {
                 // props.messageBox.map(res => {
-                console.log('res ', res);
+                // setLastMessage(res.text);
                 let time;
                 if (res.date.day != d.getDay()) {
                     time = `${res.date.day < 9 ? '0' + res.date.day : res.date.day}/${res.date.month < 9 ? '0' + res.date.month : res.date.month}/${res.date.year} ${res.date.hours}:${res.date.minutes < 9 ? '0' + res.date.minutes : res.date.minutes}`
@@ -256,26 +270,67 @@ const Conact = React.memo(props => {
                     time = `${res.date.hours}:${res.date.minutes < 9 ? '0' + res.date.minutes : res.date.minutes}`
                 }
 
-                return (
-                    <div className={[classes.MessageHolder, classes[res.email == localStorage.getItem('email') ?
-                        null :
-                        'MessageHolderGuest']].join(' ')}>
-                        <div className={classes.MessageTime}>
-                            <div>
-                                {time}
-                            </div>
-                        </div>
+                let content = (<div className={[classes.MessageHolder, classes[res.email == localStorage.getItem('email') ?
+                    null :
+                    'MessageHolderGuest']].join(' ')}>
+                    <div className={classes.MessageTime}>
                         <div>
-                            <img src={!res.url ? noImg : res.url} alt="Girl in a jacket" />
-                            <div className={classes.MessageText}>
-                                {res.text}
-                            </div>
+                            {time}
                         </div>
-
                     </div>
-                )
+                    <div>
+                        <img src={!res.url ? noImg : res.url} alt="Girl in a jacket" />
+                        <div className={classes.MessageText}>
+                            {res.text}
+                        </div>
+                    </div>
+
+                </div>)
+                return content
             }))
     };
+    let usersHendler = (id) => {
+        let result;
+        let revErr = arrMessage.reverse()
+        revErr.filter(obj => {
+            console.log('obj ', obj.text)
+            return result = obj.text
+        })
+        console.log('arrMessage ', result)
+        dbF.ref(`chat/${id}`).on("value", snapshot => {
+            console.log("snap.val() ", snapshot.val())
+            let chats = [];
+            snapshot.forEach((snap) => {
+                chats.push({
+                    text: snap.val().text,
+                    email: snap.val().email,
+                    name: snap.val().name,
+                    url: snap.val().url,
+                    date: snap.val().date
+                });
+            });
+            setArrMessage(chats.reverse())
+            setUserLoad(id)
+        })
+    }
+
+    let users = () => {
+        let urser = arrUsers.map(res => {
+            return (
+                <div
+                    className={[classes.UsersListBlock, classes[userLoad == res.id ? 'Active' : null]].join(' ')}
+                    onClick={() => usersHendler(res.id)}>
+                    <img src={!res.url ? noImg : res.url} alt="Girl in a jacket" />
+                    <div>
+                        <span className={classes.Name}>{res.name}</span>
+                        <span className={classes.Email}>{res.email}</span>
+                        {/* <span className={classes.Message}>{res.lastMessage}</span> */}
+                    </div>
+                </div >
+            )
+        })
+        return urser;
+    }
     let chat = (
         <div className={classes.ContentEditInputLineWraper}>
             <div className={classes.ContentEditInputLine}>
@@ -357,7 +412,7 @@ const Conact = React.memo(props => {
                     </div>
                 </div>
                 <div className={classes.ContactRight}>
-
+                    <div className={classes.UsersListWraper}>{users()}</div>
                     <div className={classes.ChatMessage} >
                         {/* <div className={classes.ChatMessageScroll} > */}
                         {chatText()}
@@ -382,7 +437,8 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !== null,
         authRedirectPath: state.auth.authRedirectPath,
         messageBox: state.main.messageBox,
-        sendMessage: state.main.sendMessage
+        sendMessage: state.main.sendMessage,
+        adminId: state.main.adminId
     };
 };
 const mapDispatchToProps = dispatch => {

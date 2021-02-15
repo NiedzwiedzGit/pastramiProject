@@ -237,20 +237,8 @@ export const deleteComent = (id, key) => {
 
 
 export const fetchChat = (message, id, email, name, url, date) => {
-    console.log('-----update----', message);
     return dispatch => {
         dispatch(chatStart());
-        // db.collection("users").get().then((querySnapshot) => {
-        //     let messageBox = [];
-        //     querySnapshot.forEach((doc) => {
-        //         console.log(`work+${doc.data().text}`);
-        //         messageBox.push(doc.data().text);
-        //         // messageBox.length == arrMessage.length ? console.log("good") : check((doc.data().text));
-        //     });
-        //     dispatch(chatSuccess(messageBox));
-        // }).catch(error => {
-        //     dispatch(fetchPostContentFail(error));
-        // });
         let data = {
             text: message,
             email: email,
@@ -258,17 +246,60 @@ export const fetchChat = (message, id, email, name, url, date) => {
             url: url,
             date: date
         }
+        let clientData = {
+            email: email,
+            name: name,
+            url: url,
+            date: date,
+            id: id,
+            lastMessage: message
+        }
+        console.log('response.data id ', id)
         axios.post(`/chat/${id}.json`, data)
             .then(response => {
+
                 dispatch(chatSuccess(message));
-                // console.log('-----update----', formData);
             })
             .catch(err => {
                 dispatch(fetchPostContentFail(err));
             }
             );
+
+        axios.get(`/clients/${id}.json`)
+            .then(response => {
+                let re = [];
+                console.log('response.data ', response.data)
+                for (let key in response.data) {
+                    re.push(response.data[key].url)
+                }
+                if (response.data == null) {
+                    axios.post(`/clients/${id}.json`, clientData)
+                        .then(response => {
+
+                            dispatch(chatSuccess(message));
+                        })
+                        .catch(err => {
+                            dispatch(fetchPostContentFail(err));
+                        }
+                        )
+                }
+
+                // else if (re.url != url ||
+                //     re.name != name ||
+                //     re.email != email) {
+                //     axios.delete(`/clients/${id}.json`).then(response => {
+                //         axios.post(`/clients/${id}.json`, clientData)
+                //             .then(response => {
+                //                 dispatch(chatSuccess(message));
+                //             })
+                //             .catch(err => {
+                //                 dispatch(fetchPostContentFail(err));
+                //             })
+                //     });
+
+                // } 
+                else null
+            }).catch(error => { });
     }
-
-
 }
 

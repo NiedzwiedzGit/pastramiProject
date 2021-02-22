@@ -37,11 +37,10 @@ class Info extends Component {
     componentDidMount() {
         this.props.onfetchTextContent('info');
         window.addEventListener('scroll', this.handleScroll);
-        console.log('this.localStorage.getItem(email) ', localStorage.getItem('email'))
     }
 
     handleScroll = (event) => {
-        var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+        var st = window.pageYOffset || document.documentElement.scrollTop;
         if (st > lastScrollTop) {
             this.setState({ scrollWindowY: st })
 
@@ -99,7 +98,6 @@ class Info extends Component {
         return ImgBlock;
     }
     render() {
-        console.log('window.pageYOffset ', window.pageYOffset);
         return (
             <div className={classes.Przepisy}>
                 <div className={classes.Logo}></div>
@@ -120,7 +118,7 @@ class Info extends Component {
                 {this.props.addNewPostContainer ? <Backdrop
                     show={this.props.addNewPostContainer}
                     clicked={this.closeHandler} /> : null}
-                <div className={classes.ContentDiv} onscroll={(e) => console.lof('e ', e)}>
+                <div className={classes.ContentDiv} onScroll={(e) => console.lof('e ', e)}>
                     <Suspense fallback={<div>loading</div>}>
                         {this.onLoadContent()}
                     </Suspense>

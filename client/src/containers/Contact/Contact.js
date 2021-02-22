@@ -10,7 +10,6 @@ import ButtonBootstrap from 'react-bootstrap/Button';
 import CircleLoader from "react-spinners/CircleLoader";
 import { css } from "@emotion/core";
 
-// import NewPost from '../NewPost/NewPost';
 import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import { withRouter, NavLink } from 'react-router-dom';
@@ -18,12 +17,9 @@ import { useSwipeable } from "react-swipeable";
 import Input from '../../components/UI/Input/Input'
 import noImg from '../../assets/images/noimage.png';
 
-// import FacebookLogin from 'react-facebook-login';
-// import { GoogleLogin, GoogleLogout } from 'react-google-login';
-// import Logout from '../Auth/Logout/Logout';
 import firebase from '@firebase/app';
 
-import { dbF, db } from "../../shared/firebase";
+import { dbF } from "../../shared/firebase";
 
 
 
@@ -40,8 +36,6 @@ const withCols = css`
 
 const Conact = React.memo(props => {
     const [id, setId] = useState([]);
-    const [folderName, setFolderName] = useState('przepisy');
-    const [response, setResponse] = useState('');
     const [post, setPost] = useState('');
     const [responseToPost, setResponseToPost] = useState('');
     const [auth, setAuth] = useState('');
@@ -49,7 +43,6 @@ const Conact = React.memo(props => {
     const [arrMessage, setArrMessage] = useState([]);
     const [arrUsers, setArrUsers] = useState([]);
     const [userLoad, setUserLoad] = useState('');
-    const [lastMessage, setLastMessage] = useState('');
 
     let userId;
     let count = 0;
@@ -62,7 +55,6 @@ const Conact = React.memo(props => {
     useEffect(() => {
         // Create an scoped async function in the hook 
         async function anyNameFunction() {
-            // await chatActualization();
             dbF.ref(`clients`).on("value", snapshot => {
                 let users = [];
                 let clientObj = snapshot.val();
@@ -75,13 +67,6 @@ const Conact = React.memo(props => {
                 setArrUsers(users);
 
             })
-
-            // let result;
-            // let revErr = arrMessage.reverse()
-            // revErr.filter(obj => {
-            //     console.log('obj ', obj.text)
-            //     return result = obj.text
-            // })
 
             localStorage.getItem('email') ? dbF.ref(`chat/${userLoad}`).on("value", snapshot => {
                 let chats = [];
@@ -378,6 +363,9 @@ const Conact = React.memo(props => {
             </div>
         </div>
     );
+    let logo = (
+        <div className={classes.Logo}></div>
+    )
 
     // setTimeout(() => chatActualization(), 10000)
     return (
@@ -412,10 +400,10 @@ const Conact = React.memo(props => {
                     </div>
                 </div>
                 <div className={classes.ContactRight}>
-                    <div className={classes.UsersListWraper}>{users()}</div>
+                    <div className={classes.UsersListWraper}>{props.isAuthenticated && localStorage.getItem('email') == props.adminId ? users() : null}</div>
                     <div className={classes.ChatMessage} >
                         {/* <div className={classes.ChatMessageScroll} > */}
-                        {chatText()}
+                        {props.isAuthenticated ? chatText() : logo}
                         {/* </div> */}
                     </div>
                     {chat}

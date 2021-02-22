@@ -1,7 +1,5 @@
 import React from 'react';
 import classes from './Input.css';
-import Form from 'react-bootstrap/Form';
-import ButtonBootstrap from 'react-bootstrap/Button';
 import TextareaAutosize from 'react-textarea-autosize';
 
 
@@ -41,12 +39,7 @@ const input = (props) => {
                 value={props.value}
                 onChange={props.changed}
                 disabled={props.disabled} />;
-            // inputElement = <textarea
-            //     className={inputClasses.join(' ')}
-            //     {...props.elementConfig}
-            //     value={props.value}
-            //     onChange={props.changed}
-            //     disabled={props.disabled} />;
+
             break;
         case ('select'):
             inputElement = (
@@ -73,17 +66,10 @@ const input = (props) => {
                 value={props.value}
                 onChange={props.changed} />;
     }
-    // console.log("[hide props ]", props.hide ? "work!!! " + props.hide : null);
     return (
         <div className={classes.Input}>
-            {/* <label className={classes.Label}>{props.label}</label> */}
             {inputElement}
-            {/* <input type="checkbox" onClick={props.clicked} /> */}
-            {/* {!props.anableHideBtn ? <ButtonBootstrap style={{ display: `${props.hide}` }}
-                variant={props.hide !== false ? "outline-danger" : "outline-primary"}
-                onClick={props.clicked}>
-                {props.hide !== false ? "-" : "+"}
-            </ButtonBootstrap> : null} */}
+
             {validationError}
         </div >
     );

@@ -106,9 +106,6 @@ const ResiveForm = React.memo(props => {
                 props.updateHandler ? updateList[inputIdentifier] = updatedOrderForm[inputIdentifier].value : null;
             })
         }
-
-        console.log("inside formIsValid ", formIsValid);
-
         setReciveForm(updatedOrderForm);
         setFormIsValid(formIsValid);
         setUpdateForm(updateList);
@@ -155,7 +152,6 @@ const ResiveForm = React.memo(props => {
     let count = 0;
     let form = (
         Object.keys(resiveForm).map((formElement, index) => {
-            console.log('formElement.id ', resiveForm[formElement])
             count++;
             return <Input
                 key={formElement}

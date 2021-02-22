@@ -2,18 +2,12 @@ import React, { Suspense, Component } from 'react';
 import classes from './Main.css';
 import { connect } from 'react-redux';
 import ContentBlock from '../../containers/ContentBlock/ContentBlock';
-// import Coment from '../../components/Coment/Coment';
-
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 
 import CircleLoader from "react-spinners/CircleLoader";
 import { css } from "@emotion/core";
 import * as actions from '../../store/actions/index';
-
-import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-// import asyncAuth from '../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent';
+import { withRouter } from 'react-router-dom';
 
 const override = css`
   position:absolut;
@@ -23,10 +17,6 @@ const override = css`
   border-color: red;
 `;
 
-const postGalery = asyncComponent(() => {
-    return import('../../components/ImagesBlock/ImagesBlockContent/ImagesBlockContent');
-
-});
 class Main extends Component {
     state = {
         url: [],
@@ -48,11 +38,6 @@ class Main extends Component {
         this.props.onUpdatePostData(postData);
         this.props.onAddNewPost();
     }
-    // postSelectedHandler = (id, urlArray) => {
-    //     // this.props.history.push({ pathname: id });
-    //     // console.log("urlArray ", urlArray)
-    //     this.props.onUrlArray(urlArray);
-    // }
     onLoadContent = () => {
         let ImgBlock = <CircleLoader
             css={override}
@@ -62,7 +47,7 @@ class Main extends Component {
         />;
         let testArray = [0, 1, 2, 3, 5];
         ImgBlock = testArray.map((res, index) => {
-            return <div className={[classes[this.state.active]].join(' ')}
+            return <div key={index} className={[classes[this.state.active]].join(' ')}
                 onMouseEnter={() => this.setState({ active: "Active" })}
                 onMouseLeave={() => this.setState({ active: "ContentBlock" })}>
                 <ContentBlock key={index} num={index} class={index % 2 ? "ContentBlockPaire" : null} />

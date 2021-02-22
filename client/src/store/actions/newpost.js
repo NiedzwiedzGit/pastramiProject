@@ -43,7 +43,7 @@ export const addComentContent = (dataContent) => {
             .then(response => {
                 // dispatch(addNewPostSuccess(formData.imageFile));
                 //console.log('---------', dataContent.key);
-                window.location.reload(false);
+                // window.location.reload(false);
             })
             .catch(err => {
                 dispatch(addNewPostFail())

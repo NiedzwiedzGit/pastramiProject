@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Button from '../../components/UI/Button/Button';
 import ButtonBootstrap from 'react-bootstrap/Button';
-
 import PropagateLoader from "react-spinners/PropagateLoader";
-
 import { updateObject, checkValidity } from '../../shared/utility';
 import Input from '../../components/UI/Input/Input';
-
 import ImageUploading from "react-images-uploading";
 
 const maxNumber = 100;
@@ -116,21 +113,6 @@ class NewPost extends Component {
                 startView: false,
                 hide: true
             },
-            location: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Location'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false,
-                startView: true,
-                hide: true
-            },
             year: {
                 elementType: 'input',
                 elementConfig: {
@@ -181,9 +163,12 @@ class NewPost extends Component {
         update: this.props.update
     }
     componentDidMount() {
-        this.props.updateHandler ? this.inputUpdateHandler(this.props.updateData) : this.resetForm();
-        this.props.updateHandler ? this.setState({ updateForm: this.props.updateData }) : null;
-        //this.props.updateHandler ? console.log('[didMount] ', this.state.updateForm) : null;
+        if (this.props.updateHandler) {
+            this.inputUpdateHandler(this.props.updateData);
+            this.setState({ updateForm: this.props.updateData })
+        } else {
+            this.resetForm()
+        }
     }
     handleImageAsFile = (imageList) => {
         this.setState({ imageFile: imageList })
@@ -200,7 +185,6 @@ class NewPost extends Component {
         if (!this.props.loading && !this.props.animate) {
             event.preventDefault();
             let formData = {};
-            // && !this.props.field
             if (!this.props.updateHandler) {
                 for (let formElementIdentifier in this.state.orderForm) {
                     if (this.state.orderForm[formElementIdentifier].startView && this.state.orderForm[formElementIdentifier].value !== '') {
@@ -334,21 +318,6 @@ class NewPost extends Component {
                 startView: false,
                 hide: true
             },
-            location: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Location'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false,
-                startView: true,
-                hide: true
-            },
             year: {
                 elementType: 'input',
                 elementConfig: {
@@ -403,22 +372,18 @@ class NewPost extends Component {
                 touched: true
             });
         }
-        // console.log('[from inputUpdateHandler] ', updatedFormElement);
         this.setState({ orderForm: updatedFormElement });
     }
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
-            value: !this.props.loading && this.props.animate || event.target.value == 'on' ? '' : event.target.value,
+            value: (!this.props.loading && this.props.animate) || (event.target.value === 'on') ? '' : event.target.value,
             valid: !this.props.loading && this.props.animate ? false : checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
             touched: !this.props.loading && this.props.animate ? false : true,
-            // hide: !this.props.loading && this.props.animate ? !this.state.orderForm[inputIdentifier].hide : event.target.value
-            //     || event.target.value == 'on'
         });
         let updateList = this.state.updateForm;
         const updatedOrderForm = updateObject(this.state.orderForm, {
             [inputIdentifier]: updatedFormElement
         });
-        // console.log('[from  this.props.field] ', this.props.field);
 
         let formIsValid = true;
 
@@ -426,15 +391,17 @@ class NewPost extends Component {
             for (let inputIdentifier in updatedOrderForm) {
                 if (this.state.orderForm[inputIdentifier].startView) {
                     formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
-                    this.props.updateHandler ? updateList[inputIdentifier] = updatedOrderForm[inputIdentifier].value : null;
-
+                    // this.props.updateHandler ? updateList[inputIdentifier] = updatedOrderForm[inputIdentifier].value : null;
                 }
             }
         } else {
             this.props.field.split(' ').map(res => {
-                formIsValid = updatedOrderForm[res].valid && formIsValid;
-                this.props.updateHandler ? updateList[inputIdentifier] = updatedOrderForm[inputIdentifier].value : null;
+                return formIsValid = updatedOrderForm[res].valid && formIsValid;
+                // this.props.updateHandler ? updateList[inputIdentifier] = updatedOrderForm[inputIdentifier].value : null;
             })
+        }
+        if (this.props.updateHandler) {
+            updateList[inputIdentifier] = updatedOrderForm[inputIdentifier].value
         }
         this.setState({
             orderForm: updatedOrderForm,
@@ -451,18 +418,16 @@ class NewPost extends Component {
             [inputIdentifier]: updatedFormElement
         });
         let formIsValid = true;
-        let count = 0;
         if (!this.props.field) {
             for (let inputIdentifier in updatedOrderForm) {
                 if (this.state.orderForm[inputIdentifier].startView && this.state.orderForm[inputIdentifier].touched) {
-                    count++;
                     formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
                 }
             }
         } else {
             this.props.field.split(' ').map(res => {
-                formIsValid = updatedOrderForm[res].valid && formIsValid;
-            })
+                return formIsValid = updatedOrderForm[res].valid && formIsValid;
+            });
         }
         return this.setState({
             orderForm: updatedOrderForm,
@@ -482,13 +447,13 @@ class NewPost extends Component {
             }
         } else {
             this.props.field.split(' ').map(res => {
-                formElementsArray.push({
+                return formElementsArray.push({
                     id: res,
                     config: this.state.orderForm[res]
                 });
             })
         }
-        let animationButton = null;
+        let animationButton;
         let hidePostForm = "Show";
         if (!this.props.loading && !this.props.animate) {
             animationButton = <ButtonBootstrap
@@ -504,11 +469,11 @@ class NewPost extends Component {
             setTimeout(() => {
                 this.setState({ btnMessage: "Do it again?" })
             }, 1000);
-            animationButton = <ButtonBootstrap
+            animationButton = <div> <ButtonBootstrap
                 variant="success"
-                onClick={this.submitPost}>{this.state.btnMessage}</ButtonBootstrap> ,
+                onClick={() => this.submitPost()}>{this.state.btnMessage}</ButtonBootstrap>
                 <Button
-                    btnType="Success" />
+                    btnType="Success" /></div>
         } else { animationButton = <label className={classes.Loading}><PropagateLoader /></label> }
         let lengthInput = formElementsArray.length;
         let form = (
@@ -586,9 +551,9 @@ class NewPost extends Component {
                                             </ButtonBootstrap>
                                         </div>
                                     ))}
-                                    <div className={classes.BtnWraper, classes.PreviewWindowBtn}>
-                                     <ButtonBootstrap variant="outline-primary" onClick={onImageUpload}>Add</ButtonBootstrap>
-                                    <ButtonBootstrap variant="success" onClick={() => { this.setState({ previewWindow: true }) }}>Done</ButtonBootstrap></div>
+                                    <div className={[classes['BtnWraper', 'PreviewWindowBtn']].join(' ')}>
+                                        <ButtonBootstrap variant="outline-primary" onClick={onImageUpload}>Add</ButtonBootstrap>
+                                        <ButtonBootstrap variant="success" onClick={() => { this.setState({ previewWindow: true }) }}>Done</ButtonBootstrap></div>
                                 </div> : null}
                         </div>
                     )}

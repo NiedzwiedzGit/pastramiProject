@@ -6,9 +6,7 @@ import * as actions from '../../store/actions/index';
 import Button from '../../components/UI/Button/Button';
 import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
 import ButtonBootstrap from 'react-bootstrap/Button';
-// import Form from 'react-bootstrap/Form';
-// import InputGroup from 'react-bootstrap/InputGroup';
-// import FormControl from 'react-bootstrap/FormControl';
+
 
 import ResiveForm from '../ResiveForm/ResiveForm';
 import Payment from '../Payment/Payment';
@@ -23,16 +21,9 @@ import Order from '../../components/Order/Order';
 import ScrollToOrder from '../../components/ScrollToOrder/ScrollToOrder';
 
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
-
-import imgUrl from '../../assets/images/steamCook.png';
-import imgUrlRight from '../../assets/images/steamCookRight.png';
-import imgUrlOff from '../../assets/images/steamCookOfEmpty.png';
-import imgUrlOn from '../../assets/images/steamCookEmpty.png';
-import imgUrlEmptyWrapert from '../../assets/images/steamCookEmptyWrapper.png';
+import { Link, Element, Events, animateScroll as scroller } from 'react-scroll'
 
 const override = css`
   position:absolut;
@@ -61,13 +52,9 @@ class Orders extends Component {
         let dubThis = this;
         setTimeout(function () {
             window.innerWidth <= 800 ? dubThis.setState({ classHandler: true }) : null;
-            // window.innerWidth <= 800 ? alert("got it") : null
         }, 600);
-        // window.innerWidth <= 800 ? this.setState({ classHandler: true }) : null;
-        // window.innerWidth <= 800 ? alert("got it") : null
+
     }
-
-
     closeHandler = () => {
         this.props.onAddNewPost();
         this.props.updateHandler ? this.props.onUpdatePostData() : null;
@@ -120,10 +107,7 @@ class Orders extends Component {
 
     }
     classHandlerActive = (i) => {
-        console.log("classHandler ", i);
-
         return i;
-
     }
     onLoadContent = () => {
         let Block = <CircleLoader
@@ -133,24 +117,8 @@ class Orders extends Component {
             loading={true}
         />;
         let LinkBlock = [];
-        // let classHandler;
         if (this.props.textVar !== null) {
             if (this.props.textVar.length !== 0) {
-                // LinkBlock = this.props.textVar.map((res, index) => {
-                //     return <Link
-                //         activeClass="active"
-                //         to="test1"
-                //         spy={true}
-                //         smooth={true}
-                //         duration={250}
-                //         containerId="containerElement"
-                //         style={{ display: "inline-block", margin: "20px" }}
-                //     >
-                //         Go to test1
-                //         </Link>
-
-                // })
-
                 Block = this.props.textVar.map((res, index) => {
                     let disHandler;
                     let countHandler;
@@ -164,32 +132,16 @@ class Orders extends Component {
                         }
                     }
                     LinkBlock.push(
-                        // <div
-                        //     className={this.props.active == index ? classes.Active : classes.LinkWraper}  >
                         <ScrollToOrder
+                            key={index}
                             index={index}
                             textField={res.textField}
                             count={countHandler}
                         />
-                        // <Link /*classes.LinkWraper,*/
-                        //     activeClass="Active"
-                        //     // className={this.classHandlerActive() == index ? classes.Active : null}
-                        //     to={`orderBlock${index}`}
-                        //     spy={true}
-                        //     smooth={true}
-                        //     duration={250}
-                        //     containerId="containerElement"
-                        //     style={{ display: "inline-block", margin: "20px" }}
-                        //     // let classHandler;
-                        //     onClick={() => this.classHandlerActive(index)}
-                        // // onClick={() => this.setState({ active: index })}
-                        // >
-                        //     {res.textField}
-                        // </Link >
-                        // </ div >
                     )
 
                     return <div
+                        key={index}
                         id="dsfsdf"
                         onMouseEnter={() => this.setState({ classHandler: true })}
                         onMouseLeave={() => window.innerWidth >= 800 ? this.setState({ classHandler: false }) : null}
@@ -219,8 +171,6 @@ class Orders extends Component {
                 });
             }
         } else { return null };
-
-        console.log('map LinkBlock ', LinkBlock);
         return [LinkBlock, Block];
     }
     scrollTo = () => {
@@ -270,10 +220,7 @@ class Orders extends Component {
                                 : null
                         })
                         }
-                        {/* <div className={[classes.SumBlockCell, classes.SumBlockCellPay].join(' ')}>
-                            <p><strong>Do zapłaty: </strong></p>
-                            <p> {this.state.sumVal} pln.</p>
-                        </div> */}
+
                         {this.state.goToResive ?
                             <div className={classes.SumBlockButton}>
                                 <ButtonBootstrap variant="success" onClick={() => this.setState({ goToResive: false })}>Zamów</ButtonBootstrap>
@@ -335,7 +282,6 @@ class Orders extends Component {
                                 </div>
                             </div> : null :
                         <div className={classes.SumBlockButton}>
-                            {/* <ButtonBootstrap variant="success" onClick={() => this.setState({ goToResive: true })}>Zamów</ButtonBootstrap> */}
                         </div>
                 }
             </div >
@@ -374,6 +320,7 @@ class Orders extends Component {
                         classes[this.state.clickLinkWraper ? "ClickLinkWraper" : null]].join(' ')}
                     >
                         <Link /*classes.LinkWraper,*/
+                            to=''
                             activeClass="active"
                             spy={true}
                             smooth={true}
@@ -382,10 +329,10 @@ class Orders extends Component {
                             onClick={() => this.setState({ clickLinkWraper: !this.state.clickLinkWraper })}
                         >
 
-                            {!this.state.clickLinkWraper ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                            {!this.state.clickLinkWraper ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
                                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                             </svg> :
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-x" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart-x" viewBox="0 0 16 16">
                                     <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z" />
                                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                 </svg>}

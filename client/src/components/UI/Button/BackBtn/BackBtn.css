@@ -19,8 +19,8 @@
         clip-path: polygon(0 42%, 50% 42%, 50% 0, 100% 50%, 50% 100%, 50% 57%, 0 57%);
     } */
     .BackBtn button{
-        width: 50px;
-    height: 50px;
+        width: 40px;
+    height: 40px;
     clip-path: polygon(10% 0, 0 10%, 40% 50%, 0 90%, 10% 100%, 50% 60%, 90% 100%, 100% 90%, 60% 50%, 100% 10%, 90% 1%, 50% 40%);
     transition: 0.3s;
     }

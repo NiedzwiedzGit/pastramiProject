@@ -13,7 +13,7 @@ const input = (props) => {
         inputClasses.push(classes.Invalid);
     }
 
-    if (props.hide == false) {
+    if (props.hide === false) {
         inputClasses.push(classes.Hide);
     }
     let validationError = null;

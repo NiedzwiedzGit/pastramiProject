@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ButtonBootstrap from 'react-bootstrap/Button';
 
 import CircleLoader from "react-spinners/CircleLoader";
 
 import { css } from "@emotion/core";
-import Carousel from 'react-bootstrap/Carousel'
-
-// import ImageGallery from 'react-image-gallery';
-// import "react-image-gallery/styles/css/image-gallery.css";
 
 import ImageGallery from 'react-grid-gallery';
 
@@ -26,9 +22,7 @@ const override = css`
 `;
 
 class ImagesBlockContent extends Component {
-    componentDidMount() {
-        // console.log('this.props.url inside ', this.props.url);
-    }
+    s
     urlCounter = () => {
 
         let ImgBlock = <CircleLoader
@@ -39,7 +33,7 @@ class ImagesBlockContent extends Component {
         />;
         let urlP = [];
         this.props.urlArray !== null ? this.props.urlArray.map((url, index) => {
-            urlP.push(
+            return urlP.push(
                 {
 
                     src: url,
@@ -53,8 +47,6 @@ class ImagesBlockContent extends Component {
         return urlP;
     }
     render() {
-        console.log("in ImagesBlockContent", this.props.urlArray);
-        console.log("in urlArray.map", this.urlCounter());
         let a = null;
         if (this.props.match.params.id) {
             a = <div >

@@ -16,7 +16,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 import * as swipe from "../../hoc/Swipe/Swipe"
 import Auth from '../Auth/Auth';
 
-import { dbF, db } from "../../shared/firebase";
+import { dbF } from "../../shared/firebase";
 // const Auth = asyncComponent(() => {
 //     return import('../Auth/Auth');
 // });
@@ -37,7 +37,6 @@ const Coments = React.memo(props => {
     const [message, setMessage] = useState('');
     const [update, setUpdate] = useState(false);
     const [auth, setAuth] = useState(false);
-    const [activeDrags, setActiveDrags] = useState(0);
     const [comentVar, setComentVar] = useState([]);
 
     useEffect(() => {
@@ -105,8 +104,6 @@ const Coments = React.memo(props => {
     }
 
     let onLoadComent = () => {
-        let folderName = "coment"
-
         let ImgBlock = <CircleLoader
             css={override}
             size={150}
@@ -119,7 +116,7 @@ const Coments = React.memo(props => {
                 ImgBlock = sortedArr.map((res, index) => {
 
                     return <Coment
-                        auth={props.isAuthenticated && res.email == localStorage.getItem('email') || props.isAuthenticated && localStorage.getItem('email') == props.adminId}
+                        auth={(props.isAuthenticated && res.email == localStorage.getItem('email')) || (props.isAuthenticated && localStorage.getItem('email') == props.adminId)}
                         close={id.includes(res.key) ? 'Close' : null}
                         key={index}
                         date={res.date}
@@ -150,16 +147,6 @@ const Coments = React.memo(props => {
         return ImgBlock;
     }
 
-    let onStart = () => {
-        let i = activeDrags;
-        setActiveDrags(++i);
-    };
-
-    let onStop = () => {
-        let i = activeDrags;
-        setActiveDrags(--i);
-    };
-    const dragHandlers = { onStart: onStart, onStop: onStop };
     return (
         <div className={classes.Coments}  {...swipe.handlers(props.history, '/')}>
             <div className={classes.Logo}></div>
@@ -202,7 +189,7 @@ const Coments = React.memo(props => {
                     <Input
                         anableHideBtn="false"
                         classAdd={!props.isAuthenticated ? "ContactHide" : "Contact"}
-                        disabled={!props.isAuthenticated ? 'true' : null}
+                        disabled={!props.isAuthenticated ? true : null}
                         // onClick={() => console.log('work')}
                         elementType='textarea'
 

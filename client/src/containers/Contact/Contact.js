@@ -1,23 +1,18 @@
-import React, { Suspense, Component, useState, useEffect, useRef } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import BackBtn from '../../components/UI/Button/BackBtn/BackBtn';
 import classes from './Contact.css';
-import Form from 'react-bootstrap/Form';
 import ButtonBootstrap from 'react-bootstrap/Button';
 
-import CircleLoader from "react-spinners/CircleLoader";
 import { css } from "@emotion/core";
 
-import ImagesBlock from '../../components/ImagesBlock/ImagesBlock';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import { withRouter, NavLink } from 'react-router-dom';
 import { useSwipeable } from "react-swipeable";
 import Input from '../../components/UI/Input/Input'
 import noImg from '../../assets/images/noimage.png';
-
-import firebase from '@firebase/app';
 
 import { dbF } from "../../shared/firebase";
 
@@ -30,12 +25,8 @@ const override = css`
   margin: 20% auto;
   border-color: red;
 `;
-const withCols = css`
- with:90vw;
-`;
 
 const Conact = React.memo(props => {
-    const [id, setId] = useState([]);
     const [post, setPost] = useState('');
     const [responseToPost, setResponseToPost] = useState('');
     const [auth, setAuth] = useState('');
@@ -46,10 +37,10 @@ const Conact = React.memo(props => {
 
     let userId;
     let count = 0;
-    if (localStorage.getItem('email') && count == 0) {
+    if (localStorage.getItem('email') && count === 0) {
         let email = localStorage.getItem('email').split("@");
         userId = email[0].replace(/\./g, '');
-        userLoad == '' ? setUserLoad(userId) : null;
+        userLoad === '' ? setUserLoad(userId) : null;
     }
 
     useEffect(() => {
@@ -60,11 +51,11 @@ const Conact = React.memo(props => {
                 let clientObj = snapshot.val();
                 for (let key in clientObj) {
                     Object.keys(clientObj[key]).map(r => {
-                        console.log('r ', clientObj[key][r])
+                        // console.log('r ', clientObj[key][r])
                         users.push(clientObj[key][r]);
                     })
                 }
-                setArrUsers(users);
+                return setArrUsers(users);
 
             })
 
@@ -86,31 +77,19 @@ const Conact = React.memo(props => {
         // Execute the created function directly
         anyNameFunction();
     }, []);
-    const responseFacebook = (response) => {
-        props.onAuth(response.email, response.id, true);
-    }
-    const responseGoogle = (response) => {
-    }
 
-    let callApi = async () => {
-        const response = await fetch('/api');
-        const body = await response.json();
-        if (response.status !== 200) throw Error(body.message);
-        return body;
-    };
-
-    let handleSubmit = async e => {
-        e.preventDefault();
-        const response = await fetch('/api', {//'/api/mail' to bylo
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ post: post }),
-        });
-        const body = await response.text();
-        setResponseToPost(body);
-    };
+    // let handleSubmit = async e => {
+    //     e.preventDefault();
+    //     const response = await fetch('/api', {//'/api/mail' to bylo
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ post: post }),
+    //     });
+    //     const body = await response.text();
+    //     setResponseToPost(body);
+    // };
 
     const handlers = useSwipeable({
         onSwipedRight: () => props.history.push({ pathname: "/" })
@@ -119,108 +98,8 @@ const Conact = React.memo(props => {
         props.onAddNewPost();
         props.updateHandler ? props.onUpdatePostData() : null;
     }
-    let updatePostData = (postData) => {
-        props.onUpdatePostData(postData);
-        props.onAddNewPost();
-    }
-    let deletePost = (id, imgName, key) => {
-        // this.setState({ id: [...this.state.id, key] });
-        setId([...id, key])
-        props.onDeletePost(id, imgName, key, this.state.folderName);
-    }
-    let postSelectedHandler = (id, urlArray) => {
-        props.history.push({ pathname: "prasa/" + id });
-        // console.log("urlArray ", urlArray)
-        props.onUrlArray(urlArray);
-    }
-    let onLoadContent = () => {
-        let ImgBlock = <CircleLoader
-            css={override}
-            size={150}
-            color={"grey"}
-            loading={true}
-        />;
-        if (props.Przepisy !== null) {
-            if (props.Przepisy.length !== 0) {
-                ImgBlock = props.Przepisy.map((res, index) => {
-                    //console.log('split ', res.url.split(","))
-                    return <ImagesBlock
-                        auth={true}
-                        close={id.includes(res.key) ? 'Close' : null}
-                        key={index}
-                        url={res.url}
-                        num={res.url.split(",").length}
-                        page="Przepisy"
-                        skladniki={res.skladniki}
-                        przygotowanie={res.przygotowanie}
-                        webAddress={res.webAddress}
-                        id={res.key}
-                        clicked={() => deletePost(res.id, res.imgName, res.key)}
-                        clickedUpdate={() => updatePostData(res)}
-                        clickedOn={() => postSelectedHandler(res.key, res.url.split(","))}
-                    />
-                });
-                console.log(ImgBlock);
-            }
-        } else { return null };
 
-        return ImgBlock;
-    }
-    var provider = new firebase.auth.GoogleAuthProvider();
-    const googleSignin = () => {
-        firebase.auth()
-            .signInWithPopup(provider).then(result => {
-                var token = result.credential.accessToken;
-                var user = result.user;
-            }).catch(error => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-            });
-    }
-    let form = (
-        < Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formBasicEmail">
-                <Form.Control
-                    as="textarea" rows={3}
-                    placeholder={props.isAuthenticated ? "Napisz wiadomość" : "Zaloguj sie aby napisac wiadomość"}
-                    value={post}
-                    onChange={e => setPost(e.target.value)}
-                    disabled={props.isAuthenticated ? false : true}
-                />
-                <Form.Text className="text-muted">
-                    Do wysyłania wiadomości należy być zalogowanym
-    </Form.Text>
-                {!props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
-                    <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null}
-
-                {!props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                    <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null}
-
-                {!props.isAuthenticated ?
-                    <NavLink to={"/auth"}>
-                        <ButtonBootstrap variant="light" ><span>Register/Sing In</span></ButtonBootstrap>
-                    </NavLink>
-                    :
-                    <NavLink to={"/logout"}>
-                        <ButtonBootstrap variant="light" ><span>Logout</span></ButtonBootstrap>
-                    </NavLink>
-                }
-            </Form.Group>
-            {props.isAuthenticated ? <NavLink to={"/kontakt"}>
-                <ButtonBootstrap variant="success" type="submit" >
-                    Wysłać
-            </ButtonBootstrap>
-            </NavLink> : null}
-        </Form >
-    );
-
-    let chatActualization = () => {
-        props.onChatListener();
-        setArrMessage([...arrMessage, props.messageBox]);
-    }
     let chatTextHandler = () => {
-
-        console.log("userLoad ", userLoad)
         let time = new Date();
         let date = {
             seconds: time.getSeconds(),
@@ -242,20 +121,17 @@ const Conact = React.memo(props => {
     }
     var d = new Date()
     let chatText = () => {
-
         return (
             arrMessage.map(res => {
-                // props.messageBox.map(res => {
-                // setLastMessage(res.text);
                 let time;
-                if (res.date.day != d.getDay()) {
+                if (res.date.day !== d.getDay()) {
                     time = `${res.date.day < 9 ? '0' + res.date.day : res.date.day}/${res.date.month < 9 ? '0' + res.date.month : res.date.month}/${res.date.year} ${res.date.hours}:${res.date.minutes < 9 ? '0' + res.date.minutes : res.date.minutes}`
                 }
                 else {
                     time = `${res.date.hours}:${res.date.minutes < 9 ? '0' + res.date.minutes : res.date.minutes}`
                 }
 
-                let content = (<div className={[classes.MessageHolder, classes[res.email == localStorage.getItem('email') ?
+                let content = (<div className={[classes.MessageHolder, classes[res.email === localStorage.getItem('email') ?
                     null :
                     'MessageHolderGuest']].join(' ')}>
                     <div className={classes.MessageTime}>
@@ -278,12 +154,9 @@ const Conact = React.memo(props => {
         let result;
         let revErr = arrMessage.reverse()
         revErr.filter(obj => {
-            console.log('obj ', obj.text)
             return result = obj.text
         })
-        console.log('arrMessage ', result)
         dbF.ref(`chat/${id}`).on("value", snapshot => {
-            console.log("snap.val() ", snapshot.val())
             let chats = [];
             snapshot.forEach((snap) => {
                 chats.push({
@@ -303,7 +176,7 @@ const Conact = React.memo(props => {
         let urser = arrUsers.map(res => {
             return (
                 <div
-                    className={[classes.UsersListBlock, classes[userLoad == res.id ? 'Active' : null]].join(' ')}
+                    className={[classes.UsersListBlock, classes[userLoad === res.id ? 'Active' : null]].join(' ')}
                     onClick={() => usersHendler(res.id)}>
                     <img src={!res.url ? noImg : res.url} alt="Girl in a jacket" />
                     <div>
@@ -320,15 +193,15 @@ const Conact = React.memo(props => {
         <div className={classes.ContentEditInputLineWraper}>
             <div className={classes.ContentEditInputLine}>
                 {props.isAuthenticated ? <NavLink to={"/logout"} className={classes.LogoutBtn}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
-                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fillRule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                        <path fillRule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
                     </svg>
                 </NavLink> : null}
                 <Input
-                    anableHideBtn="false"
+                    anableHideBtn={false}
                     classAdd={!props.isAuthenticated ? "ContactChatHide" : "ContactChat"}
-                    disabled={!props.isAuthenticated ? 'true' : null}
+                    disabled={!props.isAuthenticated ? true : null}
                     elementType='textarea'
 
                     value={props.isAuthenticated ? message : 'Zaloguj się'}
@@ -352,12 +225,12 @@ const Conact = React.memo(props => {
                         clicked={closeHandler} /> : null
                 }
                 {
-                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" />
+                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn('facebook')} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" alt="Facebook logo" />
                         <p className={classes.BtnText}><b>Sign in with Facebook</b></p></ButtonBootstrap> : null
                 }
 
                 {
-                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                    !props.isAuthenticated ? <ButtonBootstrap variant="light" className={classes.GoogleBtn} onClick={() => props.onAuthSn()} ><img className={classes.GoogleIcon} src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google logo" />
                         <p className={classes.BtnText}><b>Sign in with google</b></p></ButtonBootstrap> : null
                 }
             </div>
@@ -400,7 +273,7 @@ const Conact = React.memo(props => {
                     </div>
                 </div>
                 <div className={classes.ContactRight}>
-                    <div className={classes.UsersListWraper}>{props.isAuthenticated && localStorage.getItem('email') == props.adminId ? users() : null}</div>
+                    <div className={classes.UsersListWraper}>{props.isAuthenticated && localStorage.getItem('email') === props.adminId ? users() : null}</div>
                     <div className={classes.ChatMessage} >
                         {/* <div className={classes.ChatMessageScroll} > */}
                         {props.isAuthenticated ? chatText() : logo}

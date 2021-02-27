@@ -23,7 +23,7 @@ import ScrollToOrder from '../../components/ScrollToOrder/ScrollToOrder';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import { withRouter } from 'react-router-dom';
 
-import { Link, Element, Events, animateScroll as scroller } from 'react-scroll'
+import { Link, Element, animateScroll as scroller } from 'react-scroll'
 
 const override = css`
   position:absolut;
@@ -78,10 +78,10 @@ class Orders extends Component {
         }
         this.setState(prevState => {
             return {
-                sumVal: prevState.sumVal + parseInt(price),
+                sumVal: prevState.sumVal + parseInt(price, 10),
                 sumElementCount: prevState.sumElementCount + 1,
                 touched: {
-                    ...this.state.touched, [textField]: { visibility: true, count: countHendler, price: parseInt(price) }
+                    ...this.state.touched, [textField]: { visibility: true, count: countHendler, price: parseInt(price, 10) }
                 }
             }
         })
@@ -92,14 +92,14 @@ class Orders extends Component {
         this.state.touched[textField].count <= 1 ? disable = true : disable = false
         this.setState(prevState => {
             return {
-                sumVal: prevState.sumVal - parseInt(price),
+                sumVal: prevState.sumVal - parseInt(price, 10),
                 sumElementCount: prevState.sumElementCount - 1,
                 touched: {
                     ...this.state.touched,
                     [textField]: {
                         visibility: !disable,
-                        count: parseInt(countHendler),
-                        price: parseInt(price)
+                        count: parseInt(countHendler, 10),
+                        price: parseInt(price, 10)
                     }
                 }
             }
@@ -122,8 +122,6 @@ class Orders extends Component {
                 Block = this.props.textVar.map((res, index) => {
                     let disHandler;
                     let countHandler;
-                    let counter = 0;
-                    counter++
 
                     if (this.state.touched[res.textField]) {
                         if (this.state.touched[res.textField].visibility && this.state.touched[res.textField].count >= 0) {
@@ -146,7 +144,7 @@ class Orders extends Component {
                         onMouseEnter={() => this.setState({ classHandler: true })}
                         onMouseLeave={() => window.innerWidth >= 800 ? this.setState({ classHandler: false }) : null}
                     ><Order
-                            auth={this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId}
+                            auth={this.props.isAuthenticated && localStorage.getItem('email') === this.props.adminId}
                             name={res.textField}
                             idCount={index}
                             price={res.price}
@@ -181,11 +179,6 @@ class Orders extends Component {
         })
     }
     render() {
-        let test = this.state.touched;
-        let orderObj = Object.keys(this.state.touched).map((name, count) => {
-
-            return <span>Przedmiot: {this.state.touched[name]} pln</span>
-        })
         let sumBlock = (
             this.state.sumVal ?
                 <div className={[classes.SumBlock,
@@ -196,7 +189,7 @@ class Orders extends Component {
                         <div><strong>Zamówienie:</strong></div><br />
                         {Object.entries(this.state.touched).map((name, i) => {
 
-                            return name[1].count != 0 ?
+                            return name[1].count !== 0 ?
                                 < div className={!this.state.goToResive ? classes.SumBlockCellHolder : classes.SumBlockCellHolderHide} key={i} >
                                     <div className={[classes.SumBlockCell, classes.SumBlockCellName].join(' ')}>
                                         <p><strong>Przedmiot: </strong></p>
@@ -292,7 +285,7 @@ class Orders extends Component {
             <div className={classes.Przepisy}>
                 {
 
-                    this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
+                    this.props.addNewPostContainer && !this.props.loading && this.props.isAuthenticated && localStorage.getItem('email') === this.props.adminId ?
                         <div className={classes.FormAddWrapper}>
                             <NewPost
                                 Przepisy={true}
@@ -302,7 +295,7 @@ class Orders extends Component {
                         </div> : null
                 }
                 {
-                    this.props.isAuthenticated && localStorage.getItem('email') == this.props.adminId ?
+                    this.props.isAuthenticated && localStorage.getItem('email') === this.props.adminId ?
                         <div className={classes.BtnAddWrapper}>
                             <Button
                                 btnType={!this.props.addNewPostContainer ? "Add" : "Close"}

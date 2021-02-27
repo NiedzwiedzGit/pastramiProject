@@ -1,6 +1,5 @@
-import React, { Suspense, Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-// import GooglePayButton from '@google-pay/button-react';
 import ButtonBootstrap from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';

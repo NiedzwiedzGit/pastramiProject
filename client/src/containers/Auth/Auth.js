@@ -31,7 +31,8 @@ class Auth extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'Password'
+                    placeholder: 'Password',
+                    autoComplete: 'on'
                 },
                 value: '',
                 validation: {

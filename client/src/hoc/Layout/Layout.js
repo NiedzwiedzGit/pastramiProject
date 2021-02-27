@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Aux from '../Auxiliary/Auxiliary';
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
-import Main from '../../containers/Main/Main';
 import { css } from "@emotion/core";
 import CircleLoader from "react-spinners/CircleLoader";
 
@@ -24,8 +21,6 @@ class Layout extends Component {
         waitLoader: false,
     }
     componentDidMount() {
-        //  console.log(this.props.routes);
-        // this.props.onFetchContent();
         this.props.onFetchPostContent();
         this.props.onFetchPrzepisyContent();
     };
@@ -39,16 +34,8 @@ class Layout extends Component {
         });
     }
     render() {
-        // console.log(!this.props.loading, !this.props.loadingContent);
         return (
             <Aux>
-                {/* <Toolbar
-                    isAuth={this.props.isAuthenticated}
-                    drawerToggleClicked={this.sideDrawerToggleHamdler} />
-                <SideDrawer
-                    isAuth={this.props.isAuthenticated}
-                    open={this.state.showSideDrawer}
-                    closed={this.sideDrawerClosedHandler} /> */}
 
                 {!this.props.loading ? <CircleLoader
                     css={override}

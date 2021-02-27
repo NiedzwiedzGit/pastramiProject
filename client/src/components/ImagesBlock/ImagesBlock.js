@@ -6,19 +6,6 @@ import { Parallax } from 'react-parallax';
 
 
 class ImagesBlock extends Component {
-    componentDidMount() {
-
-    }
-    //console.log(props);
-    // clickHandler = () => {
-    //     console.log("clickHandler ImgB ", this.props.urlSplit);
-
-    //     <ImagesBlockContent
-    //         urlTest={this.props.urlSplit}
-    //     />
-    //     return (this.props.clickedOn,)
-    // }
-
     render() {
         let content = null;
         let imageVar = (
@@ -92,6 +79,7 @@ class ImagesBlock extends Component {
                         </div>)
 
                 break;
+            default: break;
 
         }
         let paralaxBlock = (
@@ -115,27 +103,11 @@ class ImagesBlock extends Component {
                             // transform: `scale(${percentage * .5})`
                         }}
                     >
-
-                        {/* <div
-                                style={{
-                                    position: "absolute",
-                                    background: `rgba(255, 125, 0, ${percentage * 1})`,
-                                    left: "50%",
-                                    top: "50%",
-                                    borderRadius: "50%",
-                                    transform: "translate(-50%,-50%)",
-                                    width: percentage * 500,
-                                    height: percentage * 500
-                                }}
-                            /> */}
                         {this.props.showImg ? imageVar : null} {content}
                     </div >
                 )
                 }
             >
-                {/* <div >
-                        <div >{imageVar}{content}</div>
-                    </div> */}
             </Parallax >
 
         );

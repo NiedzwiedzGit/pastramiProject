@@ -38,15 +38,8 @@ class ContentBlock extends Component {
             url4: backgroundImg4
         }
     }
-    componentDidMount() {
-        Array.from(this.state.content).map(res => {
-            console.log("content ", res)
-        });
-    }
     render() {
-        let Active = null;
         let contentBlock = null;
-        let url = null;
         switch (this.props.num) {
             case 0:
                 contentBlock = (
@@ -54,66 +47,35 @@ class ContentBlock extends Component {
                         className={classes.Link}
                         style={{ backgroundImage: `url(${backgroundImg0})` }}
                         link="/o_nas"><p>O NAS</p></NavigationItem>
-
-                    // < a href="#" style={{ backgroundImage: `url(${backgroundImg0})` }}>
-                    //     {/* <img src={backgroundImg0} /> */}
-                    //     <p>O NAS</p>
-                    // </a >
                 )
                 break;
             case 1:
                 contentBlock = (
                     <NavigationItem className={classes.Link} style={{ backgroundImage: `url(${backgroundImg1})` }} link="/zamowienia"><p>ZAMÓWIENIA</p></NavigationItem>
-                    // < a href="#" style={{ backgroundImage: `url(${backgroundImg1})` }}>
-
-                    //     {/* <img src={backgroundImg1} /> */}
-                    //     <p>ZAMÓWIENIA </p>
-                    // </a >
                 )
                 break;
             case 2:
                 contentBlock = (
                     <NavigationItem className={classes.Link} style={{ backgroundImage: `url(${backgroundImg2})` }} link="/kontakt"><p>KONTAKT</p></NavigationItem>
-
-                    // < a href="#" style={{ backgroundImage: `url(${backgroundImg2})` }}>
-
-                    //     {/* <img src={backgroundImg2} /> */}
-                    //     <p>KONTAKT</p>
-                    // </a >
                 )
                 break;
             case 3:
                 contentBlock = (
                     <NavigationItem className={classes.Link} style={{ backgroundImage: `url(${backgroundImg3})` }} link="/opinie"><p>OPINIE</p></NavigationItem>
-
-                    // < a href="#" style={{ backgroundImage: `url(${backgroundImg3})` }}>
-
-                    //     {/* <img src={backgroundImg3} /> */}
-                    //     <p>OPINIE</p>
-                    // </a >
                 )
                 break;
             case 4:
-                url = backgroundImg4;
                 contentBlock = (
                     <NavigationItem className={classes.Link} style={{ backgroundImage: `url(${backgroundImg4})` }} link="/przepisy"><p>PRZEPISY</p></NavigationItem>
-
-                    // < a href="#" style={{ backgroundImage: `url(${backgroundImg4})` }}>
-                    //     <div className={this.state.active == "Active" ? classes.BlackBlock : null}></div>
-
-                    //     {/* <img src={backgroundImg4} /> */}
-                    //     <p>PRZEPISY</p>
-                    // </a >
                 )
                 break;
+            default: break;
         }
 
         {/* <video autoPlay="autoplay" loop="loop" muted className={classes.Video} key={backgroundVideo}>
                     <source src={backgroundVideo} type="video/mp4" />
                 </video> */}
 
-
-        // console.log(contentBlock);
         Array.from(this.state.content).map(res => {
             console.log("content ", res)
         });

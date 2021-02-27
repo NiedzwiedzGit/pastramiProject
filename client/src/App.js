@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import { AnimatedSwitch } from 'react-router-transition';
+// import { AnimatedSwitch } from 'react-router-transition';
 import { connect } from 'react-redux';
 import Layout from './hoc/Layout/Layout';
 import * as actions from './store/actions/index';
 
-import classes from './App.css';
+// import classes from './App.css';
 
 
 const postGalery = asyncComponent(() => {
